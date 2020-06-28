@@ -1,9 +1,26 @@
 package controllers
 
-object Application extends Controller {
+import javax.inject.Inject
+import play.api.Logger
+import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc._
 
+
+ object Application  extends Controller {
   def index = Action {
     Ok(views.html.index(null))
+  }
+}
+
+
+/*
+object Application extends Controller {
+
+  def index: Action[AnyContent] {
+//    Ok(views.html.index(null))
+   // Ok("Test")
+
   }
 
   def db = Action {
@@ -25,4 +42,4 @@ object Application extends Controller {
     }
     Ok(out)
   }
-}
+} */
