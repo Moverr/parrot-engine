@@ -93,3 +93,26 @@ Caused by: java.lang.InterruptedException
 2020.06.29 22:30:53 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\StationsController.scala
 2020.06.29 22:30:53 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\UsersController.scala
 2020.06.29 22:33:27 INFO  shutting down Metals
+2020.06.30 01:58:58 INFO  started: Metals version 0.9.0 in workspace 'D:\mover\parrot_engine'
+2020.06.30 01:58:59 INFO  time: initialize in 1.01s
+2020.06.30 01:59:00 WARN  Unsupported sbt version 0.13.11
+2020.06.30 01:59:00 INFO  no build target: using presentation compiler with only scala-library
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\Application.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\Global.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\AccountController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\EmployeeController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\DepartmentsController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\StationsController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\UsersController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\OfficesController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\controllers\ReverseRoutes.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\controllers\v1\ReverseRoutes.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\router\Routes.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\controllers\javascript\JavaScriptReverseRoutes.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\router\RoutesPrefix.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\twirl\main\views\html\index.template.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\twirl\main\views\html\main.template.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\KioskController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\RolesController.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\controllers\v1\javascript\JavaScriptReverseRoutes.scala
+2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\twirl\main\views\html\nav.template.scala
