@@ -116,3 +116,4 @@ Caused by: java.lang.InterruptedException
 2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\app\controllers\v1\RolesController.scala
 2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\routes\main\controllers\v1\javascript\JavaScriptReverseRoutes.scala
 2020.06.30 01:59:06 WARN  no build target for: D:\mover\parrot_engine\target\scala-2.11\twirl\main\views\html\nav.template.scala
+2020.06.30 02:27:43 INFO  shutting down Metals
