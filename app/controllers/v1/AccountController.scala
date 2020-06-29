@@ -14,15 +14,15 @@ object AccountController  extends Controller {
 
 
   def create = Action{
-    ok("Create Account")
+    Ok("Create Account")
   }
 
   def get = Action{
-    ok("Get Account")
+    Ok("Get Account")
   }
 
   def list = Action{
-    ok("List Accounts")
+    Ok("List Accounts")
   }
 
 

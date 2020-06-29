@@ -6,5 +6,9 @@
 GET     /                           controllers.Application.index
 # GET     /db                         controllers.Application.db
 
+
+#ACCOUNTS
+GET     /accounts                           controllers.v1.AccountController.index
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
