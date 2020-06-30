@@ -1,7 +1,6 @@
 package app.dto
 
-import anorm._
-import play.db.jpa._
+import java.lang.annotation.Repeatable
 
 case class User (
                   id:Long,
