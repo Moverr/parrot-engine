@@ -6,8 +6,8 @@
         <provider>org.hibernate.ejb.HibernatePersistence
         <non-jta-data-source>DefaultDS
         <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.dialect"  value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
         </properties>
     </persistence-unit>
 </persistence>
