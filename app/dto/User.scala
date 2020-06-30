@@ -1,6 +1,7 @@
 package app.dto
 
 import anorm._
+import play.db.jpa._
 
 case class User (
                   id:Long,
@@ -9,4 +10,4 @@ case class User (
                 )
 
 
-object User extends Magic[User]
+//object User extends Magic[User]
