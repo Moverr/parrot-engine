@@ -1,6 +1,7 @@
 package app.dto
 
-import java.lang.annotation.Repeatable
+import javax.persistence._
+
 
 case class User (
                   id:Long,
