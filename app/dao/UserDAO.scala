@@ -21,7 +21,7 @@ object UserDAO {
   }
 }
 
-//todo: Case Class 
+//todo: Case Class
 case class UserDAO(username:String, password:String) {
   def checkPassword(password: String): Boolean = this.password == password
 }

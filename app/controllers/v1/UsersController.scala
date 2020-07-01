@@ -1,5 +1,8 @@
 package controllers.v1
 
-class UsersController {
+object UsersController  extends Controller{
+    def index = Action {
+        Ok("Users  COntroller")
+    }
 
 }
