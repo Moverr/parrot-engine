@@ -11,7 +11,7 @@ GET     /                           controllers.Application.index
 GET     v1/accounts                           controllers.v1.AccountController.index
 
 #USERS
-GET     v1/accounts                           controllers.v1.UsersController.index
+GET     v1/users                           controllers.v1.UsersController.index
 
 
 
