@@ -11,8 +11,9 @@ import com.sun.istack.internal.NotNull
 @Entity
   case class User (
                  @Id
-                 @GeneratedValue(strategy = GenerationType.IDENTITY)
-                 @Column(name = "user_id")
+//                 @GeneratedValue(strategy = GenerationType.IDENTITY)
+                 @GeneratedValue(strategy = GenerationType.AUTO)
+                 @Column(name = "id")
                  id: Long,
 
 
