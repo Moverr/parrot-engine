@@ -6,11 +6,11 @@ import javax.persistence._
 import java.util
 
 import com.sun.istack.internal.NotNull
-
+//defaultPersistenceUnit
 //Case Class
 @Entity
-@Table(name = "users")
-case class User(
+@Table(name = "users",schema="default")
+  case class User (
                  @Id
                  @GeneratedValue(strategy = GenerationType.IDENTITY)
                  @Column(name = "user_id")
