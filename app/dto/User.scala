@@ -6,14 +6,15 @@ import javax.persistence._
 import java.util
 
 import com.sun.istack.internal.NotNull
+import play.db.jpa._
 
+//defaultPersistenceUnit
 //Case Class
-@Entity
-@Table(name = "users")
-case class User(
+@Entity    class User (
                  @Id
-                 @GeneratedValue(strategy = GenerationType.IDENTITY)
-                 @Column(name = "user_id")
+//                 @GeneratedValue(strategy = GenerationType.IDENTITY)
+                 @GeneratedValue(strategy = GenerationType.AUTO)
+                 @Column(name = "id")
                  id: Long,
 
 
@@ -42,4 +43,3 @@ case class User(
                )
 
 
-//object User extends Magic[User]

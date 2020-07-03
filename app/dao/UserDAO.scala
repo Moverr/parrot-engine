@@ -12,7 +12,7 @@ object UserDAO {
     return JPA.withTransaction(new play.libs.F.Function0[List[User]]() {
       @Override
       def apply():List[User] = {
-        return JPA.em().createQuery("from User WHERE username = :username AND password = :password").
+        return JPA.em().createQuery("from users WHERE username = :username AND password = :password").
           setParameter("username", username).setParameter("password", password).
           getResultList().asInstanceOf[List[User]]
 
