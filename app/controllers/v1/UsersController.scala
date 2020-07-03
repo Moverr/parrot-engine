@@ -13,7 +13,7 @@ import play.api.mvc._
 
 object UsersController  extends Controller{
     def index = Action {
-        var userDao =   UserDAO.getUser("moeoe","mowoee");
+      //  var userDao =   UserDAO.getUser("moeoe","mowoee");
         Ok("Users  COntroller")
     }
 

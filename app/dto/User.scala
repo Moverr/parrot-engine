@@ -6,10 +6,11 @@ import javax.persistence._
 import java.util
 
 import com.sun.istack.internal.NotNull
+import play.db.jpa._
+
 //defaultPersistenceUnit
 //Case Class
-@Entity
-  case class User (
+@Entity    class User (
                  @Id
 //                 @GeneratedValue(strategy = GenerationType.IDENTITY)
                  @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,4 +43,4 @@ import com.sun.istack.internal.NotNull
                )
 
 
-//object User extends Magic[User]
+object User extends QueryOn[User]
