@@ -43,4 +43,3 @@ import play.db.jpa._
                )
 
 
-object User extends QueryOn[User]
