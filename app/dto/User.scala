@@ -9,7 +9,6 @@ import com.sun.istack.internal.NotNull
 //defaultPersistenceUnit
 //Case Class
 @Entity
-@Table(name = "users",schema="default")
   case class User (
                  @Id
                  @GeneratedValue(strategy = GenerationType.IDENTITY)
