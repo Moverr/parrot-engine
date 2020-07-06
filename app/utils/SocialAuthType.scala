@@ -1,6 +1,6 @@
 package app.utils
 
-object SocialAuthType extends Enumeration {
+public object SocialAuthType extends Enumeration {
   type SocialAuthType = Value
   val FACEBOOK = Value("FACEBOOK")
   val GOOGLE = Value("GOOGLE")
