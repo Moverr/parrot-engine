@@ -11,12 +11,14 @@ import play.api.mvc._
 
 object AuthController extends Controller {
 
-
     def authenticate(login:LoginRequest): Unit ={
 
     }
 
     def socialAuthenticate(socialauth:SocialAuthentication): Unit ={
+    }
+
+    def deactivate(): Unit ={
 
     }
 }
