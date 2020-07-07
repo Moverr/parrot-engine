@@ -1,7 +1,6 @@
 package app.utils
 
 
-
 object StatusEnums  extends Enumeration {
   type StatusEnums = Value
   val ACTIVE = Value("ACTIVE")
