@@ -1,4 +1,4 @@
-package app.controllers.v1
+package controllers.v1
 
 import app.entities.requests.{LoginRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, UserResponse}
