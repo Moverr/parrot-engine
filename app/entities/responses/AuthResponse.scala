@@ -1,3 +1,3 @@
 package app.entities.responses
 
-case class AuthResponse(token:String)
+case class AuthResponse(token:String,user:UserResponse)
