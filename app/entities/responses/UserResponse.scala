@@ -1,5 +1,5 @@
 package app.entities.responses
 
-import app.utils.StatusEnums.StatusEnums
+import app.utils._
 
-case class UserResponse(id:BigInt,status:StatusEnums.value,firstname:String,lastname:String,role:RoleResponse)
+case class UserResponse(id:BigInt,status:StatusEnums.Value,firstname:String,lastname:String,role:RoleResponse)
