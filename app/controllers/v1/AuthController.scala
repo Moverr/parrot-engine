@@ -1,7 +1,7 @@
 package controllers.v1
 
 import app.entities.requests.{LoginRequest, SocialAuthentication}
-import app.entities.responses.{AuthResponse, UserResponse}
+import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
 import play.api.Logger
 import play.api.data.Form
@@ -20,8 +20,19 @@ object AuthController extends Controller {
         request =>
             val json = request.body.asJson.get
 
+            val roleResponse = new RoleResponse(null, null);
 
-            val userResponse = new UserResponse(1, StatusEnums.ACTIVE, "Muyinda", "Rogers", null, "moverr@gmail.com", "utc", "ee", null, "0779820962")
+            implicit val roleResponserites = new Writes[RoleResponse] {
+                def writes(role: RoleResponse) = Json.obj(
+
+                    "name" -> role.name,
+                    "code" -> role.code
+
+                )
+            }
+
+
+            val userResponse = new UserResponse(1, StatusEnums.ACTIVE, "Muyinda", "Rogers", roleResponse, "moverr@gmail.com", "utc", "ee", null, "0779820962")
 
 
             implicit val userResponseWrites = new Writes[UserResponse] {
