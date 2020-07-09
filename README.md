@@ -1,4 +1,7 @@
 # PARROT ENGINE
+
+![Scala CI](https://github.com/Moverr/parrot-engine/workflows/Scala%20CI/badge.svg?branch=master)
+
 <hr>
 Parrot Engine v1.0.0 Under <b>KODE INC </b>
 
