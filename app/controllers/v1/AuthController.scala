@@ -16,30 +16,32 @@ import play.api.libs.json._
 object AuthController extends Controller {
 
 
-
     def index = Action {
         request =>
             val json = request.body.asJson.get
 
 
-
-
-            val userResponse = new UserResponse(1,StatusEnums.ACTIVE,"Muyinda","Rogers",null,"moverr@gmail.com","utc","ee",null,"0779820962")
-
+            val userResponse = new UserResponse(1, StatusEnums.ACTIVE, "Muyinda", "Rogers", null, "moverr@gmail.com", "utc", "ee", null, "0779820962")
 
 
             implicit val userResponseWrites = new Writes[UserResponse] {
                 def writes(user: UserResponse) = Json.obj(
                     "id" -> user.id,
-                    "status" -> user.status
+                    "status" -> user.status,
+                    "firstname" -> user.firstname,
+                    "lastname" -> user.lastname,
+                    "role" -> user.role,
+                    "email" -> user.email,
+                    "timezone" -> user.timezone,
+                    "locale" -> user.locale,
+                    "avatar_url" -> user.avatar_url,
+                    "phone_number" -> user.phone_number
+
                 )
             }
 
 
-
-
             val authResponse = new AuthResponse("token", userResponse)
-
 
 
             implicit val userWrites = new Writes[AuthResponse] {
