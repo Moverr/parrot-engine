@@ -64,6 +64,9 @@ object AuthController extends Controller {
 
 
             val jsson = Json.toJson(authResponse)
+
+            //todo: select from database and return this object
+
             Ok(jsson)
     }
 
