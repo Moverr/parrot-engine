@@ -1,4 +1,4 @@
 package app.entities.requests
-import  app.utils.SocialAuthType
+import  app.utils._
 
-case class SocialAuthentication(authType:SocialAuthType,authtoken:String)
+case class SocialAuthentication(authType:SocialAuthType.Value, authtoken:String)
