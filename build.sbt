@@ -12,8 +12,7 @@ libraryDependencies ++= Seq(
   javaJpa,
   "org.hibernate" % "hibernate-core" % "5.4.9.Final",
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
-  "com.fasterxml.jackson.core" % "jackson-databind" % "2.2.2",
-  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.2.2",
+  "com.typesafe.play" %% "play-json" % "2.3.0",
   javaJpa,
   ws
 )
