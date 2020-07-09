@@ -19,4 +19,4 @@ GET /v1/users                           controllers.v1.UsersController.index
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 #AUTH CONTROLLER
-POST /v1/auth                           controllers.v1.AuthController.authenticate
+POST /v1/auth                        controllers.v1.AuthController.index
