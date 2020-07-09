@@ -33,7 +33,7 @@ object AuthController extends Controller {
 //
 //            val jsonString = write(userResponse)
 
-            val xt = Json.parse(userResponse);
+//            val xt = Json.parse(userResponse);
             Ok("This is WOrking")
     }
 
