@@ -1,16 +1,16 @@
 package app.services
 
-trait BaseServiceTraits {
+trait BaseServiceTrait {
 
   def createUser(): Any
 
-  def list(offset: Int, limit: Int): Any
+  def list(offset: Int, limit: Int): Unit
 
   def get(id: Int): Unit
 
-  def search(query: String, offset: Int, limit: Int): Any
+  def search(query: String, offset: Int, limit: Int): Unit
 
-  def populateResponse(): Any
+  def populateResponse(): Unit
 
-  def populateEntity(): Any
+  def populateEntity(): Unit
 }
