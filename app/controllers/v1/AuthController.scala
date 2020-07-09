@@ -2,13 +2,12 @@ package controllers.v1
 
 import app.entities.requests.{LoginRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, UserResponse}
-import javax.inject.Inject
-import jdk.nashorn.internal.ir.debug.JSONWriter
+
 import play.api.Logger
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc._
-
+import play.api.libs.json._
 
 
 object AuthController extends Controller {
@@ -30,11 +29,12 @@ object AuthController extends Controller {
 
            // implicit val wformats = DefaultFormats
 
-            implicit val formats =  Json.format[userResponse]
+//            implicit val formats =  Json.format[userResponse]
+//
+//            val jsonString = write(userResponse)
 
-            val jsonString = write(userResponse)
-
-            Ok(Json.toJson(jsonString))
+            val xt = Json.parse(userResponse);
+            Ok("This is WOrking")
     }
 
 
