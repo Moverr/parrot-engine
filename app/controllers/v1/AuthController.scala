@@ -1,20 +1,39 @@
 package controllers.v1
 
-import app.entities.requests.{LoginRequest, SocialAuthentication}
+import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
 import play.api.Logger
-import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.libs.json.Json
 
 import scala.util.parsing.json._
 import play.api.libs.json._
-
+import play.api.data._
+import play.api.data.Forms._
 
 object AuthController extends Controller {
 
+
+    //todo: auth login 
+    def login() = Action {
+        implicit request =>
+            val formData: AuthenticationRequest = AuthForm.form.bindFromRequest.get
+
+            implicit val roleResponserites = new Writes[AuthenticationRequest] {
+                def writes(role: AuthenticationRequest) = Json.obj(
+                    "name" -> role.email,
+                    "age" -> role.age.toString()
+                )
+            }
+
+            val jsson = Json.toJson(formData)
+
+            Ok(jsson)
+
+
+    }
 
     def index = Action {
         request =>
@@ -24,10 +43,8 @@ object AuthController extends Controller {
 
             implicit val roleResponserites = new Writes[RoleResponse] {
                 def writes(role: RoleResponse) = Json.obj(
-
                     "name" -> role.name,
                     "code" -> role.code
-
                 )
             }
 
