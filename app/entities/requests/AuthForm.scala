@@ -8,7 +8,7 @@ object AuthForm {
   val form: Form[AuthenticationRequest] = Form(
     mapping(
       "email" -> nonEmptyText,
-      "age" -> number
+      "password" -> text
     )(AuthenticationRequest.apply)(AuthenticationRequest.unapply)
   )
 }
