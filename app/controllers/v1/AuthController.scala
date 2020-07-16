@@ -17,17 +17,50 @@ import play.api.data.Forms._
 object AuthController extends Controller {
 
     //todo: Auth Controllere
-//    val userForm = Form(
-//         (
-//            "username" -> "text",
-//            "password" -> "text"
-//        )
-//    )
+    //    val userForm = Form(
+    //         (
+    //            "username" -> "text",
+    //            "password" -> "text"
+    //        )
+    //    )
+
+    case class BasicForm(name: String, age: Int)
+
+    case class UserData(name: String, age: Int)
+
+    val userForm = Form(
+        mapping(
+            "name" -> text,
+            "age" -> number
+        )(UserData.apply)(UserData.unapply)
+    )
+
+    object BasicForm {
+        val form: Form[BasicForm] = Form(
+            mapping(
+                "name" -> text,
+                "age" -> number
+            )(BasicForm.apply)(BasicForm.unapply)
+        )
+    }
 
 
+    def login() = Action {
+        implicit request =>
+            val formData: BasicForm = BasicForm.form.bindFromRequest.get
 
-    def login () =Action {
-        Ok("Interesting")
+
+            implicit val roleResponserites = new Writes[BasicForm] {
+                def writes(role: BasicForm) = Json.obj(
+                    "name" -> role.name,
+                    "age" -> role.age.toString()
+                )
+            }
+
+            val jsson = Json.toJson(formData)
+            Ok(jsson)
+
+
     }
 
     def index = Action {
