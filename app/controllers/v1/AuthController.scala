@@ -1,10 +1,9 @@
 package controllers.v1
 
-import app.entities.requests.{LoginRequest, SocialAuthentication}
+import app.entities.requests.{AuthenticationRequest, LoginRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
 import play.api.Logger
-
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.libs.json.Json
@@ -24,33 +23,33 @@ object AuthController extends Controller {
     //        )
     //    )
 
-    case class AuthFormRequest(email: String, password: String)
-
-
-
-    val userForm = Form(
-        mapping(
-            "name" -> text,
-            "age" -> number(min=18,max=35)
-        )(UserData.apply)(UserData.unapply)
-    )
-
-    object AuthFormRequest {
-        val form: Form[AuthFormRequest] = Form(
+//    case class AuthFormRequest(email: String, password: String)
+//
+//
+//
+//    val userForm = Form(
+//        mapping(
+//            "name" -> text,
+//            "age" -> number(min=18,max=35)
+//        )(UserData.apply)(UserData.unapply)
+//    )
+//
+    object AuthForm {
+        val form: Form[AuthenticationRequest] = Form(
             mapping(
                 "name" -> nonEmptyText,
                 "age" -> number
-            )(AuthFormRequest.apply)(AuthFormRequest.unapply)
+            )(AuthenticationRequest.apply)(AuthenticationRequest.unapply)
         )
     }
 
 
     def login() = Action {
         implicit request =>
-            val formData: AuthFormRequest = AuthFormRequest.form.bindFromRequest.get
+            val formData: AuthForm = AuthForm.form.bindFromRequest.get
 
-            implicit val roleResponserites = new Writes[AuthFormRequest] {
-                def writes(role: AuthFormRequest) = Json.obj(
+            implicit val roleResponserites = new Writes[AuthForm] {
+                def writes(role: AuthForm) = Json.obj(
                     "name" -> role.name,
                     "age" -> role.age.toString()
                 )
