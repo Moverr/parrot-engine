@@ -31,14 +31,14 @@ object AuthController extends Controller {
     val userForm = Form(
         mapping(
             "name" -> text,
-            "age" -> number
+            "age" -> number(min=18,max=35)
         )(UserData.apply)(UserData.unapply)
     )
 
     object BasicForm {
         val form: Form[BasicForm] = Form(
             mapping(
-                "name" -> text,
+                "name" -> nonEmptyText,
                 "age" -> number
             )(BasicForm.apply)(BasicForm.unapply)
         )
@@ -58,6 +58,7 @@ object AuthController extends Controller {
             }
 
             val jsson = Json.toJson(formData)
+
             Ok(jsson)
 
 
