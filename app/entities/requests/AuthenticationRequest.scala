@@ -1,6 +1,6 @@
 package app.entities.requests
 
-case class AuthenticationRequest(email: String, age: Int)
+case class AuthenticationRequest(email: String, password: String)
 
 //object AuthenticationRequest{
 //  def apply(email: String, age: Int): AuthenticationRequest = new AuthenticationRequest(email, age)

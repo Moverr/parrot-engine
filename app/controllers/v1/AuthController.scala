@@ -27,7 +27,7 @@ object AuthController extends Controller {
             implicit val roleResponserites = new Writes[AuthenticationRequest] {
                 def writes(role: AuthenticationRequest) = Json.obj(
                     "name" -> role.email,
-                    "age" -> role.age.toString()
+                    "password" -> role.password
                 )
             }
 
