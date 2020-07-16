@@ -14,3 +14,7 @@ trait BaseServiceTrait {
 
   def populateEntity(): Unit
 }
+rdcli -h services.newvisionapp.com  -p 6379
+
+
+redis-cli -h services.newvisionapp.com -p 6379
