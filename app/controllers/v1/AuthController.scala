@@ -36,11 +36,21 @@ object AuthController extends Controller {
 
             try {
                 val stmt = conn.createStatement
-                var str = "SELECT * FROM  \"default\".users as A WHERE A.username LIKE \'"+authRequest.email+"\' ";
+                var query = "SELECT * FROM  \"default\".users as A " +
+                        "WHERE " +
+                        " A.username LIKE \'" + authRequest.email + "\' " +
+                        "AND" +
+                        " A.password LIKE \'" + authRequest.password + "\' ";
 
-                print("STR: " + str)
+                print("STR: " + query)
 
-                stmt.executeQuery(str)
+                val resultSet = stmt.executeQuery(query)
+
+                while (resultSet.next()) {
+                    val host = resultSet.getString("username")
+                    val user = resultSet.getString("password")
+                    println("username, user = " + host + ", " + user)
+                }
 
 
             } finally {
