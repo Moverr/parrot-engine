@@ -13,6 +13,9 @@ import play.api.libs.json._
 import play.api.data._
 import play.api.data.Forms._
 
+import play.api.db._
+
+
 object AuthController extends Controller {
 
 
@@ -27,6 +30,25 @@ object AuthController extends Controller {
                     "age" -> role.age.toString()
                 )
             }
+
+            //todo: select from db where user name and password = xx s
+            val conn = DB.getConnection()
+
+            try{
+                val stmt = conn.createStatement
+                var str = "SELECT * FROM  \"default\".users ";
+
+                print("STR: " + str)
+
+                stmt.executeQuery(str)
+
+
+            } finally {
+                println("Interesting while closing");
+                conn.close();
+            }
+
+
 
             val jsson = Json.toJson(formData)
 
