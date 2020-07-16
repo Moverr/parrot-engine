@@ -33,7 +33,7 @@ object AuthController extends Controller {
 
             //todo: select from db where user name and password = xx s
             val conn = DB.getConnection()
-
+            var  jsson = Json.toJson("");
             try {
                 val stmt = conn.createStatement
                 var query = "SELECT * FROM  \"default\".users as A " +
@@ -45,21 +45,25 @@ object AuthController extends Controller {
                 print("STR: " + query)
 
                 val resultSet = stmt.executeQuery(query)
-
+                var username = "";
+                var password = "";
                 while (resultSet.next()) {
-                    val host = resultSet.getString("username")
-                    val user = resultSet.getString("password")
-                    println("username, user = " + host + ", " + user)
+                      username = resultSet.getString("username")
+                    password = resultSet.getString("password")
+
+                }
+                if(username.length() > 0 && password.length() > 0 ){
+                      jsson = Json.toJson(authRequest)
                 }
 
 
             } finally {
-                println("Interesting while closing");
+
                 conn.close();
             }
 
 
-            val jsson = Json.toJson(authRequest)
+
 
             Ok(jsson)
 
