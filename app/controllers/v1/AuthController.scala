@@ -16,7 +16,7 @@ import play.api.data.Forms._
 object AuthController extends Controller {
 
 
-
+    //todo: auth login 
     def login() = Action {
         implicit request =>
             val formData: AuthenticationRequest = AuthForm.form.bindFromRequest.get
