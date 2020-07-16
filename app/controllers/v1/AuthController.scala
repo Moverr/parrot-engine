@@ -24,9 +24,9 @@ object AuthController extends Controller {
     //        )
     //    )
 
-    case class BasicForm(name: String, age: Int)
+    case class AuthFormRequest(email: String, password: String)
 
-    case class UserData(name: String, age: Int)
+
 
     val userForm = Form(
         mapping(
@@ -35,23 +35,22 @@ object AuthController extends Controller {
         )(UserData.apply)(UserData.unapply)
     )
 
-    object BasicForm {
-        val form: Form[BasicForm] = Form(
+    object AuthFormRequest {
+        val form: Form[AuthFormRequest] = Form(
             mapping(
                 "name" -> nonEmptyText,
                 "age" -> number
-            )(BasicForm.apply)(BasicForm.unapply)
+            )(AuthFormRequest.apply)(AuthFormRequest.unapply)
         )
     }
 
 
     def login() = Action {
         implicit request =>
-            val formData: BasicForm = BasicForm.form.bindFromRequest.get
+            val formData: AuthFormRequest = AuthFormRequest.form.bindFromRequest.get
 
-
-            implicit val roleResponserites = new Writes[BasicForm] {
-                def writes(role: BasicForm) = Json.obj(
+            implicit val roleResponserites = new Writes[AuthFormRequest] {
+                def writes(role: AuthFormRequest) = Json.obj(
                     "name" -> role.name,
                     "age" -> role.age.toString()
                 )
