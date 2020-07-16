@@ -14,7 +14,7 @@ import play.api.data._
 import play.api.data.Forms._
 
 import play.api.db._
-
+import play.api.Play.current
 
 object AuthController extends Controller {
 
@@ -22,7 +22,7 @@ object AuthController extends Controller {
     //todo: auth login
     def login() = Action {
         implicit request =>
-            val formData: AuthenticationRequest = AuthForm.form.bindFromRequest.get
+            val authRequest: AuthenticationRequest = AuthForm.form.bindFromRequest.get
 
             implicit val roleResponserites = new Writes[AuthenticationRequest] {
                 def writes(role: AuthenticationRequest) = Json.obj(
@@ -34,9 +34,9 @@ object AuthController extends Controller {
             //todo: select from db where user name and password = xx s
             val conn = DB.getConnection()
 
-            try{
+            try {
                 val stmt = conn.createStatement
-                var str = "SELECT * FROM  \"default\".users ";
+                var str = "SELECT * FROM  \"default\".users as A WHERE A.username LIKE \'"+authRequest.email+"\' ";
 
                 print("STR: " + str)
 
@@ -49,8 +49,7 @@ object AuthController extends Controller {
             }
 
 
-
-            val jsson = Json.toJson(formData)
+            val jsson = Json.toJson(authRequest)
 
             Ok(jsson)
 
