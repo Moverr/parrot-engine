@@ -1,3 +1,3 @@
 package app.entities.requests
 
-case class AuthenticationRequest(email: String, password: String)
+case class AuthenticationRequest(email: String, age: Int)
