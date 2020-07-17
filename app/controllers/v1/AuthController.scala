@@ -67,6 +67,7 @@ object AuthController extends Controller {
 
     }
 
+
     def register() = Action {
 
         implicit request =>
@@ -74,27 +75,25 @@ object AuthController extends Controller {
 
             //todo: check for nulls
             if(registrationRequest.email.isEmpty()){
-                throw new  RuntimeException("Email is mandatory")
+                    BadRequest(Json.obj("status" ->"Error", "message" -> "Email is Mandatory"))
             }
 
-            if(registrationRequest.firstname.isEmpty()){
-                throw new  RuntimeException("Firstname is mandatory")
+            else if(registrationRequest.firstname.isEmpty()){
+                    BadRequest(Json.obj("status" ->"Error", "message" -> "Firstname is Mandatory"))
             }
 
-            if(registrationRequest.lastname.isEmpty()){
-                throw new  RuntimeException("Lastname is mandatory")
+            else if(registrationRequest.lastname.isEmpty()){
+                    BadRequest(Json.obj("status" ->"Error", "message" -> "Lastname is Mandatory"))
             }
 
-            if(registrationRequest.password.isEmpty()){
-                throw new  RuntimeException("Password is mandatory")
+            else  if(registrationRequest.password.isEmpty()){
+                 BadRequest(Json.obj("status" ->"Error", "message" -> "Password is Mandatory"))
+            }else{
+                Ok("INteresting")
             }
 
 
 
-
-
-
-        Ok("Lord is merciful");
     }
 
     def socialAuthenticate(socialauth: SocialAuthentication): Unit = {
