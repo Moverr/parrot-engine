@@ -33,7 +33,7 @@ object AuthController extends Controller {
 
             //todo: select from db where user name and password = xx s
             val conn = DB.getConnection()
-            var  jsson = Json.toJson("");
+            var jsson = Json.toJson("");
             try {
                 val stmt = conn.createStatement
                 var query = "SELECT * FROM  \"default\".users as A " +
@@ -48,12 +48,12 @@ object AuthController extends Controller {
                 var username = "";
                 var password = "";
                 while (resultSet.next()) {
-                      username = resultSet.getString("username")
+                    username = resultSet.getString("username")
                     password = resultSet.getString("password")
 
                 }
-                if(username.length() > 0 && password.length() > 0 ){
-                      jsson = Json.toJson(authRequest)
+                if (username.length() > 0 && password.length() > 0) {
+                    jsson = Json.toJson(authRequest)
                 }
 
 
@@ -63,65 +63,15 @@ object AuthController extends Controller {
             }
 
 
-
-
             Ok(jsson)
 
 
     }
 
-    def index = Action {
-        request =>
-            val json = request.body.asJson.get
+    def register() = Action {
 
-            val roleResponse = new RoleResponse(null, null);
-
-            implicit val roleResponserites = new Writes[RoleResponse] {
-                def writes(role: RoleResponse) = Json.obj(
-                    "name" -> role.name,
-                    "code" -> role.code
-                )
-            }
-
-
-            val userResponse = new UserResponse(1, StatusEnums.ACTIVE, "Muyinda", "Rogers", roleResponse, "moverr@gmail.com", "utc", "ee", null, "0779820962")
-
-
-            implicit val userResponseWrites = new Writes[UserResponse] {
-                def writes(user: UserResponse) = Json.obj(
-                    "id" -> user.id,
-                    "status" -> user.status,
-                    "firstname" -> user.firstname,
-                    "lastname" -> user.lastname,
-                    "role" -> user.role,
-                    "email" -> user.email,
-                    "timezone" -> user.timezone,
-                    "locale" -> user.locale,
-                    "avatar_url" -> user.avatar_url,
-                    "phone_number" -> user.phone_number
-
-                )
-            }
-
-
-            val authResponse = new AuthResponse("token", userResponse)
-
-
-            implicit val userWrites = new Writes[AuthResponse] {
-                def writes(auth: AuthResponse) = Json.obj(
-                    "token" -> auth.token,
-                    "user" -> auth.user
-                )
-            }
-
-
-            val jsson = Json.toJson(authResponse)
-
-            //todo: select from database and return this object
-
-            Ok(jsson)
+        Ok("Lord is merciful");
     }
-
 
     def socialAuthenticate(socialauth: SocialAuthentication): Unit = {
     }

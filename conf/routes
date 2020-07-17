@@ -21,3 +21,5 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 #AUTH CONTROLLER
 POST /v1/auth                              controllers.v1.AuthController.index
 POST /v1/auth/login                        controllers.v1.AuthController.login
+POST /v1/auth/register                     controllers.v1.AuthController.register
+
