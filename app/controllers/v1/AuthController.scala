@@ -72,6 +72,28 @@ object AuthController extends Controller {
         implicit request =>
             val registrationRequest: RegistrationRequest = RegistrationForm.form.bindFromRequest.get
 
+            //todo: check for nulls
+            if(registrationRequest.email.isEmpty()){
+                throw new  RuntimeException("Email is mandatory")
+            }
+
+            if(registrationRequest.firstname.isEmpty()){
+                throw new  RuntimeException("Firstname is mandatory")
+            }
+
+            if(registrationRequest.lastname.isEmpty()){
+                throw new  RuntimeException("Lastname is mandatory")
+            }
+
+            if(registrationRequest.password.isEmpty()){
+                throw new  RuntimeException("Password is mandatory")
+            }
+
+
+
+
+
+
         Ok("Lord is merciful");
     }
 
