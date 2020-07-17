@@ -1,6 +1,6 @@
 package controllers.v1
 
-import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, SocialAuthentication}
+import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
 import play.api.Logger
@@ -12,7 +12,6 @@ import scala.util.parsing.json._
 import play.api.libs.json._
 import play.api.data._
 import play.api.data.Forms._
-
 import play.api.db._
 import play.api.Play.current
 
@@ -69,6 +68,9 @@ object AuthController extends Controller {
     }
 
     def register() = Action {
+
+        implicit request =>
+            val authRequest: RegistrationRequest = AuthForm.form.bindFromRequest.get
 
         Ok("Lord is merciful");
     }
