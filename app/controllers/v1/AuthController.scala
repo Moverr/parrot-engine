@@ -70,7 +70,7 @@ object AuthController extends Controller {
     def register() = Action {
 
         implicit request =>
-            val authRequest: RegistrationRequest = AuthForm.form.bindFromRequest.get
+            val authRequest: AuthenticationRequest = RegistrationForm.form.bindFromRequest.get
 
         Ok("Lord is merciful");
     }

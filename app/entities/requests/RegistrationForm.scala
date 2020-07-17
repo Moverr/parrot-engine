@@ -11,7 +11,6 @@ object RegistrationForm {
       "firstname" -> text,
       "lastname" -> text,
       "status" -> text
-
     )(RegistrationRequest.apply)(RegistrationRequest.unapply)
   )
 }
