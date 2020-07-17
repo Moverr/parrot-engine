@@ -1,6 +1,9 @@
 package app.entities.requests
 
-case class AuthenticationRequest(email: String, password: String)
+/*
+This case class should help in the Authentication using username and password
+ */
+case class AuthenticationRequest(username: String, password: String)
 
 //object AuthenticationRequest{
 //  def apply(email: String, age: Int): AuthenticationRequest = new AuthenticationRequest(email, age)
