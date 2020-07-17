@@ -1,6 +1,6 @@
 package controllers.v1
 
-import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationRequest, SocialAuthentication}
+import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
 import play.api.Logger
