@@ -83,10 +83,5 @@ object AuthController extends Controller {
 
     }
 
-    //todo: Register User to the System : Self registration
-    def register(): Unit = {
-
-    }
-
 
 }
