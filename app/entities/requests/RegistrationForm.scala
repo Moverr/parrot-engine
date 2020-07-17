@@ -5,13 +5,13 @@ import play.api.data.Forms._
 
 
 object RegistrationForm {
-  val form: Form[AuthenticationRequest] = Form(
+  val form: Form[RegistrationRequest] = Form(
     mapping(
       "email" -> text,
       "firstname" -> text,
       "lastname" -> text,
       "status" -> text
 
-    )(AuthenticationRequest.apply)(AuthenticationRequest.unapply)
+    )(RegistrationRequest.apply)(RegistrationRequest.unapply)
   )
 }
