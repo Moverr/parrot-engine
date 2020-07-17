@@ -26,7 +26,7 @@ object AuthController extends Controller {
 
             implicit val roleResponserites = new Writes[AuthenticationRequest] {
                 def writes(role: AuthenticationRequest) = Json.obj(
-                    "name" -> role.email,
+                    "username" -> role.username,
                     "password" -> role.password
                 )
             }
@@ -38,7 +38,7 @@ object AuthController extends Controller {
                 val stmt = conn.createStatement
                 var query = "SELECT * FROM  \"default\".users as A " +
                         "WHERE " +
-                        " A.username LIKE \'" + authRequest.email + "\' " +
+                        " A.username LIKE \'" + authRequest.username + "\' " +
                         "AND" +
                         " A.password LIKE \'" + authRequest.password + "\' ";
 
