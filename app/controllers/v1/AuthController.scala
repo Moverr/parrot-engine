@@ -31,34 +31,25 @@ object AuthController extends Controller {
             }
 
             //todo: select from db where user name and password = xx s
-            val conn = DB.getConnection()
+
             var jsson = Json.toJson("");
-            try {
-                val stmt = conn.createStatement
-                var query = "SELECT * FROM  \"default\".users as A " +
-                        "WHERE " +
-                        " A.username LIKE \'" + authRequest.username + "\' " +
-                        "AND" +
-                        " A.password LIKE \'" + authRequest.password + "\' ";
 
-                print("STR: " + query)
+            var query = "SELECT * FROM  \"default\".users as A " +
+                    "WHERE " +
+                    " A.username LIKE \'" + authRequest.username + "\' " +
+                    "AND" +
+                    " A.password LIKE \'" + authRequest.password + "\' ";
 
-                val resultSet = stmt.executeQuery(query)
-                var username = "";
-                var password = "";
-                while (resultSet.next()) {
-                    username = resultSet.getString("username")
-                    password = resultSet.getString("password")
+            val resultSet = QueryCreater(query)
+            var username = "";
+            var password = "";
+            while (resultSet.next()) {
+                username = resultSet.getString("username")
+                password = resultSet.getString("password")
 
-                }
-                if (username.length() > 0 && password.length() > 0) {
-                    jsson = Json.toJson(authRequest)
-                }
-
-
-            } finally {
-
-                conn.close();
+            }
+            if (username.length() > 0 && password.length() > 0) {
+                jsson = Json.toJson(authRequest)
             }
 
 
@@ -74,24 +65,24 @@ object AuthController extends Controller {
             val registrationRequest: RegistrationRequest = RegistrationForm.form.bindFromRequest.get
 
             //todo: check for nulls
-            if(registrationRequest.email.isEmpty()){
-                    BadRequest(Json.obj("status" ->"Error", "message" -> "Email is Mandatory"))
+            if (registrationRequest.email.isEmpty()) {
+                BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
             }
 
-            else if(registrationRequest.firstname.isEmpty()){
-                    BadRequest(Json.obj("status" ->"Error", "message" -> "Firstname is Mandatory"))
+            else if (registrationRequest.firstname.isEmpty()) {
+                BadRequest(Json.obj("status" -> "Error", "message" -> "Firstname is Mandatory"))
             }
 
-            else if(registrationRequest.lastname.isEmpty()){
-                    BadRequest(Json.obj("status" ->"Error", "message" -> "Lastname is Mandatory"))
+            else if (registrationRequest.lastname.isEmpty()) {
+                BadRequest(Json.obj("status" -> "Error", "message" -> "Lastname is Mandatory"))
             }
 
-            else  if(registrationRequest.password.isEmpty()){
-                 BadRequest(Json.obj("status" ->"Error", "message" -> "Password is Mandatory"))
-            }else{
+            else if (registrationRequest.password.isEmpty()) {
+                BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
+            } else {
+                //todo: insert a record
                 Ok("INteresting")
             }
-
 
 
     }
@@ -103,6 +94,24 @@ object AuthController extends Controller {
     }
 
     def resetPassword(): Unit = {
+
+    }
+
+    def QueryCreater(query: String) = {
+        val conn = DB.getConnection()
+        try {
+
+
+            val stmt = conn.createStatement
+
+            print("STR: " + query)
+
+            val resultSet = stmt.executeQuery(query)
+            resultSet
+        } finally {
+
+            conn.close();
+        }
 
     }
 
