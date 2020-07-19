@@ -40,7 +40,7 @@ object AuthController extends Controller {
                     "AND" +
                     " A.password LIKE \'" + authRequest.password + "\' ";
 
-            val resultSet = QueryCreater(query)
+            val resultSet = ExecuteQuerySelect(query)
             var username = "";
             var password = "";
             while (resultSet.next()) {
@@ -97,7 +97,7 @@ object AuthController extends Controller {
 
     }
 
-    def QueryCreater(query: String) = {
+    def ExecuteQuerySelect(query: String) = {
         val conn = DB.getConnection()
         try {
 
