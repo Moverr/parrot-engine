@@ -16,7 +16,7 @@ import play.api.db._
 import play.api.Play.current
 
 object AuthController extends Controller {
-
+    var conn = DB.getConnection()
 
     //todo: auth login
     def login() = Action {
@@ -40,18 +40,24 @@ object AuthController extends Controller {
                     "AND" +
                     " A.password LIKE \'" + authRequest.password + "\' ";
 
-            val resultSet = ExecuteQuerySelect(query)
-            var username = "";
-            var password = "";
-            while (resultSet.next()) {
-                username = resultSet.getString("username")
-                password = resultSet.getString("password")
+            try {
 
-            }
-            if (username.length() > 0 && password.length() > 0) {
-                jsson = Json.toJson(authRequest)
-            }
 
+                val resultSet = ExecuteQuerySelect(query)
+                var username = "";
+                var password = "";
+                while (resultSet.next()) {
+                    username = resultSet.getString("username")
+                    password = resultSet.getString("password")
+
+                }
+                if (username.length() > 0 && password.length() > 0) {
+                    jsson = Json.toJson(authRequest)
+                }
+            }
+            finally {
+                conn.close()
+            }
 
             Ok(jsson)
 
@@ -98,20 +104,17 @@ object AuthController extends Controller {
     }
 
     def ExecuteQuerySelect(query: String) = {
-        val conn = DB.getConnection()
-        try {
 
 
-            val stmt = conn.createStatement
+        conn = DB.getConnection()
 
-            print("STR: " + query)
+        val stmt = conn.createStatement
 
-            val resultSet = stmt.executeQuery(query)
-            resultSet
-        } finally {
+        print("STR: " + query)
 
-            conn.close();
-        }
+        val resultSet = stmt.executeQuery(query)
+        resultSet
+
 
     }
 
