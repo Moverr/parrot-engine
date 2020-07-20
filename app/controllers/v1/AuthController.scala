@@ -42,7 +42,7 @@ object AuthController extends Controller {
                     "AND" +
                     " A.password LIKE \'" + authRequest.password + "\' ";
 
-            try {
+
 
 
                 val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
@@ -57,18 +57,17 @@ object AuthController extends Controller {
                     if (username.length() > 0 && password.length() > 0) {
                         jsson = Json.toJson(authRequest)
                     } */
-                }else{
                     Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+
+                }else{
+                      Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
                 }
 
 
-            }
-            finally {
-                conn.close()
-            }
 
-            Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
-            //Ok(jsson)
+
+
+
 
 
     }
