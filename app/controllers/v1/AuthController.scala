@@ -57,7 +57,7 @@ object AuthController extends Controller {
                     if (username.length() > 0 && password.length() > 0) {
                         jsson = Json.toJson(authRequest)
                     } */
-                    Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+                  BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
@@ -67,7 +67,7 @@ object AuthController extends Controller {
 
 
 
-
+            //Ok(jsson)
 
 
     }
