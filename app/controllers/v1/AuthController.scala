@@ -1,5 +1,7 @@
 package controllers.v1
 
+import java.sql.ResultSet
+
 import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
 import app.utils.StatusEnums
@@ -43,23 +45,30 @@ object AuthController extends Controller {
             try {
 
 
-                val resultSet = ExecuteQuerySelect(query)
-                var username = "";
-                var password = "";
-                while (resultSet.next()) {
-                    username = resultSet.getString("username")
-                    password = resultSet.getString("password")
+                val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
+                if (resultSet.next()) {
+                    //todo: Populate a basic JWT Token
+                   /* while (resultSet.next()) {
+                        username = resultSet.getString("username")
+                        password = resultSet.getString("password")
+
+                    }
+                    if (username.length() > 0 && password.length() > 0) {
+                        jsson = Json.toJson(authRequest)
+                    } */
+                }else{
+                    Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
                 }
-                if (username.length() > 0 && password.length() > 0) {
-                    jsson = Json.toJson(authRequest)
-                }
+
+
             }
             finally {
                 conn.close()
             }
 
-            Ok(jsson)
+            Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+            //Ok(jsson)
 
 
     }
@@ -86,20 +95,28 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-                //todo: insert a record
-                Ok("INteresting")
+                //todo: select from db wheren username like email..
+
+                BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             }
 
 
     }
 
-    def socialAuthenticate(socialauth: SocialAuthentication): Unit = {
-    }
 
-    def deactivate(): Unit = {
-    }
+    def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
-    def resetPassword(): Unit = {
+        var query = "SELECT * FROM  \"default\".users as A " +
+                "WHERE " +
+                " A.username LIKE \'" + email + "\' " +
+                "AND" +
+                " A.password LIKE \'" + password + "\' ";
+        print("STR: " + query)
+        conn = DB.getConnection()
+        val stmt = conn.createStatement
+        val resultSet = stmt.executeQuery(query)
+        resultSet
+
 
     }
 
