@@ -17,6 +17,11 @@ import play.api.data.Forms._
 import play.api.db._
 import play.api.Play.current
 
+
+import pdi.jwt.{Jwt, JwtAlgorithm, JwtHeader, JwtClaim, JwtOptions}
+
+
+
 object AuthController extends Controller {
     var conn = DB.getConnection()
 
@@ -57,7 +62,10 @@ object AuthController extends Controller {
                     if (username.length() > 0 && password.length() > 0) {
                         jsson = Json.toJson(authRequest)
                     } */
-                  BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+                  // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
+                    token
+
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
