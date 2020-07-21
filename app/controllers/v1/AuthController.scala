@@ -18,7 +18,7 @@ import play.api.db._
 import play.api.Play.current
 
 
-import pdi.jwt.{Jwt, JwtAlgorithm, JwtHeader, JwtClaim, JwtOptions}
+
 
 
 
@@ -63,8 +63,8 @@ object AuthController extends Controller {
                         jsson = Json.toJson(authRequest)
                     } */
                   // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
-                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
-                    token
+//                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
+//                    token
 
 
                 }else{
@@ -75,7 +75,7 @@ object AuthController extends Controller {
 
 
 
-            //Ok(jsson)
+            Ok("Trust")
 
 
     }
