@@ -151,13 +151,15 @@ object AuthController extends Controller {
 
         var resultSet = stmt.executeQuery(query)
 
-      
+
         if(resultSet.next()){
 
             var username:String = ???
+            var createdOn:Date = ???
 
             while (resultSet.next()) {
                 username = resultSet.getString("username")
+                createdOn = resultSet.getDate("created_on")
             }
             val token =  JwtUtility createToken(username)
             val r =   AuthResponse(1,token,new Date())
