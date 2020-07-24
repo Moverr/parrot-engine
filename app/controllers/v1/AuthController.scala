@@ -1,6 +1,7 @@
 package controllers.v1
 
 import java.sql.ResultSet
+import java.util.Date
 
 import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
 import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
@@ -16,7 +17,6 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.db._
 import play.api.Play.current
-
 import app.utils.JwtUtility
 
 
@@ -91,9 +91,9 @@ object AuthController extends Controller {
 
 
                     val token =  JwtUtility createToken("movers")
-
+                  val response =   validateUser("seese","sese")
                    // val token = createToken("mover")
-                    Ok(token)
+                    Ok(response.toString())
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
@@ -121,6 +121,8 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
+                //todo: check to see that ther is no username like this
+
                 //todo: register user by email and password
 
                 //todo: send email with approval :
@@ -133,6 +135,28 @@ object AuthController extends Controller {
 
     }
 
+
+    def validateUser(email:String,password:String):AuthResponse={
+
+        //todo: get to see users by email.
+        var query = "SELECT * FROM  \"default\".users as A " +
+                "WHERE " +
+                " A.username LIKE \'" + email + "\' ";
+
+        conn = DB.getConnection()
+        val stmt = conn.createStatement
+        val resultSet = stmt.executeQuery(query)
+
+        if (resultSet.next()) {
+            null
+        }else{
+            //todo: encrypt password
+        }
+
+        val r =   AuthResponse(1,"dssd",new Date())
+        r
+
+    }
 
     def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 

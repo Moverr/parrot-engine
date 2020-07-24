@@ -1,4 +1,6 @@
 package app.entities.responses
 
-case class AuthResponse(token:String,user:UserResponse)
-//UserResponse
+import java.util.Date
+
+
+case class AuthResponse(id:Integer,token:String,dateCreated:Date)
