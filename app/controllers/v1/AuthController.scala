@@ -151,7 +151,7 @@ object AuthController extends Controller {
 
         var resultSet = stmt.executeQuery(query)
 
-        //val resultSet = ExecuteQuerySelect(query)
+      
         if(resultSet.next()){
 
             var username:String = ???
