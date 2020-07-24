@@ -3,49 +3,34 @@ package controllers.v1
 import java.sql.ResultSet
 import java.util.Date
 
-import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
-import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
-import app.utils.StatusEnums
-import play.api.Logger
-import play.api.libs.json.Json
-import play.api.mvc._
-import play.api.libs.json.Json
-
-import scala.util.parsing.json._
-import play.api.libs.json._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.db._
-import play.api.Play.current
+import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
+import app.entities.responses.AuthResponse
 import app.utils.JwtUtility
-
-
 
 
 object AuthController extends Controller {
     var conn = DB.getConnection()
 
-/*
-    val JwtSecretKey = "secretKey"
-    val JwtSecretAlgo = "HS256"
+    /*
+        val JwtSecretKey = "secretKey"
+        val JwtSecretAlgo = "HS256"
 
-    def createToken(payload: String): String = {
-        val header = JwtHeader(JwtSecretAlgo)
-        val claimsSet = JwtClaimsSet(payload)
-        JsonWebToken(header, claimsSet, JwtSecretKey)
-    }
-
-
-    def isValidToken(jwtToken: String): Boolean =
-        JsonWebToken.validate(jwtToken, JwtSecretKey)
-    def decodePayload(jwtToken: String): Option[String] =
-        jwtToken match {
-            case JsonWebToken(header, claimsSet, signature) => Option(claimsSet.asJsonString)
-            case _                                          => None
+        def createToken(payload: String): String = {
+            val header = JwtHeader(JwtSecretAlgo)
+            val claimsSet = JwtClaimsSet(payload)
+            JsonWebToken(header, claimsSet, JwtSecretKey)
         }
 
-*/
 
+        def isValidToken(jwtToken: String): Boolean =
+            JsonWebToken.validate(jwtToken, JwtSecretKey)
+        def decodePayload(jwtToken: String): Option[String] =
+            jwtToken match {
+                case JsonWebToken(header, claimsSet, signature) => Option(claimsSet.asJsonString)
+                case _                                          => None
+            }
+
+    */
 
 
     //todo: auth login
@@ -73,37 +58,31 @@ object AuthController extends Controller {
 
 
 
-                val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+            val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
-                if (resultSet.next()) {
-                    //todo: Populate a basic JWT Token
-                   /* while (resultSet.next()) {
-                        username = resultSet.getString("username")
-                        password = resultSet.getString("password")
+            if (resultSet.next()) {
+                //todo: Populate a basic JWT Token
+                /* while (resultSet.next()) {
+                     username = resultSet.getString("username")
+                     password = resultSet.getString("password")
 
-                    }
-                    if (username.length() > 0 && password.length() > 0) {
-                        jsson = Json.toJson(authRequest)
-                    } */
-                  // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
-//                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
-//                    token
-
-
-                    val token =  JwtUtility createToken("movers")
-                  val response =   validateUser("seese","sese")
-                   // val token = createToken("mover")
-                    Ok(response.token)
-
-                }else{
-                      Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
-                }
+                 }
+                 if (username.length() > 0 && password.length() > 0) {
+                     jsson = Json.toJson(authRequest)
+                 } */
+                // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
+                //                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
+                //                    token
 
 
+                val token = JwtUtility createToken ("movers")
+                val response = validateUser("seese", "sese")
+                // val token = createToken("mover")
+                Ok(response.token)
 
-
-
-
+            } else {
+                Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
+            }
 
 
     }
@@ -136,19 +115,28 @@ object AuthController extends Controller {
     }
 
 
-    def validateUser(email:String,password:String):AuthResponse={
+    def validateUser(email: String, password: String): AuthResponse = {
 
         var query = "SELECT * FROM  \"default\".users as A " +
                 "WHERE " +
-                " A.username LIKE \'" + email + "\' " ;
+                " A.username LIKE \'" + email + "\' ";
 
         print("STR: " + query)
 
-        val resultSet =ExecuteQuerySelect(query)
+        val resultSet = ExecuteQuerySelect(query)
+        if (resultSet.next()) {
+            var username = "";
+            var dateCreated = null;
+
+            while (resultSet.next()) {
+                username = resultSet.getString("username")
+                password = resultSet.getString("password")
+            }
+            val r = AuthResponse(1, "dssd", new Date())
+        }
 
 
-        val r =   AuthResponse(1,"dssd",new Date())
-        r
+        null
 
     }
 
