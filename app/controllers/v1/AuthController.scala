@@ -118,19 +118,10 @@ object AuthController extends Controller {
             if (registrationRequest.email.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
             }
-
-            else if (registrationRequest.firstname.isEmpty()) {
-                BadRequest(Json.obj("status" -> "Error", "message" -> "Firstname is Mandatory"))
-            }
-
-            else if (registrationRequest.lastname.isEmpty()) {
-                BadRequest(Json.obj("status" -> "Error", "message" -> "Lastname is Mandatory"))
-            }
-
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-                //todo: select from db wheren username like email..
+                //todo: username and password
 
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             }
