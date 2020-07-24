@@ -123,8 +123,13 @@ object AuthController extends Controller {
                 //todo: send email with approval :
 
                 //todo: activate user through validation url.
-                validateUser(registrationRequest.email,registrationRequest.password)
-                BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
+               var userExists:Boolean =  validateUser(registrationRequest.email,registrationRequest.password)
+               if(userExists == true)
+                BadRequest(Json.obj("status" -> "Error", "message" -> "User already registered to the system " ))
+                else
+                   {
+                       //todo: create a user and move on
+                   }
             }
 
 
@@ -149,15 +154,6 @@ object AuthController extends Controller {
 
         if(resultSet.next()){
 
-            var username:String = ???
-            var createdOn:Date = ???
-
-            while (resultSet.next()) {
-                username = resultSet.getString("username")
-                createdOn = resultSet.getDate("created_on")
-            }
-            val token =  JwtUtility createToken(username)
-            val r =   AuthResponse(1,token,new Date())
             true
 
         }else{
