@@ -17,6 +17,7 @@ import play.api.data.Forms._
 import play.api.db._
 import play.api.Play.current
 
+import app.utils.JwtUtility
 
 
 
@@ -89,7 +90,7 @@ object AuthController extends Controller {
 //                    token
 
 
-                 //   val x = new JwtUtility()
+                    val x =  JwtUtility createToken("movers")
 
                    // val token = createToken("mover")
                     //Ok(token)
