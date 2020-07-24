@@ -1,4 +1,4 @@
-name := """play-getting-started"""
+name := """Parront-Engine"""
 
 version := "1.0-SNAPSHOT"
 
@@ -16,5 +16,6 @@ libraryDependencies ++= Seq(
   javaJpa,
   ws
 )
+
 
 libraryDependencies <+= scalaVersion("org.scala-lang" % "scala-compiler" % _ )
