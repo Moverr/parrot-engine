@@ -129,7 +129,7 @@ object AuthController extends Controller {
                 //todo: send email with approval :
 
                 //todo: activate user through validation url.
-
+                validateUser(registrationRequest.email,registrationRequest.password)
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             }
 
