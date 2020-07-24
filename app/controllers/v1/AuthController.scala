@@ -147,7 +147,6 @@ object AuthController extends Controller {
         val resultSet = ExecuteQuerySelect(query)
 
 
-
         val r =   AuthResponse(1,"dssd",new Date())
         r
 
@@ -169,7 +168,7 @@ object AuthController extends Controller {
 
     }
 
-    def ExecuteQuerySelect(query: String) = {
+    def ExecuteQuerySelect(query: String):ResultSet= {
 
 
         conn = DB.getConnection()
@@ -180,8 +179,6 @@ object AuthController extends Controller {
 
         val resultSet = stmt.executeQuery(query)
         resultSet
-
-
     }
 
 
