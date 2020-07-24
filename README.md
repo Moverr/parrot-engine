@@ -44,4 +44,12 @@ $ heroku open
 
 -->
  
- 
+```sh
+ import scala.util.parsing.json._
+ import play.api.libs.json._
+ import play.api.data._
+ import play.api.data.Forms._
+ import play.api.db._
+ import play.api.Play.current
+ import app.utils.JwtUtility
+```
