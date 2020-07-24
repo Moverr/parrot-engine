@@ -138,6 +138,16 @@ object AuthController extends Controller {
 
     def validateUser(email:String,password:String):AuthResponse={
 
+        var query = "SELECT * FROM  \"default\".users as A " +
+                "WHERE " +
+                " A.username LIKE \'" + email + "\' " ;
+
+        print("STR: " + query)
+        conn = DB.getConnection()
+        val stmt = conn.createStatement
+        val resultSet = stmt.executeQuery(query)
+
+
         val r =   AuthResponse(1,"dssd",new Date())
         r
 
