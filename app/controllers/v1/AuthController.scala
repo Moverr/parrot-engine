@@ -93,7 +93,7 @@ object AuthController extends Controller {
                     val token =  JwtUtility createToken("movers")
                   val response =   validateUser("seese","sese")
                    // val token = createToken("mover")
-                    Ok(response.toString())
+                    Ok(response.token)
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
@@ -137,21 +137,6 @@ object AuthController extends Controller {
 
 
     def validateUser(email:String,password:String):AuthResponse={
-
-        //todo: get to see users by email.
-        var query = "SELECT * FROM  \"default\".users as A " +
-                "WHERE " +
-                " A.username LIKE \'" + email + "\' ";
-
-        conn = DB.getConnection()
-        val stmt = conn.createStatement
-        val resultSet = stmt.executeQuery(query)
-
-        if (resultSet.next()) {
-            null
-        }else{
-            //todo: encrypt password
-        }
 
         val r =   AuthResponse(1,"dssd",new Date())
         r
