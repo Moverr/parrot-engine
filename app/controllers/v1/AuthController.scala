@@ -90,10 +90,10 @@ object AuthController extends Controller {
 //                    token
 
 
-                    val x =  JwtUtility createToken("movers")
+                    val token =  JwtUtility createToken("movers")
 
                    // val token = createToken("mover")
-                    //Ok(token)
+                    Ok(token)
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
@@ -103,7 +103,7 @@ object AuthController extends Controller {
 
 
 
-            Ok("Trust")
+
 
 
     }
