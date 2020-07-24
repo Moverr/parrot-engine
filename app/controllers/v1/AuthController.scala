@@ -20,6 +20,7 @@ import play.api.Play.current
 
 
 
+
 object AuthController extends Controller {
     var conn = DB.getConnection()
 
@@ -87,6 +88,11 @@ object AuthController extends Controller {
 //                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
 //                    token
 
+
+                 //   val x = new JwtUtility()
+
+                   // val token = createToken("mover")
+                    //Ok(token)
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
