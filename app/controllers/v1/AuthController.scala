@@ -143,9 +143,8 @@ object AuthController extends Controller {
                 " A.username LIKE \'" + email + "\' " ;
 
         print("STR: " + query)
-        conn = DB.getConnection()
-        val stmt = conn.createStatement
-        val resultSet = stmt.executeQuery(query)
+
+        val resultSet =ExecuteQuerySelect(query)
 
 
         val r =   AuthResponse(1,"dssd",new Date())
