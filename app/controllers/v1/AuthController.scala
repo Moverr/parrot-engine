@@ -78,30 +78,23 @@ object AuthController extends Controller {
 
                 if (resultSet.next()) {
                     //todo: Populate a basic JWT Token
-                   /* while (resultSet.next()) {
-                        username = resultSet.getString("username")
-                        password = resultSet.getString("password")
 
-                    }
-                    if (username.length() > 0 && password.length() > 0) {
-                        jsson = Json.toJson(authRequest)
-                    } */
-                  // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
-//                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
-//                    token
 
-                    val  token =  JwtUtility createToken("movers")
-                    val response =   validateUser("seese","sese")
-                   // val token = createToken("mover")
-                    Ok(response.token)
+                        var username:String = ???
+                        var password:String = ???
+                        var createdOn:Date = ???
+
+                        while (resultSet.next()) {
+                            username = resultSet.getString("username")
+                            password = resultSet.getString("password")
+                            createdOn = resultSet.getDate("created_on")
+                        }
+                    val  token =  JwtUtility createToken(username+":"+password)
+                    Ok(token)
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
                 }
-
-
-
-
 
 
 
@@ -136,7 +129,7 @@ object AuthController extends Controller {
     }
 
 
-    def validateUser(email:String,password:String):AuthResponse={
+    def validateUser(email:String,password:String): Boolean ={
 
         var query = "SELECT * FROM  \"default\".users as A " +
                 "WHERE " +
@@ -163,11 +156,10 @@ object AuthController extends Controller {
             }
             val token =  JwtUtility createToken(username)
             val r =   AuthResponse(1,token,new Date())
-            r
+            true
 
         }else{
-            val r =   AuthResponse(1,"dssd",new Date())
-            r
+           false
         }
 
 
