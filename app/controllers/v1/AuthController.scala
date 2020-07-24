@@ -1,6 +1,6 @@
 package controllers.v1
 
-import java.sql.ResultSet
+import java.sql._
 import java.util.Date
 
 import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
@@ -90,9 +90,8 @@ object AuthController extends Controller {
 //                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
 //                    token
 
-
-                    val token =  JwtUtility createToken("movers")
-                  val response =   validateUser("seese","sese")
+                    val  token =  JwtUtility createToken("movers")
+                    val response =   validateUser("seese","sese")
                    // val token = createToken("mover")
                     Ok(response.token)
 
@@ -143,12 +142,34 @@ object AuthController extends Controller {
                 "WHERE " +
                 " A.username LIKE \'" + email + "\' " ;
 
+
+        conn = DB.getConnection()
+
+        val stmt = conn.createStatement
+
         print("STR: " + query)
-        val resultSet = ExecuteQuerySelect(query)
+
+        var resultSet = stmt.executeQuery(query)
+
+        //val resultSet = ExecuteQuerySelect(query)
+        if(resultSet.next()){
+
+            var username:String = ???
+
+            while (resultSet.next()) {
+                username = resultSet.getString("username")
+            }
+            val token =  JwtUtility createToken(username)
+            val r =   AuthResponse(1,token,new Date())
+            r
+
+        }else{
+            val r =   AuthResponse(1,"dssd",new Date())
+            r
+        }
 
 
-        val r =   AuthResponse(1,"dssd",new Date())
-        r
+
 
     }
 
@@ -162,13 +183,13 @@ object AuthController extends Controller {
         print("STR: " + query)
         conn = DB.getConnection()
         val stmt = conn.createStatement
-        val resultSet = stmt.executeQuery(query)
+        var resultSet = stmt.executeQuery(query)
         resultSet
 
 
     }
 
-    def ExecuteQuerySelect(query: String):ResultSet= {
+    def ExecuteQuerySelect(query: String): Any = {
 
 
         conn = DB.getConnection()
