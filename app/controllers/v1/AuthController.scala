@@ -3,22 +3,15 @@ package controllers.v1
 import java.sql._
 import java.util.Date
 
-import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
-import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
-import app.utils.StatusEnums
-import play.api.Logger
+import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import play.api.libs.json.Json
 import play.api.mvc._
-import play.api.libs.json.Json
 
 //////
-import scala.util.parsing.json._
-import play.api.libs.json._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.db._
-import play.api.Play.current
 import app.utils.JwtUtility
+import play.api.Play.current
+import play.api.db._
+import play.api.libs.json._
 ///////
 
 
@@ -129,6 +122,7 @@ object AuthController extends Controller {
                 else
                    {
                        //todo: create a user and move on
+                       Ok("Sincerely")
                    }
             }
 
@@ -193,6 +187,6 @@ object AuthController extends Controller {
         val resultSet = stmt.executeQuery(query)
         resultSet
     }
-
+    
 
 }
