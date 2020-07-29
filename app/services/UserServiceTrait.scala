@@ -1,8 +1,11 @@
 package app.services
 
-trait BaseServiceTrait {
+import app.entities.requests.RegistrationRequest
+import entities.responses.RegistrationResponse
 
-  def createUser(): Any
+trait UserServiceTrait {
+
+  def createUser(registrationRequest:RegistrationRequest): RegistrationResponse
 
   def list(offset: Int, limit: Int): Unit
 
