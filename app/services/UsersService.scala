@@ -2,7 +2,9 @@ package app.services
 
 import java.sql.ResultSet
 
-import controllers.v1.AuthController.conn
+import app.entities.requests.RegistrationRequest
+import controllers.v1.AuthController.{BadRequest, conn}
+import play.api.libs.json.Json
 
 
 
@@ -17,8 +19,16 @@ import play.api.db._
 
 class UsersService extends BaseServiceTrait {
 
-  def createUser1(username:String,password:String): Boolean ={
+  def register(registrationRequest: RegistrationRequest): Boolean ={
+    if (registrationRequest.email.isEmpty()) {
+      BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
+    }
+    else if (registrationRequest.password.isEmpty()) {
+      BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
+    }else{
 
+    }
+    
    false
   }
 
