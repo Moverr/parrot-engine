@@ -45,8 +45,6 @@ object AuthController extends Controller {
 
                 if (resultSet.next()) {
                     //todo: Populate a basic JWT Token
-
-
                         var username:String = null
                         var password:String = null
                         var createdOn:Date = null

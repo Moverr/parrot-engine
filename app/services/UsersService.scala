@@ -1,6 +1,6 @@
 package app.services
 
-class UsersServices extends BaseServiceTrait {
+class UsersService extends BaseServiceTrait {
 
   override def createUser(): Unit ={
 
@@ -27,3 +27,4 @@ class UsersServices extends BaseServiceTrait {
 
 
 }
+object UsersService extends UsersService
