@@ -33,21 +33,22 @@ class UsersService extends UserServiceTrait {
 
   def login(authRequest: AuthenticationRequest): AuthResponse = {
 
-    val resultSet = UsersService fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
-
+    val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+    var response: AuthResponse = null
     if (resultSet.next()) {
       //todo: Populate a basic JWT Token
       var username: String = null
       var password: String = null
       var createdOn: Date = null
+      var id: Integer = resultSet.getInt("id")
       username = resultSet.getString("username")
       password = resultSet.getString("password")
       createdOn = resultSet.getDate("created_on")
       val token = JwtUtility createToken (username + ":" + password)
-
+      response = new AuthResponse(id, token, createdOn)
     }
-    val et = new AuthResponse(1, "see", new Date())
-    et
+
+    response
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
