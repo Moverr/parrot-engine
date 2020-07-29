@@ -3,7 +3,9 @@ package app.services
 import java.sql.ResultSet
 import java.util.Date
 
-import app.entities.requests.RegistrationRequest
+import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
+import app.entities.responses.AuthResponse
+import app.utils.JwtUtility
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import play.api.libs.json.Json
@@ -24,64 +26,59 @@ class UsersService extends UserServiceTrait {
     }
     else if (registrationRequest.password.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
-    } else {
-
     }
 
     false
   }
 
+  def login(authRequest: AuthenticationRequest): AuthResponse = {
+
+    val resultSet = UsersService fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+
+    if (resultSet.next()) {
+      //todo: Populate a basic JWT Token
+      var username: String = null
+      var password: String = null
+      var createdOn: Date = null
+      username = resultSet.getString("username")
+      password = resultSet.getString("password")
+      createdOn = resultSet.getDate("created_on")
+      val token = JwtUtility createToken (username + ":" + password)
+
+    }
+    val et = new AuthResponse(1, "see", new Date())
+    et
+  }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
-    var query = "SELECT * FROM  \"default\".users as A " +
-      "WHERE " +
-      " A.username LIKE \'" + email + "\' " +
-      "AND" +
-      " A.password LIKE \'" + password + "\' ";
+    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
     print("STR: " + query)
-    conn = DB.getConnection()
-    val stmt = conn.createStatement
-    var resultSet = stmt.executeQuery(query)
+    conn = DB getConnection()
+    val stmt = conn createStatement
+    var resultSet = stmt executeQuery (query)
     resultSet
 
   }
 
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
+    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
 
-    var query = "SELECT * FROM  \"default\".users as A " +
-      "WHERE " +
-      " A.username LIKE \'" + email + "\' ";
-
-
-    conn = DB.getConnection()
-
+    conn = DB getConnection()
     val stmt = conn.createStatement
-
     print("STR: " + query)
-
-    var resultSet = stmt.executeQuery(query)
-
-
-    if (resultSet.next()) {
-
-      true
-
-    } else {
-      false
-    }
-
+    var resultSet = stmt executeQuery (query)
+    if (resultSet next()) true else false
 
   }
 
 
   override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
     var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
-    conn = DB.getConnection()
-    val stmt = conn.createStatement
-    var result = stmt.execute(query)
-
+    conn = DB getConnection()
+    val stmt = conn createStatement
+    var result = stmt execute (query)
     val response = new RegistrationResponse(1, "moverr@gmail.com", new Date())
     response
   }

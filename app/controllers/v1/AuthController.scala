@@ -1,6 +1,5 @@
 package controllers.v1
 
-import java.sql._
 import java.util.Date
 
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
@@ -17,10 +16,8 @@ import play.api.libs.json._
 ///////
 
 
-
 object AuthController extends Controller {
     var conn = DB.getConnection()
-
 
 
     //todo: auth login
@@ -35,14 +32,9 @@ object AuthController extends Controller {
                 )
             }
 
-            //todo: select from db where user name and password = xx s
-            var query = "SELECT * FROM  \"default\".users as A " +
-                    "WHERE " +
-                    " A.username LIKE \'" + authRequest.username + "\' " +
-                    "AND" +
-                    " A.password LIKE \'" + authRequest.password + "\' ";
 
-                val resultSet = fetchUserByEmailAndPassword(authRequest.username,  PasswordHashing.encryptPassword(authRequest.password));
+                // fetch user by email or password
+                val resultSet = UsersService fetchUserByEmailAndPassword(authRequest.username,  PasswordHashing.encryptPassword(authRequest.password));
 
                 if (resultSet.next()) {
                     //todo: Populate a basic JWT Token
@@ -82,12 +74,12 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-               var userExists:Boolean = UsersService ValidateIfUserExists(registrationRequest.email,registrationRequest.password)
+               var userExists:Boolean = UsersService ValidateIfUserExists (registrationRequest.email,registrationRequest.password)
                if(userExists == true)
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
                    {
-                       UsersService.createUser(registrationRequest)
+                       UsersService createUser registrationRequest
                        //todo: create a user and move on
                        Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
                    }
@@ -98,34 +90,6 @@ object AuthController extends Controller {
 
 
 
-    def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
-        var query = "SELECT * FROM  \"default\".users as A " +
-                "WHERE " +
-                " A.username LIKE \'" + email + "\' " +
-                "AND" +
-                " A.password LIKE \'" + password + "\' ";
-        print("STR: " + query)
-        conn = DB.getConnection()
-        val stmt = conn.createStatement
-        var resultSet = stmt.executeQuery(query)
-        resultSet
-
-
-    }
-
-    def ExecuteQuerySelect(query: String): Any = {
-
-
-        conn = DB.getConnection()
-
-        val stmt = conn.createStatement
-
-        print("STR: " + query)
-
-        val resultSet = stmt.executeQuery(query)
-        resultSet
-    }
-    
 
 }
