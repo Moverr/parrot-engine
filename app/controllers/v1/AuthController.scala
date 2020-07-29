@@ -20,27 +20,6 @@ import play.api.libs.json._
 object AuthController extends Controller {
     var conn = DB.getConnection()
 
-/*
-    val JwtSecretKey = "secretKey"
-    val JwtSecretAlgo = "HS256"
-
-    def createToken(payload: String): String = {
-        val header = JwtHeader(JwtSecretAlgo)
-        val claimsSet = JwtClaimsSet(payload)
-        JsonWebToken(header, claimsSet, JwtSecretKey)
-    }
-
-
-    def isValidToken(jwtToken: String): Boolean =
-        JsonWebToken.validate(jwtToken, JwtSecretKey)
-    def decodePayload(jwtToken: String): Option[String] =
-        jwtToken match {
-            case JsonWebToken(header, claimsSet, signature) => Option(claimsSet.asJsonString)
-            case _                                          => None
-        }
-
-*/
-
 
 
     //todo: auth login
@@ -56,19 +35,13 @@ object AuthController extends Controller {
             }
 
             //todo: select from db where user name and password = xx s
-
-            var jsson = Json.toJson("");
-
             var query = "SELECT * FROM  \"default\".users as A " +
                     "WHERE " +
                     " A.username LIKE \'" + authRequest.username + "\' " +
                     "AND" +
                     " A.password LIKE \'" + authRequest.password + "\' ";
 
-
-
-
-                val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+                val resultSet = fetchUserByEmailAndPassword(authRequest.username,  PasswordHashing.encryptPassword(authRequest.password));
 
                 if (resultSet.next()) {
                     //todo: Populate a basic JWT Token
@@ -97,13 +70,8 @@ object AuthController extends Controller {
 
     }
 
-    /*
-    {
-	"email":"moverr@gmail.com",
-	"password": "password"
-    }
 
-     */
+//todo: Register
 
     def register() = Action {
 
@@ -117,20 +85,12 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-                //todo: check to see that ther is no username like this
-
-                //todo: register user by email and password
-
-                //todo: send email with approval :
-
-                //todo: activate user through validation url.
                var userExists:Boolean =  validateUser(registrationRequest.email,registrationRequest.password)
                if(userExists == true)
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
                    {
-                       var hashedPassword =   PasswordHashing.encryptPassword(registrationRequest.password)
-                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+hashedPassword+"') " ;
+                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+PasswordHashing.encryptPassword(registrationRequest.password)+"') " ;
                        conn = DB.getConnection()
                        val stmt = conn.createStatement
                        var result = stmt.execute(query)
@@ -138,7 +98,6 @@ object AuthController extends Controller {
                        Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
                    }
             }
-
 
     }
 

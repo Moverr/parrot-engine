@@ -7,7 +7,7 @@ import play.api.data.Forms._
 object AuthForm {
   val form: Form[AuthenticationRequest] = Form(
     mapping(
-      "email" -> nonEmptyText,
+      "username" -> nonEmptyText,
       "password" -> text
     )(AuthenticationRequest.apply)(AuthenticationRequest.unapply)
   )
