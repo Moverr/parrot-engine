@@ -51,6 +51,7 @@ object AuthController extends Controller {
                         var password:String = null
                         var createdOn:Date = null
 
+                    //todo: work to improve this part.
                         while (resultSet.next()) {
                             username = resultSet.getString("username")
                             password = resultSet.getString("password")
@@ -59,7 +60,7 @@ object AuthController extends Controller {
 
                     //todo: make an implementation for the Auth Response
                     val  token =  JwtUtility createToken(username+":"+password)
-                    Ok(token)
+                    Ok(Json.obj("status" -> "Ok", "username" -> username, "token" -> token))
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
