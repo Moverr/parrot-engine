@@ -2,6 +2,7 @@ package utils
 
 
 import java.security.MessageDigest
+
 import org.apache.commons.lang3.RandomStringUtils
 import play.api.Logger
 import play.api.libs.Crypto
@@ -52,5 +53,6 @@ class   PasswordHashing {
   }
 
 
-
 }
+object PasswordHashing extends PasswordHashing
+
