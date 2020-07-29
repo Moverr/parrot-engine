@@ -1,9 +1,11 @@
 package app.services
 
 import java.sql.ResultSet
+import java.util.Date
 
 import app.entities.requests.RegistrationRequest
 import controllers.v1.AuthController.{BadRequest, conn}
+import entities.responses.RegistrationResponse
 import play.api.libs.json.Json
 
 
@@ -73,8 +75,9 @@ class UsersService extends UserServiceTrait {
   }
 
 
-  override def createUser(registrationRequest:RegistrationRequest): Unit = {
-
+  override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
+    val response = new RegistrationResponse(1, "moverr@gmail.com", new Date())
+    response
   }
 
   override def list(offset: Int, limit: Int): Unit = {

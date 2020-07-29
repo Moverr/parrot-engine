@@ -1,6 +1,6 @@
 package entities.responses
 
-import org.joda.time.DateTime
+import java.util.Date
 
-case class RegistrationResponse(id:Integer,username:String,created_on:DateTime)
+case class RegistrationResponse(id:Integer,username:String,created_on:Date)
 
