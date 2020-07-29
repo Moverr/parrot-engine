@@ -96,6 +96,13 @@ object AuthController extends Controller {
 
     }
 
+    /*
+    {
+	"email":"moverr@gmail.com",
+	"password": "password"
+    }
+
+     */
 
     def register() = Action {
 
@@ -118,11 +125,15 @@ object AuthController extends Controller {
                 //todo: activate user through validation url.
                var userExists:Boolean =  validateUser(registrationRequest.email,registrationRequest.password)
                if(userExists == true)
-                BadRequest(Json.obj("status" -> "Error", "message" -> "User already registered to the system " ))
+                BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
                    {
+                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+registrationRequest.password+"') " ;
+                       conn = DB.getConnection()
+                       val stmt = conn.createStatement
+                       var result = stmt.execute(query)
                        //todo: create a user and move on
-                       Ok("Sincerely")
+                       Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
                    }
             }
 
