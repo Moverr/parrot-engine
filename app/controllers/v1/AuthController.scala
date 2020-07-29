@@ -50,13 +50,10 @@ object AuthController extends Controller {
                         var username:String = null
                         var password:String = null
                         var createdOn:Date = null
+                        username = resultSet.getString("username")
+                        password = resultSet.getString("password")
+                        createdOn = resultSet.getDate("created_on")
 
-                    //todo: work to improve this part.
-                        while (resultSet.next()) {
-                            username = resultSet.getString("username")
-                            password = resultSet.getString("password")
-                            createdOn = resultSet.getDate("created_on")
-                        }
 
                     //todo: make an implementation for the Auth Response
                     val  token =  JwtUtility createToken(username+":"+password)
