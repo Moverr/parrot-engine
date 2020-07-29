@@ -4,6 +4,7 @@ import java.sql._
 import java.util.Date
 
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
+import app.services.UsersService
 import play.api.libs.json.Json
 import play.api.mvc._
 import utils.PasswordHashing
@@ -81,7 +82,7 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-               var userExists:Boolean =  validateUser(registrationRequest.email,registrationRequest.password)
+               var userExists:Boolean = UsersService validateUser(registrationRequest.email,registrationRequest.password)
                if(userExists == true)
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
@@ -98,34 +99,7 @@ object AuthController extends Controller {
     }
 
 
-    def validateUser(email:String,password:String): Boolean ={
 
-        var query = "SELECT * FROM  \"default\".users as A " +
-                "WHERE " +
-                " A.username LIKE \'" + email + "\' " ;
-
-
-        conn = DB.getConnection()
-
-        val stmt = conn.createStatement
-
-        print("STR: " + query)
-
-        var resultSet = stmt.executeQuery(query)
-
-
-        if(resultSet.next()){
-
-            true
-
-        }else{
-           false
-        }
-
-
-
-
-    }
 
     def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 

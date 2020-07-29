@@ -7,29 +7,25 @@ import controllers.v1.AuthController.{BadRequest, conn}
 import play.api.libs.json.Json
 
 
-
 //////
 import play.api.Play.current
 import play.api.db._
 ///////
 
 
+class UsersService extends UserServiceTrait {
 
-
-
-class UsersService extends BaseServiceTrait {
-
-  def register(registrationRequest: RegistrationRequest): Boolean ={
+  def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
     }
     else if (registrationRequest.password.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
-    }else{
+    } else {
 
     }
-    
-   false
+
+    false
   }
 
 
@@ -49,29 +45,59 @@ class UsersService extends BaseServiceTrait {
   }
 
 
-  override def createUser(): Unit ={
+  def validateUser(email: String, password: String): Boolean = {
+
+    var query = "SELECT * FROM  \"default\".users as A " +
+      "WHERE " +
+      " A.username LIKE \'" + email + "\' ";
+
+
+    conn = DB.getConnection()
+
+    val stmt = conn.createStatement
+
+    print("STR: " + query)
+
+    var resultSet = stmt.executeQuery(query)
+
+
+    if (resultSet.next()) {
+
+      true
+
+    } else {
+      false
+    }
+
 
   }
 
-  override def list(offset:Int,limit:Int): Unit ={
+
+  override def createUser(): Unit = {
 
   }
 
-  override def get(id:Int): Unit ={
-
-  }
-  override def search(query:String,offset:Int,limit:Int): Unit ={
+  override def list(offset: Int, limit: Int): Unit = {
 
   }
 
-  override def populateResponse(): Unit ={
+  override def get(id: Int): Unit = {
 
   }
 
-  override def populateEntity(): Unit ={
+  override def search(query: String, offset: Int, limit: Int): Unit = {
+
+  }
+
+  override def populateResponse(): Unit = {
+
+  }
+
+  override def populateEntity(): Unit = {
 
   }
 
 
 }
+
 object UsersService extends UsersService

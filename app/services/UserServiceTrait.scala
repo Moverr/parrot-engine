@@ -1,6 +1,6 @@
 package app.services
 
-trait BaseServiceTrait {
+trait UserServiceTrait {
 
   def createUser(): Any
 
