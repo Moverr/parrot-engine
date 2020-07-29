@@ -7,6 +7,7 @@ import app.entities.requests.RegistrationRequest
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import play.api.libs.json.Json
+import utils.PasswordHashing
 
 
 //////
@@ -76,6 +77,11 @@ class UsersService extends UserServiceTrait {
 
 
   override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
+    var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
+    conn = DB.getConnection()
+    val stmt = conn.createStatement
+    var result = stmt.execute(query)
+
     val response = new RegistrationResponse(1, "moverr@gmail.com", new Date())
     response
   }

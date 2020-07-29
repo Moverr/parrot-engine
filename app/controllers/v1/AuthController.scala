@@ -87,10 +87,7 @@ object AuthController extends Controller {
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
                    {
-                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+PasswordHashing.encryptPassword(registrationRequest.password)+"') " ;
-                       conn = DB.getConnection()
-                       val stmt = conn.createStatement
-                       var result = stmt.execute(query)
+                       UsersService.createUser(registrationRequest)
                        //todo: create a user and move on
                        Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
                    }
