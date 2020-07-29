@@ -82,7 +82,7 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-               var userExists:Boolean = UsersService validateUser(registrationRequest.email,registrationRequest.password)
+               var userExists:Boolean = UsersService ValidateIfUserExists(registrationRequest.email,registrationRequest.password)
                if(userExists == true)
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else

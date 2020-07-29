@@ -45,7 +45,7 @@ class UsersService extends UserServiceTrait {
   }
 
 
-  def validateUser(email: String, password: String): Boolean = {
+  def ValidateIfUserExists(email: String, password: String): Boolean = {
 
     var query = "SELECT * FROM  \"default\".users as A " +
       "WHERE " +
@@ -73,7 +73,7 @@ class UsersService extends UserServiceTrait {
   }
 
 
-  override def createUser(): Unit = {
+  override def createUser(registrationRequest:RegistrationRequest): Unit = {
 
   }
 
