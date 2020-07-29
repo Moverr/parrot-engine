@@ -6,6 +6,7 @@ import java.util.Date
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import play.api.libs.json.Json
 import play.api.mvc._
+import utils.PasswordHashing
 
 //////
 import app.utils.JwtUtility
@@ -128,7 +129,8 @@ object AuthController extends Controller {
                 BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
                 else
                    {
-                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+registrationRequest.password+"') " ;
+                       var hashedPassword =   PasswordHashing.encryptPassword(registrationRequest.password)
+                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+hashedPassword+"') " ;
                        conn = DB.getConnection()
                        val stmt = conn.createStatement
                        var result = stmt.execute(query)
