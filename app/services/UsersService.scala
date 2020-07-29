@@ -45,7 +45,7 @@ class UsersService extends UserServiceTrait {
       password = resultSet.getString("password")
       createdOn = resultSet.getDate("created_on")
       val token = JwtUtility createToken (username + ":" + password)
-      response = new AuthResponse(id, token, createdOn)
+      response = new AuthResponse(id, username, token, createdOn)
     }
 
     response

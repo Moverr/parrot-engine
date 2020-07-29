@@ -1,15 +1,12 @@
 package controllers.v1
 
-import java.util.Date
-
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
+import app.entities.responses.AuthResponse
 import app.services.UsersService
 import play.api.libs.json.Json
 import play.api.mvc._
-import utils.PasswordHashing
 
 //////
-import app.utils.JwtUtility
 import play.api.Play.current
 import play.api.db._
 import play.api.libs.json._
@@ -33,34 +30,18 @@ object AuthController extends Controller {
             }
 
 
-                // fetch user by email or password
-                val resultSet = UsersService fetchUserByEmailAndPassword(authRequest.username,  PasswordHashing.encryptPassword(authRequest.password));
-
-                if (resultSet.next()) {
-                    //todo: Populate a basic JWT Token
-                        var username:String = null
-                        var password:String = null
-                        var createdOn:Date = null
-                        username = resultSet.getString("username")
-                        password = resultSet.getString("password")
-                        createdOn = resultSet.getDate("created_on")
-
-
-                    //todo: make an implementation for the Auth Response
-                    val  token =  JwtUtility createToken(username+":"+password)
-                    Ok(Json.obj("status" -> "Ok", "username" -> username, "token" -> token))
-
-                }else{
-                      Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
-                }
-
-
+            var response: AuthResponse = UsersService login (authRequest)
+            if (response == null) Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
+            else {
+                //  val  token =  JwtUtility createToken(AuthResponse.username+":"+password)
+                Ok(Json.obj("status" -> "Ok", "username" -> response.username, "token" -> response.token))
+            }
 
 
     }
 
 
-//todo: Register
+    //todo: Register
 
     def register() = Action {
 
@@ -74,22 +55,17 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-               var userExists:Boolean = UsersService ValidateIfUserExists (registrationRequest.email,registrationRequest.password)
-               if(userExists == true)
-                BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
-                else
-                   {
-                       UsersService createUser registrationRequest
-                       //todo: create a user and move on
-                       Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
-                   }
+                var userExists: Boolean = UsersService ValidateIfUserExists(registrationRequest.email, registrationRequest.password)
+                if (userExists == true)
+                    BadRequest(Json.obj("code" -> 400, "status" -> "Badrequest", "message" -> "User already registered to the system "))
+                else {
+                    UsersService createUser registrationRequest
+                    //todo: create a user and move on
+                    Ok(Json.obj("code" -> 200, "status" -> "Success", "message" -> "User Created"))
+                }
             }
 
     }
-
-
-
-
 
 
 }
