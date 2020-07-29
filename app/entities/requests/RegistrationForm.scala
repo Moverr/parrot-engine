@@ -9,9 +9,7 @@ object RegistrationForm {
   val form: Form[RegistrationRequest] = Form(
     mapping(
       "email" -> text,
-      "password" -> text,
-      "firstname" -> text,
-      "lastname" -> text
+      "password" -> text
     )(RegistrationRequest.apply)(RegistrationRequest.unapply)
   )
 }

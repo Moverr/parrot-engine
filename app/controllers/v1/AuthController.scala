@@ -1,50 +1,24 @@
 package controllers.v1
 
-import java.sql.ResultSet
+import java.sql._
+import java.util.Date
 
-import app.entities.requests.{AuthForm, AuthenticationRequest, LoginRequest, RegistrationForm, RegistrationRequest, SocialAuthentication}
-import app.entities.responses.{AuthResponse, RoleResponse, UserResponse}
-import app.utils.StatusEnums
-import play.api.Logger
+import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import play.api.libs.json.Json
 import play.api.mvc._
-import play.api.libs.json.Json
+import utils.PasswordHashing
 
-import scala.util.parsing.json._
-import play.api.libs.json._
-import play.api.data._
-import play.api.data.Forms._
-import play.api.db._
-import play.api.Play.current
-
+//////
 import app.utils.JwtUtility
-
+import play.api.Play.current
+import play.api.db._
+import play.api.libs.json._
+///////
 
 
 
 object AuthController extends Controller {
     var conn = DB.getConnection()
-
-/*
-    val JwtSecretKey = "secretKey"
-    val JwtSecretAlgo = "HS256"
-
-    def createToken(payload: String): String = {
-        val header = JwtHeader(JwtSecretAlgo)
-        val claimsSet = JwtClaimsSet(payload)
-        JsonWebToken(header, claimsSet, JwtSecretKey)
-    }
-
-
-    def isValidToken(jwtToken: String): Boolean =
-        JsonWebToken.validate(jwtToken, JwtSecretKey)
-    def decodePayload(jwtToken: String): Option[String] =
-        jwtToken match {
-            case JsonWebToken(header, claimsSet, signature) => Option(claimsSet.asJsonString)
-            case _                                          => None
-        }
-
-*/
 
 
 
@@ -61,39 +35,32 @@ object AuthController extends Controller {
             }
 
             //todo: select from db where user name and password = xx s
-
-            var jsson = Json.toJson("");
-
             var query = "SELECT * FROM  \"default\".users as A " +
                     "WHERE " +
                     " A.username LIKE \'" + authRequest.username + "\' " +
                     "AND" +
                     " A.password LIKE \'" + authRequest.password + "\' ";
 
-
-
-
-                val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+                val resultSet = fetchUserByEmailAndPassword(authRequest.username,  PasswordHashing.encryptPassword(authRequest.password));
 
                 if (resultSet.next()) {
                     //todo: Populate a basic JWT Token
-                   /* while (resultSet.next()) {
-                        username = resultSet.getString("username")
-                        password = resultSet.getString("password")
-
-                    }
-                    if (username.length() > 0 && password.length() > 0) {
-                        jsson = Json.toJson(authRequest)
-                    } */
-                  // BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "User is not Authorized"))
-//                    val token = Jwt.encode("""{"user":1}""", "secretKey", JwtAlgorithm.HS256)
-//                    token
 
 
-                    val token =  JwtUtility createToken("movers")
+                        var username:String = null
+                        var password:String = null
+                        var createdOn:Date = null
 
-                   // val token = createToken("mover")
-                    Ok(token)
+                    //todo: work to improve this part.
+                        while (resultSet.next()) {
+                            username = resultSet.getString("username")
+                            password = resultSet.getString("password")
+                            createdOn = resultSet.getDate("created_on")
+                        }
+
+                    //todo: make an implementation for the Auth Response
+                    val  token =  JwtUtility createToken(username+":"+password)
+                    Ok(Json.obj("status" -> "Ok", "username" -> username, "token" -> token))
 
                 }else{
                       Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
@@ -102,12 +69,10 @@ object AuthController extends Controller {
 
 
 
-
-
-
-
     }
 
+
+//todo: Register
 
     def register() = Action {
 
@@ -121,14 +86,51 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-                //todo: username and password
-
-                BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
+               var userExists:Boolean =  validateUser(registrationRequest.email,registrationRequest.password)
+               if(userExists == true)
+                BadRequest(Json.obj("code" -> 400,"status" -> "Badrequest", "message" -> "User already registered to the system " ))
+                else
+                   {
+                       var query = "INSERT INTO  \"default\".users (username,password)  values ('"+registrationRequest.email+"','"+PasswordHashing.encryptPassword(registrationRequest.password)+"') " ;
+                       conn = DB.getConnection()
+                       val stmt = conn.createStatement
+                       var result = stmt.execute(query)
+                       //todo: create a user and move on
+                       Ok(Json.obj("code" -> 200,"status" -> "Success", "message" -> "User Created" ))
+                   }
             }
-
 
     }
 
+
+    def validateUser(email:String,password:String): Boolean ={
+
+        var query = "SELECT * FROM  \"default\".users as A " +
+                "WHERE " +
+                " A.username LIKE \'" + email + "\' " ;
+
+
+        conn = DB.getConnection()
+
+        val stmt = conn.createStatement
+
+        print("STR: " + query)
+
+        var resultSet = stmt.executeQuery(query)
+
+
+        if(resultSet.next()){
+
+            true
+
+        }else{
+           false
+        }
+
+
+
+
+    }
 
     def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
@@ -140,13 +142,13 @@ object AuthController extends Controller {
         print("STR: " + query)
         conn = DB.getConnection()
         val stmt = conn.createStatement
-        val resultSet = stmt.executeQuery(query)
+        var resultSet = stmt.executeQuery(query)
         resultSet
 
 
     }
 
-    def ExecuteQuerySelect(query: String) = {
+    def ExecuteQuerySelect(query: String): Any = {
 
 
         conn = DB.getConnection()
@@ -157,9 +159,7 @@ object AuthController extends Controller {
 
         val resultSet = stmt.executeQuery(query)
         resultSet
-
-
     }
-
+    
 
 }
