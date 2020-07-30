@@ -34,44 +34,36 @@ class UsersService extends UserServiceTrait {
   def login(authRequest: AuthenticationRequest): AuthResponse = {
 
     val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
-    var response: AuthResponse = null
+    // if resulset is not empty
     if (resultSet.next()) {
-      //todo: Populate a basic JWT Token
-      var username: String = null
-      var password: String = null
-      var createdOn: Date = null
-      var id: Integer = resultSet.getInt("id")
-      username = resultSet.getString("username")
-      password = resultSet.getString("password")
-      createdOn = resultSet.getDate("created_on")
+      val id: Integer = resultSet.getInt("id")
+      val username = resultSet.getString("username")
+      val password = resultSet.getString("password")
+      val createdOn = resultSet.getDate("created_on")
       val token = JwtUtility createToken (username + ":" + password)
-      response = new AuthResponse(id, username, token, createdOn)
-    }
+      new AuthResponse(id, username, token, createdOn)
+    } else null
 
-    response
+
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
-
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
     print("STR: " + query)
     conn = DB getConnection()
     val stmt = conn createStatement
     var resultSet = stmt executeQuery (query)
     resultSet
-
   }
 
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
-
     conn = DB getConnection()
     val stmt = conn.createStatement
     print("STR: " + query)
     var resultSet = stmt executeQuery (query)
     if (resultSet next()) true else false
-
   }
 
 
@@ -84,8 +76,11 @@ class UsersService extends UserServiceTrait {
     response
   }
 
-  def validateToken(token: String): Unit = {
-
+  //todo: validate token and return a User Object
+  def validateToken(token: String): AuthResponse = {
+    val authRequest = new AuthenticationRequest("userame", "password")
+    val _response = login(authRequest: AuthenticationRequest)
+    _response
   }
 
 
