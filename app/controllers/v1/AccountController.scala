@@ -1,5 +1,6 @@
 package controllers.v1
 
+import entities.requests.accounts.AccountReqquest
 import play.api.mvc._
 
 
@@ -7,6 +8,9 @@ object AccountController  extends Controller {
 
 
   def create = Action{
+      implicit request =>
+      val authRequest: AccountReqquest = AccountReqquest.form.bindFromRequest.get
+
     Ok("Create Account")
   }
 
