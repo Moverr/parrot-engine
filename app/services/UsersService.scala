@@ -79,7 +79,6 @@ class UsersService extends UserServiceTrait {
   //todo: validate token and return a User Object
   def validateToken(authentication: String): AuthResponse = {
 
-    //todo:
     val auth = authentication.replace("bearer", "").trim()
     val usernamepassword = JwtUtility.decodePayload(auth).get
 
