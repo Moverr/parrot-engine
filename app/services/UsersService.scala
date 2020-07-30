@@ -77,8 +77,19 @@ class UsersService extends UserServiceTrait {
   }
 
   //todo: validate token and return a User Object
-  def validateToken(token: String): AuthResponse = {
-    val authRequest = new AuthenticationRequest("userame", "password")
+  def validateToken(authentication: String): AuthResponse = {
+
+    //todo:
+    val auth = authentication.replace("bearer", "").trim()
+    val usernamepassword = JwtUtility.decodePayload(auth).get
+
+    val authparts: Array[String] = usernamepassword.split(":")
+    if (!authparts.size.eq(2)) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+
+    val username = authparts(0)
+    val password = authparts(1)
+
+    val authRequest = new AuthenticationRequest(username, password)
     val _response = login(authRequest: AuthenticationRequest)
     _response
   }
