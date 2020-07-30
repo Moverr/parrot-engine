@@ -17,7 +17,6 @@ object AuthController extends Controller {
     var conn = DB.getConnection()
 
 
-    //todo: auth login
     def login() = Action {
         implicit request =>
             val authRequest: AuthenticationRequest = AuthForm.form.bindFromRequest.get
@@ -29,19 +28,14 @@ object AuthController extends Controller {
                 )
             }
 
-
             var response: AuthResponse = UsersService login (authRequest)
             if (response == null) Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
             else {
-                //  val  token =  JwtUtility createToken(AuthResponse.username+":"+password)
                 Ok(Json.obj("status" -> "Ok", "username" -> response.username, "token" -> response.token))
             }
 
-
     }
 
-
-    //todo: Register
 
     def register() = Action {
 
@@ -60,7 +54,6 @@ object AuthController extends Controller {
                     BadRequest(Json.obj("code" -> 400, "status" -> "Badrequest", "message" -> "User already registered to the system "))
                 else {
                     UsersService createUser registrationRequest
-                    //todo: create a user and move on
                     Ok(Json.obj("code" -> 200, "status" -> "Success", "message" -> "User Created"))
                 }
             }

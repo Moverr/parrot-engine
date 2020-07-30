@@ -1,16 +1,9 @@
 package controllers.v1
 
-import javax.inject.Inject
-import play.api.Logger
-import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc._
 
 
 object AccountController  extends Controller {
-  def index = Action {
-    Ok("Accounts COntroller")
-  }
 
 
   def create = Action{
@@ -21,10 +14,12 @@ object AccountController  extends Controller {
     Ok("Get Account")
   }
 
-  def list = Action{
-    Ok("List Accounts")
-  }
 
 
+/*
+    Get List Create Update Archive Restore
+    You should only be able to create only on  Account on a User.
+    so. create and update.  the account name should be unique accross. Naa. not important.
+ */
 
 }
