@@ -1,5 +1,7 @@
 package controllers.v1
 
+import app.entities.responses.AuthResponse
+import app.services.UsersService
 import entities.requests.accounts.AccountReqquest
 import play.api.mvc._
 
@@ -10,7 +12,8 @@ object AccountController extends Controller {
         implicit request =>
 
             //todo: Authenticate
-            val authorization = request.headers.get("Authorization")
+            val authorization = request.headers.get("Authorization").get
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
 
             println(s"*** headers: ${request.headers}")
             val authRequest: AccountReqquest = AccountReqquest.form.bindFromRequest.get

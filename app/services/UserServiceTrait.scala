@@ -18,6 +18,6 @@ trait UserServiceTrait {
 
   def populateEntity(): Unit
 
-  def validateToken(authentication: String): AuthResponse
+  def validateAuthorization(authentication: String): AuthResponse
 
 }
