@@ -84,7 +84,7 @@ class UsersService extends UserServiceTrait {
     val usernamepassword = JwtUtility.decodePayload(auth).get
 
     val authparts: Array[String] = usernamepassword.split(":")
-    if (!authparts.size.eq(2)) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+    if (authparts.size != 2) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
     val username = authparts(0)
     val password = authparts(1)
