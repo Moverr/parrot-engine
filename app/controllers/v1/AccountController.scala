@@ -15,7 +15,6 @@ object AccountController  extends Controller {
   }
 
 
-
 /*
     Get List Create Update Archive Restore
     You should only be able to create only on  Account on a User.
