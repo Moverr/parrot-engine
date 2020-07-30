@@ -84,6 +84,11 @@ class UsersService extends UserServiceTrait {
     response
   }
 
+  def validateToken(token: String): Unit = {
+
+  }
+
+
   override def list(offset: Int, limit: Int): Unit = {
 
   }

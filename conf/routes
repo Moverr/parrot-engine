@@ -8,7 +8,7 @@ GET     /                           controllers.Application.index
 
 
 #ACCOUNTS
-GET /v1/accounts/create                           controllers.v1.AccountController.create
+POST /v1/account                           controllers.v1.AccountController.create
 
 #USERS
 GET /v1/users                                     controllers.v1.UsersController.index
