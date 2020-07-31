@@ -35,20 +35,15 @@ class UsersService extends UserServiceTrait {
     val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
     // if resulset is not empty
     if (resultSet.next()) {
-      val response  =  populateResponse(resultSet)
-      response
+      val id: Integer = resultSet.getInt("id")
+      val username = resultSet.getString("username")
+//      val password = resultSet.getString("password")
+      val createdOn = resultSet.getDate("created_on")
+      val token = HelperUtilities.convertToBasicAuth(username , authRequest.password)
+      new AuthResponse(id, username, token, createdOn)
     } else null
 
 
-  }
-
-  private def populateResponse(resultSet: ResultSet) = {
-    val id: Integer = resultSet.getInt("id")
-    val username = resultSet.getString("username")
-    val password = resultSet.getString("password")
-    val createdOn = resultSet.getDate("created_on")
-    val token = HelperUtilities.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
