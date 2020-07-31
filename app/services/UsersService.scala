@@ -5,7 +5,6 @@ import java.util.Date
 
 import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
-import app.utils.JwtUtility
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import play.api.libs.json.Json
@@ -40,7 +39,7 @@ class UsersService extends UserServiceTrait {
       val username = resultSet.getString("username")
       val password = resultSet.getString("password")
       val createdOn = resultSet.getDate("created_on")
-      val token = JwtUtility createToken (username + ":" + password)
+      val token = HelperUtilities.convertToBasicAuth(username , password)
       new AuthResponse(id, username, token, createdOn)
     } else null
 
