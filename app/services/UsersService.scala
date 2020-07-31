@@ -35,15 +35,19 @@ class UsersService extends UserServiceTrait {
     val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
     // if resulset is not empty
     if (resultSet.next()) {
-      val id: Integer = resultSet.getInt("id")
-      val username = resultSet.getString("username")
-//      val password = resultSet.getString("password")
-      val createdOn = resultSet.getDate("created_on")
-      val token = HelperUtilities.convertToBasicAuth(username , authRequest.password)
-      new AuthResponse(id, username, token, createdOn)
+      populateResponse(resultSet)
     } else null
 
 
+  }
+
+  private def populateResponse(resultSet: ResultSet) = {
+    val id: Integer = resultSet.getInt("id")
+    val username = resultSet.getString("username")
+    val password = resultSet.getString("password")
+    val createdOn = resultSet.getDate("created_on")
+    val token = HelperUtilities.convertToBasicAuth(username, password)
+    new AuthResponse(id, username, token, createdOn)
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
@@ -88,11 +92,15 @@ class UsersService extends UserServiceTrait {
       val username = userNameAndPassword(0)
       val password = userNameAndPassword(1)
       print("..............KKKK................")
-      print("PASSWORD"+password)
+      print("PASSWORD" + password)
       print("..............KKKK................")
 
       val authRequest = new AuthenticationRequest(username, password)
-      val _response = login(authRequest: AuthenticationRequest)
+      val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+
+      //move cursor
+      resultSet.next()
+      val _response = populateResponse(resultSet)
       _response
 
     }
