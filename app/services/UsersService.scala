@@ -9,7 +9,7 @@ import app.utils.JwtUtility
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import play.api.libs.json.Json
-import utils.PasswordHashing
+import utils.{HelperUtilities, PasswordHashing}
 
 
 //////
@@ -71,7 +71,7 @@ class UsersService extends UserServiceTrait {
     var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
     conn = DB getConnection()
     val stmt = conn createStatement
-    var result = stmt executeUpdate  (query)
+    var result = stmt executeUpdate (query)
     val response = new RegistrationResponse(1, registrationRequest.email, new Date())
     response
   }
@@ -79,22 +79,23 @@ class UsersService extends UserServiceTrait {
   //todo: validate token and return a User Object
   def validateAuthorization(authentication: String): AuthResponse = {
 
-    //val auth = authentication.replace("bearer", "").trim()
-    val usernamepassword = JwtUtility.decodePayload(authentication)
-    print("+:::::::::::::::::::::::::::::::::::::::::::::::::+")
-    print(usernamepassword)
-    print("++::::::::::::::::::::::::::::::::::::::::::::::::+")
-    null
-/*
-    val authparts: Array[String] = usernamepassword.get.split(":")
-    if (authparts.size != 2) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+    val auth = authentication.replace("bearer", "").trim()
+    val userNameAndPassword = HelperUtilities.decodeAuth(auth)
 
-    val username = authparts(0)
-    val password = authparts(1)
+    if (userNameAndPassword == null) {
+      null
+    }
+    else {
+      val username = userNameAndPassword(0)
+      val password = userNameAndPassword(1)
 
-    val authRequest = new AuthenticationRequest(username, password)
-    val _response = login(authRequest: AuthenticationRequest)
-    _response*/
+      val authRequest = new AuthenticationRequest(username, password)
+      val _response = login(authRequest: AuthenticationRequest)
+      _response
+
+    }
+
+
   }
 
 

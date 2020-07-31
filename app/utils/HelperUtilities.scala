@@ -1,6 +1,8 @@
 package utils
 
 import scala.util.Random
+import java.util.Base64
+
 
 class HelperUtilities {
 
@@ -10,7 +12,7 @@ class HelperUtilities {
     result.toString()
   }
 
-  import java.util.Base64
+
 
   def convertToBasicAuth(username: String, Password: String): String = {
     val authString = username + ":" + Password
