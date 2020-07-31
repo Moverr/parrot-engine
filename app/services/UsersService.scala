@@ -71,8 +71,8 @@ class UsersService extends UserServiceTrait {
     var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
     conn = DB getConnection()
     val stmt = conn createStatement
-    var result = stmt execute (query)
-    val response = new RegistrationResponse(1, "moverr@gmail.com", new Date())
+    var result = stmt executeUpdate  (query)
+    val response = new RegistrationResponse(1, registrationRequest.email, new Date())
     response
   }
 

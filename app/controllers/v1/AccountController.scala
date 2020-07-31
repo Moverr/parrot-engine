@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountReqquest
 import play.api.mvc._
+import services.AccountService
 
 
 object AccountController extends Controller {
@@ -16,7 +17,9 @@ object AccountController extends Controller {
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
 
             println(s"*** headers: ${request.headers}")
-            val authRequest: AccountReqquest = AccountReqquest.form.bindFromRequest.get
+            val accountRequest: AccountReqquest = AccountReqquest.form.bindFromRequest.get
+            AccountService.create(authResponse.id,accountRequest)
+
             Ok("Create Account")
     }
 
