@@ -2,8 +2,9 @@ package services
 
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.requests.accounts.AccountReqquest
+import entities.responses.accounts.AccountResponse
 import play.api.db.DB
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Writes}
 import utils.HelperUtilities
 
 
@@ -39,8 +40,25 @@ class AccountService {
     if (result.next()) true else false
   }
 
-  def get(): Unit = {
+  def get(owner: Integer): AccountResponse = {
+    var query = "SELECT * FROM   \"default\".account WHERE owner = " + owner + "    ) ";
+    conn = DB getConnection()
+    val stmt = conn createStatement
+    var result = stmt.executeQuery(query)
 
+    implicit val response = new Writes[AccountResponse] {
+      def writes(_account: AccountResponse) = Json.obj(
+        "name" -> _account.name
+      )
+    }
+
+    var account = new AccountResponse("");
+    if (result.next()) {
+
+      val accountName = result.getString("name");
+      account = new AccountResponse(accountName);
+    }
+    account
   }
 
 }
