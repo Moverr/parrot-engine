@@ -31,7 +31,17 @@ object AuthController extends Controller {
             var response: AuthResponse = UsersService login (authRequest)
             if (response == null) Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
             else {
-                Ok(Json.obj("status" -> "Ok", "username" -> response.username, "token" -> response.token))
+                implicit val resposnse = new Writes[AuthResponse] {
+                    def writes(_auth: AuthResponse) = Json.obj(
+                        "id" -> _auth.id.toString
+                        , "username" -> _auth.username
+                        , "token" -> _auth.token
+                        , "created_on" -> _auth.dateCreated
+                    )
+                }
+
+                //                Ok(Json.obj("status" -> "Ok", "username" -> response.username, "token" -> response.token))
+                Ok(Json.toJson(response))
             }
 
     }
