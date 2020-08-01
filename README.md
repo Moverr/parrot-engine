@@ -1,4 +1,7 @@
 # PARROT ENGINE
+
+![Scala CI](https://github.com/Moverr/parrot-engine/workflows/Scala%20CI/badge.svg?branch=master)
+
 <hr>
 Parrot Engine v1.0.0 Under <b>KODE INC </b>
 
@@ -44,4 +47,14 @@ $ heroku open
 
 -->
  
- 
+
+```sh
+ import scala.util.parsing.json._
+ import play.api.libs.json._
+ import play.api.data._
+ import play.api.data.Forms._
+ import play.api.db._
+ import play.api.Play.current
+ import app.utils.JwtUtility
+```
+
