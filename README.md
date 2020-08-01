@@ -12,7 +12,13 @@ Functions
     * Logout/ Login
     * Activate / Deactivatate
 * Profile Management
+    * Create
+    * Update //location // contacts , web links
 * Station Management
+    * Create
+    * Update
+    * Archive
+    * Publish
 * Device Management
 * Office  and Department Management
 * Employee List and ROle Management
