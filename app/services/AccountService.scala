@@ -20,16 +20,11 @@ class AccountService {
 
     val external_id = HelperUtilities.randomStringGenerator(20)
 
-    try {
-      var query = "INSERT INTO  \"default\".account (owner,name,external_id)  values ('" + owner + "','" + account.name + "','" + external_id + "') ";
-      conn = DB getConnection()
-      val stmt = conn createStatement
-      var result = stmt executeUpdate (query)
-    }
-    catch {
-      case _: Throwable => BadRequest("Something went wrong internally")
-    }
 
+    var query = "INSERT INTO  \"default\".account (owner,name,external_id,author_id)  values ('" + owner + "','" + account.name + "','" + external_id + "','" + owner + "') ";
+    conn = DB getConnection()
+    val stmt = conn createStatement
+    var result = stmt executeUpdate (query)
 
   }
 

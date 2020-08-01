@@ -91,9 +91,6 @@ class UsersService extends UserServiceTrait {
     else {
       val username = userNameAndPassword(0)
       val password = userNameAndPassword(1)
-      print("..............KKKK................")
-      print("PASSWORD" + password)
-      print("..............KKKK................")
 
       val authRequest = new AuthenticationRequest(username, password)
       val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
