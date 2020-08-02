@@ -2,8 +2,9 @@ package controllers.v1
 
 import play.api.mvc.{Action, Controller}
 
+//todo: deploy to the server and move
 //todo: create stations and move on
-class StationsController extends Controller {
+object StationsController extends Controller {
     def create = Action {
         Ok("Interesting")
     }
