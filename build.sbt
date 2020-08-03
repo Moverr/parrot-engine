@@ -15,6 +15,9 @@ libraryDependencies ++= Seq(
   "org.hibernate" % "hibernate-core" % "5.4.9.Final",
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   "com.typesafe.play" %% "play-json" % "2.3.0",
+  "org.scalactic" %% "scalactic" % "3.2.0",
+  "org.scalatest" %% "scalatest" % "3.2.0" % "test",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % Test,
   javaJpa,
   ws
 )
