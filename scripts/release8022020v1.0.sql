@@ -5,7 +5,7 @@
 -- Dumped from database version 11.5
 -- Dumped by pg_dump version 12.1
 
--- Started on 2020-08-02 15:49:07
+-- Started on 2020-08-02 16:08:32
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -785,7 +785,7 @@ ALTER TABLE ONLY "default".user_role
     ADD CONSTRAINT "user" FOREIGN KEY (user_id) REFERENCES "default".users(id) NOT VALID;
 
 
--- Completed on 2020-08-02 15:49:07
+-- Completed on 2020-08-02 16:08:33
 
 --
 -- PostgreSQL database dump complete

@@ -1,0 +1,547 @@
+SessionManager_ListWidth<|||>3<|||>500
+SessionManager_WindowWidth<|||>3<|||>1601
+SessionManager_WindowHeight<|||>3<|||>1307
+ColWidths_connform.ListSessions<|||>1<|||>408,125,125,125,125,125,88
+ColsVisible_connform.ListSessions<|||>1<|||>0
+ColPositions_connform.ListSessions<|||>1<|||>0,1,2,3,4,5,6
+ColSort_connform.ListSessions<|||>1<|||>0,0
+MainWinOnMonitor<|||>3<|||>0
+ColWidths_MainForm.ListDatabases<|||>1<|||>375,200,125,125,125,125,125,125,125,125,300
+ColsVisible_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColPositions_MainForm.ListDatabases<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10
+ColSort_MainForm.ListDatabases<|||>1<|||>0,0
+ColWidths_MainForm.ListVariables<|||>1<|||>400,500,10
+ColsVisible_MainForm.ListVariables<|||>1<|||>0,1,2
+ColPositions_MainForm.ListVariables<|||>1<|||>0,1,2
+ColSort_MainForm.ListVariables<|||>1<|||>0,0
+ColWidths_MainForm.ListStatus<|||>1<|||>400,10,250,250
+ColsVisible_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColPositions_MainForm.ListStatus<|||>1<|||>0,1,2,3
+ColSort_MainForm.ListStatus<|||>1<|||>0,0
+ColWidths_MainForm.ListProcesses<|||>1<|||>175,200,200,200,200,125,125,10
+ColsVisible_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColPositions_MainForm.ListProcesses<|||>1<|||>0,1,2,3,4,5,6,7
+ColSort_MainForm.ListProcesses<|||>1<|||>0,1
+ColWidths_MainForm.ListCommandStats<|||>1<|||>300,250,250,250,10
+ColsVisible_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColPositions_MainForm.ListCommandStats<|||>1<|||>0,1,2,3,4
+ColSort_MainForm.ListCommandStats<|||>1<|||>1,1
+ColWidths_MainForm.ListTables<|||>1<|||>688,175,175,300,300,175,250,125,175,175,175,175,175,225,300,175,175,175,125
+ColsVisible_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,18
+ColPositions_MainForm.ListTables<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18
+ColSort_MainForm.ListTables<|||>1<|||>0,0
+SQL Attr Comment Foreground<|||>3<|||>8023636
+SQL Attr Comment Background<|||>3<|||>536870911
+SQL Attr Comment Style<|||>3<|||>2
+SQL Attr ConditionalComment Foreground<|||>3<|||>12108397
+SQL Attr ConditionalComment Background<|||>3<|||>536870911
+SQL Attr ConditionalComment Style<|||>3<|||>2
+SQL Attr ConsoleOutput Foreground<|||>3<|||>536870911
+SQL Attr ConsoleOutput Background<|||>3<|||>536870911
+SQL Attr ConsoleOutput Style<|||>3<|||>5
+SQL Attr DataType Foreground<|||>3<|||>15372999
+SQL Attr DataType Background<|||>3<|||>536870911
+SQL Attr DataType Style<|||>3<|||>1
+SQL Attr DefaultPackages Foreground<|||>3<|||>536870911
+SQL Attr DefaultPackages Background<|||>3<|||>536870911
+SQL Attr DefaultPackages Style<|||>3<|||>1
+SQL Attr DelimitedIdentifier Foreground<|||>3<|||>16757122
+SQL Attr DelimitedIdentifier Background<|||>3<|||>536870911
+SQL Attr DelimitedIdentifier Style<|||>3<|||>0
+SQL Attr Exception Foreground<|||>3<|||>536870911
+SQL Attr Exception Background<|||>3<|||>536870911
+SQL Attr Exception Style<|||>3<|||>2
+SQL Attr Function Foreground<|||>3<|||>14929603
+SQL Attr Function Background<|||>3<|||>536870911
+SQL Attr Function Style<|||>3<|||>1
+SQL Attr Identifier Foreground<|||>3<|||>16757122
+SQL Attr Identifier Background<|||>3<|||>536870911
+SQL Attr Identifier Style<|||>3<|||>0
+SQL Attr Key Foreground<|||>3<|||>14929603
+SQL Attr Key Background<|||>3<|||>536870911
+SQL Attr Key Style<|||>3<|||>1
+SQL Attr Number Foreground<|||>3<|||>7361535
+SQL Attr Number Background<|||>3<|||>536870911
+SQL Attr Number Style<|||>3<|||>0
+SQL Attr PLSQL-ReservedWord Foreground<|||>3<|||>536870911
+SQL Attr PLSQL-ReservedWord Background<|||>3<|||>536870911
+SQL Attr PLSQL-ReservedWord Style<|||>3<|||>1
+SQL Attr ProcName Foreground<|||>3<|||>536870911
+SQL Attr ProcName Background<|||>3<|||>536870911
+SQL Attr ProcName Style<|||>3<|||>0
+SQL Attr Space Foreground<|||>3<|||>536870911
+SQL Attr Space Background<|||>3<|||>536870911
+SQL Attr Space Style<|||>3<|||>0
+SQL Attr SQLPlus-Command Foreground<|||>3<|||>536870911
+SQL Attr SQLPlus-Command Background<|||>3<|||>536870911
+SQL Attr SQLPlus-Command Style<|||>3<|||>1
+SQL Attr String Foreground<|||>3<|||>8906947
+SQL Attr String Background<|||>3<|||>536870911
+SQL Attr String Style<|||>3<|||>0
+SQL Attr Symbol Foreground<|||>3<|||>12897152
+SQL Attr Symbol Background<|||>3<|||>536870911
+SQL Attr Symbol Style<|||>3<|||>0
+SQL Attr TableName Foreground<|||>3<|||>6911735
+SQL Attr TableName Background<|||>3<|||>536870911
+SQL Attr TableName Style<|||>3<|||>0
+SQL Attr Variable Foreground<|||>3<|||>7064575
+SQL Attr Variable Background<|||>3<|||>536870911
+SQL Attr Variable Style<|||>3<|||>0
+Theme<|||>1<|||>Windows10 Dark
+FieldColor_Numeric<|||>3<|||>16750469
+FieldColor_Real<|||>3<|||>13663613
+FieldColor_Text<|||>3<|||>7591283
+FieldColor_Binary<|||>3<|||>13203071
+FieldColor_Datetime<|||>3<|||>7566281
+FieldColor_Spatial<|||>3<|||>13553267
+FieldColor_Other<|||>3<|||>7586241
+FieldEditor_Set<|||>3<|||>1
+PreferencesWindowWidth<|||>3<|||>1500
+PreferencesWindowHeight<|||>3<|||>1200
+LastSessions<|||>1<|||>Parrot-Heroku
+LastActiveSession<|||>1<|||>Parrot-Heroku
+FileDialogEncoding_MainForm<|||>3<|||>0
+ColWidths_frmTableEditor.listColumns<|||>1<|||>44,100,349,90,60,230,50,269,130,309,100,100
+ColsVisible_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColPositions_frmTableEditor.listColumns<|||>1<|||>0,1,2,3,4,5,6,7,8,9,10,11
+ColSort_frmTableEditor.listColumns<|||>1<|||>-1,0
+ColWidths_frmTableEditor.treeIndexes<|||>1<|||>973,100,80
+ColsVisible_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
+ColPositions_frmTableEditor.treeIndexes<|||>1<|||>0,1,2
+ColSort_frmTableEditor.treeIndexes<|||>1<|||>-1,0
+ColWidths_frmTableEditor.listForeignKeys<|||>1<|||>740,80,100,80,80,80
+ColsVisible_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColPositions_frmTableEditor.listForeignKeys<|||>1<|||>0,1,2,3,4,5
+ColSort_frmTableEditor.listForeignKeys<|||>1<|||>-1,0
+querymemoheight<|||>3<|||>1029
+dbtreewidth<|||>3<|||>733
+sqloutheight<|||>3<|||>575
+MainWinMaximized<|||>3<|||>1
+StopOnErrorsInBatchMode<|||>3<|||>0
+ExportSQL_DataHow<|||>3<|||>0
+ExportSQL_Filenames<|||>1<|||>D:\mover\parrot_engine\scripts\release1.1.sql<{{{><}}}>D:\mover\parrot_engine\scripts\release1.0.sql<{{{><}}}>C:\Users\muyin\Desktop\p1\important.sql<{{{><}}}>C:\Users\muyin\Desktop\p1\cms.sql<{{{><}}}>C:\Users\muyin\Desktop\p1\scholara.sql<{{{><}}}>D:\mover\sreg_engine\scripts\sreg_v1.0.sql<{{{><}}}>C:\Users\muyin\Desktop\plant2.sql<{{{><}}}>C:\Users\muyin\Desktop\plant1.sql<{{{><}}}>C:\Users\muyin\Desktop\scholar-tenants1<{{{><}}}>C:\Users\muyin\Desktop\scholar-tenants<{{{><}}}>C:\Users\muyin\Desktop\dee.sql<{{{><}}}>D:\mover\scholar\scripts\scholarv4.1.sql<{{{><}}}>D:\mover\scholar\scripts\scholarv4.0.sql<{{{><}}}>C:\Users\muyin\Desktop\marksheet.sql<{{{><}}}>
+TableTools_WindowWidth<|||>3<|||>2382
+TableTools_WindowHeight<|||>3<|||>1053
+TableTools_TreeWidth<|||>3<|||>732
+ExportSQL_CreateDatabases<|||>3<|||>1
+ExportSQL_CreateTables<|||>3<|||>1
+MemoEditorWidth<|||>3<|||>326
+MemoEditorHeight<|||>3<|||>250
+DateTimeEditor_CursorPos_Type4<|||>3<|||>0
+FindDialogSearchHistory<|||>1<|||>119<{{{><}}}>"<{{{><}}}>`id`	INT NOT NULL PRIMARY KEY AUTOINCREMENT,<{{{><}}}>
+FindDialogReplaceHistory<|||>1<|||>`<{{{><}}}>`id`	INT NOT NULL  AUTOINCREMENT,<{{{><}}}>
+MemoEditorMaximized<|||>3<|||>1
+SessionManager_WindowLeft<|||>3<|||>1693
+SessionManager_WindowTop<|||>3<|||>494
+FavoriteObjectsOnly<|||>3<|||>1
+queryhelperswidth<|||>3<|||>440
+WarnUnsafeUpdates<|||>3<|||>0
+ColWidths_frmRoutineEditor.listParameters<|||>1<|||>4,975,90,70
+ColsVisible_frmRoutineEditor.listParameters<|||>1<|||>0,1,2,3
+ColPositions_frmRoutineEditor.listParameters<|||>1<|||>0,1,2,3
+ColSort_frmRoutineEditor.listParameters<|||>1<|||>-1,0
+ExportSQL_ServerDatabase<|||>1<|||>[Same as on source server]
+ColumnSelectorWidth<|||>3<|||>500
+ColumnSelectorHeight<|||>3<|||>375
+SQLFile0<|||>1<|||>D:\mover\parrot_engine\scripts\release1.0.sql
+SQLFile1<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2020-03-05_11-23-31-153.sql
+SQLFile2<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2020-04-01_10-47-19-572.sql
+SQLFile3<|||>1<|||>C:\Users\muyin\Desktop\p1\important.sql
+SQLFile4<|||>1<|||>C:\Users\muyin\Desktop\regea\kafka\tmis_20150304.sql.txt
+SQLFile5<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2020-02-12_15-44-57-703.sql
+SQLFile6<|||>1<|||>D:\mover\scholar\scripts\Reportv1.0.sql
+SQLFile7<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2019-12-26_23-00-50-551.sql
+SQLFile8<|||>1<|||>C:\Users\muyin\Desktop\marksheet.sql
+SQLFile9<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2019-10-18_18-07-34-931.sql
+SQLFile10<|||>1<|||>C:\Users\muyin\Desktop\v1.9.sql
+SQLFile11<|||>1<|||>C:\Users\muyin\AppData\Roaming\HeidiSQL\Backups\query-tab-2019-09-19_20-04-32-561.sql
+SQLFile12<|||>1<|||>D:\mover\scholar\scripts\scholar-tenants.sql
+SQLFile13<|||>1<|||>C:\Users\muyin\Desktop\mover1.sql
+SQLFile14<|||>1<|||>D:\mover\scholar\scripts\scholarv3.9.sql
+SQLFile15<|||>1<|||>D:\mover\scholar\scripts\scholar-data.sql
+SQLFile16<|||>1<|||>D:\mover\scholar\scripts\scholar-tenante.sql
+Servers\aws1-schola-tenants\SessionCreated<|||>1<|||>2019-11-29 16:54:36
+Servers\aws1-schola-tenants\Host<|||>1<|||>aabeay1za7u5vk.czq7c2xzztye.us-east-2.rds.amazonaws.com
+Servers\aws1-schola-tenants\WindowsAuth<|||>3<|||>0
+Servers\aws1-schola-tenants\CleartextPluginEnabled<|||>3<|||>0
+Servers\aws1-schola-tenants\User<|||>1<|||>admin
+Servers\aws1-schola-tenants\Password<|||>1<|||>6669726E73363738395
+Servers\aws1-schola-tenants\LoginPrompt<|||>3<|||>0
+Servers\aws1-schola-tenants\Port<|||>1<|||>3306
+Servers\aws1-schola-tenants\NetType<|||>3<|||>0
+Servers\aws1-schola-tenants\Compressed<|||>3<|||>0
+Servers\aws1-schola-tenants\LocalTimeZone<|||>3<|||>0
+Servers\aws1-schola-tenants\QueryTimeout<|||>3<|||>30
+Servers\aws1-schola-tenants\KeepAlive<|||>3<|||>20
+Servers\aws1-schola-tenants\FullTableStatus<|||>3<|||>1
+Servers\aws1-schola-tenants\Databases<|||>1<|||>
+Servers\aws1-schola-tenants\Comment<|||>1<|||>
+Servers\aws1-schola-tenants\StartupScriptFilename<|||>1<|||>
+Servers\aws1-schola-tenants\TreeBackground<|||>3<|||>536870911
+Servers\aws1-schola-tenants\SSHtunnelHost<|||>1<|||>
+Servers\aws1-schola-tenants\SSHtunnelHostPort<|||>3<|||>22
+Servers\aws1-schola-tenants\SSHtunnelUser<|||>1<|||>
+Servers\aws1-schola-tenants\SSHtunnelPassword<|||>1<|||>5
+Servers\aws1-schola-tenants\SSHtunnelTimeout<|||>3<|||>4
+Servers\aws1-schola-tenants\SSHtunnelPrivateKey<|||>1<|||>
+Servers\aws1-schola-tenants\SSHtunnelPort<|||>3<|||>3307
+Servers\aws1-schola-tenants\SSL_Active<|||>3<|||>0
+Servers\aws1-schola-tenants\SSL_Key<|||>1<|||>
+Servers\aws1-schola-tenants\SSL_Cert<|||>1<|||>
+Servers\aws1-schola-tenants\SSL_CA<|||>1<|||>
+Servers\aws1-schola-tenants\SSL_Cipher<|||>1<|||>
+Servers\aws1-schola-tenants\RefusedCount<|||>3<|||>21
+Servers\aws1-schola-tenants\ServerVersionFull<|||>1<|||>5.7.22-log - Source distribution
+Servers\aws1-schola-tenants\ConnectCount<|||>3<|||>7
+Servers\aws1-schola-tenants\ServerVersion<|||>3<|||>50722
+Servers\aws1-schola-tenants\LastConnect<|||>1<|||>2019-12-26 23:25:15
+Servers\aws1-schola-tenants\lastUsedDB<|||>1<|||>123456789
+Servers\aws1-schola-tenants\FavoriteObjects<|||>1<|||>information_schema||TABLES<{{{><}}}>
+Servers\HousingFinance\SessionCreated<|||>1<|||>2020-01-28 10:13:58
+Servers\HousingFinance\Host<|||>1<|||>uganda-poc-database.ct1j4xg8we5m.eu-west-1.rds.amazonaws.com
+Servers\HousingFinance\WindowsAuth<|||>3<|||>0
+Servers\HousingFinance\CleartextPluginEnabled<|||>3<|||>0
+Servers\HousingFinance\User<|||>1<|||>retrorabbit
+Servers\HousingFinance\Password<|||>1<|||>6746623A7A516F363332474D494E36561
+Servers\HousingFinance\LoginPrompt<|||>3<|||>0
+Servers\HousingFinance\Port<|||>1<|||>5432
+Servers\HousingFinance\NetType<|||>3<|||>8
+Servers\HousingFinance\Compressed<|||>3<|||>0
+Servers\HousingFinance\LocalTimeZone<|||>3<|||>0
+Servers\HousingFinance\QueryTimeout<|||>3<|||>30
+Servers\HousingFinance\KeepAlive<|||>3<|||>20
+Servers\HousingFinance\FullTableStatus<|||>3<|||>1
+Servers\HousingFinance\Databases<|||>1<|||>
+Servers\HousingFinance\Comment<|||>1<|||>
+Servers\HousingFinance\StartupScriptFilename<|||>1<|||>
+Servers\HousingFinance\TreeBackground<|||>3<|||>536870911
+Servers\HousingFinance\SSHtunnelHost<|||>1<|||>
+Servers\HousingFinance\SSHtunnelHostPort<|||>3<|||>22
+Servers\HousingFinance\SSHtunnelUser<|||>1<|||>
+Servers\HousingFinance\SSHtunnelPassword<|||>1<|||>4
+Servers\HousingFinance\SSHtunnelTimeout<|||>3<|||>4
+Servers\HousingFinance\SSHtunnelPrivateKey<|||>1<|||>
+Servers\HousingFinance\SSHtunnelPort<|||>3<|||>3307
+Servers\HousingFinance\SSL_Active<|||>3<|||>0
+Servers\HousingFinance\SSL_Key<|||>1<|||>
+Servers\HousingFinance\SSL_Cert<|||>1<|||>
+Servers\HousingFinance\SSL_CA<|||>1<|||>
+Servers\HousingFinance\SSL_Cipher<|||>1<|||>
+Servers\HousingFinance\RefusedCount<|||>3<|||>5
+Servers\HousingFinance\ServerVersionFull<|||>1<|||>PostgreSQL 11.5 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 4.8.3 20140911 (Red Hat 4.8.3-9), 64-bit
+Servers\HousingFinance\ConnectCount<|||>3<|||>1
+Servers\HousingFinance\ServerVersion<|||>3<|||>110500
+Servers\HousingFinance\LastConnect<|||>1<|||>2020-01-28 10:39:30
+Servers\HousingFinance\lastUsedDB<|||>1<|||>pg_catalog
+Servers\idex-vision\SessionCreated<|||>1<|||>2020-04-02 17:10:35
+Servers\idex-vision\Host<|||>1<|||>newvision-db.csa8xeixiy9f.us-east-1.rds.amazonaws.com
+Servers\idex-vision\WindowsAuth<|||>3<|||>0
+Servers\idex-vision\CleartextPluginEnabled<|||>3<|||>0
+Servers\idex-vision\User<|||>1<|||>admin
+Servers\idex-vision\Password<|||>1<|||>4F6678776A746A706F322B1
+Servers\idex-vision\LoginPrompt<|||>3<|||>0
+Servers\idex-vision\Port<|||>1<|||>3306
+Servers\idex-vision\NetType<|||>3<|||>0
+Servers\idex-vision\Compressed<|||>3<|||>0
+Servers\idex-vision\LocalTimeZone<|||>3<|||>0
+Servers\idex-vision\QueryTimeout<|||>3<|||>30
+Servers\idex-vision\KeepAlive<|||>3<|||>20
+Servers\idex-vision\FullTableStatus<|||>3<|||>1
+Servers\idex-vision\Databases<|||>1<|||>
+Servers\idex-vision\Comment<|||>1<|||>
+Servers\idex-vision\StartupScriptFilename<|||>1<|||>
+Servers\idex-vision\TreeBackground<|||>3<|||>536870911
+Servers\idex-vision\SSHtunnelHost<|||>1<|||>
+Servers\idex-vision\SSHtunnelHostPort<|||>3<|||>22
+Servers\idex-vision\SSHtunnelUser<|||>1<|||>
+Servers\idex-vision\SSHtunnelPassword<|||>1<|||>7
+Servers\idex-vision\SSHtunnelTimeout<|||>3<|||>4
+Servers\idex-vision\SSHtunnelPrivateKey<|||>1<|||>
+Servers\idex-vision\SSHtunnelPort<|||>3<|||>3307
+Servers\idex-vision\SSL_Active<|||>3<|||>0
+Servers\idex-vision\SSL_Key<|||>1<|||>
+Servers\idex-vision\SSL_Cert<|||>1<|||>
+Servers\idex-vision\SSL_CA<|||>1<|||>
+Servers\idex-vision\SSL_Cipher<|||>1<|||>
+Servers\idex-vision\ServerVersionFull<|||>1<|||>5.7.22-log - Source distribution
+Servers\idex-vision\ConnectCount<|||>3<|||>34
+Servers\idex-vision\ServerVersion<|||>3<|||>50722
+Servers\idex-vision\LastConnect<|||>1<|||>2020-07-23 07:17:20
+Servers\idex-vision\RefusedCount<|||>3<|||>1
+Servers\idex-vision\lastUsedDB<|||>1<|||>newvision_db
+Servers\idex-vision\newvision_db|app_info\Sort<|||>1<|||>0_details|
+Servers\idex-vision\newvision_db|articles_authors\Sort<|||>1<|||>1_articles_id|
+Servers\idex-vision\newvision_db|authorfollowing\Sort<|||>1<|||>1_author|1_owner|
+Servers\idex-vision\newvision_db|devices\Sort<|||>1<|||>0_id|1_owner|
+Servers\idex-vision\newvision_db|directus_users\Sort<|||>1<|||>1_email|0_status|0_id|
+Servers\idex-vision\QueryHistory\1<|||>1<|||>2020-07-05 21:10:15|newvision_db|265|SELECT * FROM articles_authors<{{{><}}}>WHERE articles_id  = 934<{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\2<|||>1<|||>2020-07-05 21:10:35|newvision_db|265|DELETE   FROM articles_authors<{{{><}}}>WHERE articles_id  >= 934<{{{><}}}>
+Servers\idex-vision\QueryHistory\3<|||>1<|||>2020-07-05 21:11:13|newvision_db|282|SELECT *    FROM articles_authors<{{{><}}}>WHERE articles_id  = 934<{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\4<|||>1<|||>2020-07-05 21:13:43|newvision_db|281|SELECT *    FROM articles_authors<{{{><}}}>WHERE articles_id  = 936<{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\5<|||>1<|||>2020-07-06 01:17:43|newvision_db|282|SELECT *    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.author = B.id<{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\6<|||>1<|||>2020-07-06 01:18:15|newvision_db|0|SELECT *    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.author = B.id 4 WHERE B IS_NULL<{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\7<|||>1<|||>2020-07-06 01:19:27|newvision_db|281|SELECT *    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.author != B.id   <{{{><}}}> LIMIT 1
+Servers\idex-vision\QueryHistory\8<|||>1<|||>2020-07-06 01:19:40|newvision_db|578|SELECT *    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.author != B.id   <{{{><}}}> LIMIT 100
+Servers\idex-vision\QueryHistory\9<|||>1<|||>2020-07-06 01:20:05|newvision_db|265|SELECT A.*    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.author != B.id   <{{{><}}}> LIMIT 100
+Servers\idex-vision\QueryHistory\10<|||>1<|||>2020-07-06 01:20:26|newvision_db|328|SELECT A.*    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.owner != B.id   <{{{><}}}> LIMIT 100
+Servers\idex-vision\QueryHistory\12<|||>1<|||>2020-07-06 01:21:08|newvision_db|0|SELECT A.*    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.owner == B.id   <{{{><}}}> LIMIT 1000
+Servers\idex-vision\QueryHistory\13<|||>1<|||>2020-07-06 01:21:16|newvision_db|844|SELECT A.*    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.owner = B.id   <{{{><}}}> LIMIT 1000
+Servers\idex-vision\QueryHistory\14<|||>1<|||>2020-07-06 01:22:20|newvision_db|828|SELECT A.*    FROM authorfollowing A INNER JOIN directus_users B<{{{><}}}>ON A.owner != B.id   <{{{><}}}> LIMIT 1000
+Servers\idex-vision\QueryHistory\11<|||>1<|||>2020-07-06 01:26:15|newvision_db|265|SELECT * FROM directus_users LIMIT 1;<{{{><}}}>
+Servers\idex-vision\QueryHistory\15<|||>1<|||>2020-07-06 01:26:34|newvision_db|281|SELECT * FROM directus_users  order by id desc LIMIT 1 ;<{{{><}}}>
+Servers\idex-vision\QueryHistory\16<|||>1<|||>2020-07-06 01:27:31|newvision_db|265|SELECT * FROM directus_users  order by id desc LIMIT 5 ;<{{{><}}}><{{{><}}}>--DELETE FROM authorfollowing WHERE authorfollowing.owner > 2129<{{{><}}}>
+Servers\idex-vision\QueryHistory\17<|||>1<|||>2020-07-06 01:28:04|newvision_db|0|--SELECT * FROM directus_users  order by id desc LIMIT 5 ;<{{{><}}}><{{{><}}}>DELETE FROM authorfollowing WHERE authorfollowing.owner > 2129;<{{{><}}}>
+Servers\idex-vision\QueryHistory\18<|||>1<|||>2020-07-06 01:28:50|newvision_db|282|SELECT * FROM authorfollowing  order by authorfollowing.owner desc LIMIT 5 ;<{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\idex-vision\QueryHistory\19<|||>1<|||>2020-07-06 01:29:23|newvision_db|266|SELECT * FROM directus_users  order by id desc LIMIT 5 ;<{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\idex-vision\QueryHistory\20<|||>1<|||>2020-07-06 01:30:25|newvision_db|281|SELECT * FROM directus_users  order by id desc LIMIT 5 ;<{{{><}}}>ELECT * FROM authorfollowing  order by authorfollowing.owner desc LIMIT 5 ;<{{{><}}}> <{{{><}}}>
+Servers\idex-vision\QueryHistory\21<|||>1<|||>2020-07-06 01:30:51|newvision_db|547|SELECT * FROM directus_users  order by id desc LIMIT 5 ;<{{{><}}}>SELECT * FROM authorfollowing  order by authorfollowing.owner desc LIMIT 5 ;<{{{><}}}> <{{{><}}}>
+Servers\idex-vision\QueryHistory\22<|||>1<|||>2020-07-23 07:19:14|newvision_db|297|SELECT * FROM directus_users  A WHERE A.email LIKE "%muyindarogers%"<{{{><}}}>
+Servers\idex-vision\QueryHistory\23<|||>1<|||>2020-07-23 07:21:04|newvision_db|0|SELECT * FROM devices  A<{{{><}}}> WHERE A.owner  19<{{{><}}}>
+Servers\idex-vision\QueryHistory\24<|||>1<|||>2020-07-23 07:21:25|newvision_db|297|SELECT * FROM devices  A<{{{><}}}> WHERE A.owner  = 19<{{{><}}}>
+Servers\local-postgres\SessionCreated<|||>1<|||>2020-01-29 10:13:52
+Servers\local-postgres\Host<|||>1<|||>127.0.0.1
+Servers\local-postgres\WindowsAuth<|||>3<|||>0
+Servers\local-postgres\CleartextPluginEnabled<|||>3<|||>0
+Servers\local-postgres\User<|||>1<|||>postgres
+Servers\local-postgres\Password<|||>1<|||>78697B7B7F777A6C8
+Servers\local-postgres\LoginPrompt<|||>3<|||>0
+Servers\local-postgres\Port<|||>1<|||>5432
+Servers\local-postgres\NetType<|||>3<|||>8
+Servers\local-postgres\Compressed<|||>3<|||>0
+Servers\local-postgres\LocalTimeZone<|||>3<|||>0
+Servers\local-postgres\QueryTimeout<|||>3<|||>30
+Servers\local-postgres\KeepAlive<|||>3<|||>20
+Servers\local-postgres\FullTableStatus<|||>3<|||>1
+Servers\local-postgres\Databases<|||>1<|||>
+Servers\local-postgres\Comment<|||>1<|||>
+Servers\local-postgres\StartupScriptFilename<|||>1<|||>
+Servers\local-postgres\TreeBackground<|||>3<|||>536870911
+Servers\local-postgres\SSHtunnelHost<|||>1<|||>
+Servers\local-postgres\SSHtunnelHostPort<|||>3<|||>22
+Servers\local-postgres\SSHtunnelUser<|||>1<|||>
+Servers\local-postgres\SSHtunnelPassword<|||>1<|||>2
+Servers\local-postgres\SSHtunnelTimeout<|||>3<|||>4
+Servers\local-postgres\SSHtunnelPrivateKey<|||>1<|||>
+Servers\local-postgres\SSHtunnelPort<|||>3<|||>3307
+Servers\local-postgres\SSL_Active<|||>3<|||>0
+Servers\local-postgres\SSL_Key<|||>1<|||>
+Servers\local-postgres\SSL_Cert<|||>1<|||>
+Servers\local-postgres\SSL_CA<|||>1<|||>
+Servers\local-postgres\SSL_Cipher<|||>1<|||>
+Servers\local-postgres\RefusedCount<|||>3<|||>9
+Servers\local-postgres\ServerVersionFull<|||>1<|||>PostgreSQL 11.5, compiled by Visual C++ build 1914, 64-bit
+Servers\local-postgres\ConnectCount<|||>3<|||>18
+Servers\local-postgres\ServerVersion<|||>3<|||>110500
+Servers\local-postgres\LastConnect<|||>1<|||>2020-07-17 02:00:08
+Servers\local-postgres\lastUsedDB<|||>1<|||>pg_toast_temp_1
+Servers\local-postgres\public|Properties\Sort<|||>1<|||>1_User|
+Servers\local-postgres\QueryHistory\1<|||>1<|||>2020-03-05 11:27:53|public|0|DELETE FROM users<{{{><}}}>
+Servers\local-postgres\QueryHistory\3<|||>1<|||>2020-03-05 11:28:06|public|0|DELETE FROM users WHERE 1=1<{{{><}}}><{{{><}}}>
+Servers\local-postgres\QueryHistory\4<|||>1<|||>2020-03-05 11:28:48|public|0|DELETE FROM users WHERE users.FirstName LIKE "Bloom"
+Servers\local-postgres\QueryHistory\2<|||>1<|||>2020-03-05 11:29:29|public|0|DELETE FROM public.users WHERE public.users.FirstName LIKE "Bloom"
+Servers\local-postgres\QueryHistory\6<|||>1<|||>2020-03-05 11:30:04|public|0|DELETE FROM public.users  
+Servers\local-postgres\QueryHistory\5<|||>1<|||>2020-03-05 18:07:16|public|0|SELECT * FROM PUBLIC.Properties
+Servers\local-postgres\QueryHistory\7<|||>1<|||>2020-03-05 18:07:34|public|0|SELECT * FROM PUBLIC.users
+Servers\local-postgres\QueryHistory\8<|||>1<|||>2020-03-05 18:07:44|public|0|SELECT * FROM public.users
+Servers\local-postgres\QueryHistory\9<|||>1<|||>2020-03-05 18:09:59|public|0|SELECT * FROM public."Properties"<{{{><}}}>
+Servers\local-postgres\QueryHistory\11<|||>1<|||>2020-03-05 18:21:04|public|0|SELECT * FROM public."PropertyTypes"<{{{><}}}>
+Servers\local-postgres\QueryHistory\10<|||>1<|||>2020-03-17 18:57:54|public|0|SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM Properties<{{{><}}}>
+Servers\local-postgres\QueryHistory\13<|||>1<|||>2020-03-17 18:58:19|public|0|SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM public."Properties"<{{{><}}}>
+Servers\local-postgres\QueryHistory\12<|||>1<|||>2020-03-17 18:58:36|public|31|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM public."Properties"<{{{><}}}>
+Servers\local-postgres\QueryHistory\14<|||>1<|||>2020-03-17 18:58:42|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  "Properties"<{{{><}}}>
+Servers\local-postgres\QueryHistory\15<|||>1<|||>2020-03-17 18:58:49|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  Properties<{{{><}}}>
+Servers\local-postgres\QueryHistory\16<|||>1<|||>2020-03-17 18:59:08|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  public.Properties<{{{><}}}>
+Servers\local-postgres\QueryHistory\18<|||>1<|||>2020-03-18 09:53:27|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties"<{{{><}}}>
+Servers\local-postgres\QueryHistory\17<|||>1<|||>2020-03-18 09:54:34|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A<{{{><}}}>INNER JOIN PUBLIC."PropertyTypes" AS B<{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\19<|||>1<|||>2020-03-18 09:54:40|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A<{{{><}}}>left JOIN PUBLIC."PropertyTypes" AS B<{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\20<|||>1<|||>2020-03-18 09:54:53|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A<{{{><}}}>--left JOIN PUBLIC."PropertyTypes" AS B<{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\21<|||>1<|||>2020-03-18 09:55:05|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A<{{{><}}}>  JOIN PUBLIC."PropertyTypes" AS B<{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\22<|||>1<|||>2020-03-18 09:55:15|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A <{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\23<|||>1<|||>2020-03-18 09:55:29|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A <{{{><}}}>WHERE A.Id > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\24<|||>1<|||>2020-03-18 09:55:46|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A <{{{><}}}>WHERE Id > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\25<|||>1<|||>2020-03-18 09:55:53|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" AS A <{{{><}}}>WHERE Properties.Id > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\26<|||>1<|||>2020-03-18 09:55:57|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" <{{{><}}}>WHERE Properties.Id > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\27<|||>1<|||>2020-03-18 09:56:17|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" <{{{><}}}>WHERE PUBLIC."Properties".Id > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\28<|||>1<|||>2020-03-18 09:56:34|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" <{{{><}}}>WHERE PUBLIC."Properties.Id" > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\29<|||>1<|||>2020-03-18 09:56:41|public|31|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" <{{{><}}}>WHERE PUBLIC."Properties"."Id" > 0<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\local-postgres\QueryHistory\30<|||>1<|||>2020-03-18 09:56:57|public|0|--SELECT * FROM public."PropertyTypes"<{{{><}}}><{{{><}}}>SELECT * FROM  PUBLIC."Properties" <{{{><}}}>WHERE PUBLIC."Properties"."Id" > 03<{{{><}}}><{{{><}}}><{{{><}}}> <{{{><}}}>
+Servers\Parrot-Heroku\SessionCreated<|||>1<|||>2020-07-29 20:18:38
+Servers\Parrot-Heroku\Host<|||>1<|||>ec2-52-22-216-69.compute-1.amazonaws.com
+Servers\Parrot-Heroku\WindowsAuth<|||>3<|||>0
+Servers\Parrot-Heroku\CleartextPluginEnabled<|||>3<|||>0
+Servers\Parrot-Heroku\User<|||>1<|||>ocqeenmqklaynw
+Servers\Parrot-Heroku\Password<|||>1<|||>3469686636333A6469373C333C67373633663A38393467666537333B38673937396668373A38363A66683A693568663839663C683536363533686734656735363
+Servers\Parrot-Heroku\LoginPrompt<|||>3<|||>0
+Servers\Parrot-Heroku\Port<|||>1<|||>5432
+Servers\Parrot-Heroku\NetType<|||>3<|||>8
+Servers\Parrot-Heroku\Compressed<|||>3<|||>0
+Servers\Parrot-Heroku\LocalTimeZone<|||>3<|||>0
+Servers\Parrot-Heroku\QueryTimeout<|||>3<|||>30
+Servers\Parrot-Heroku\KeepAlive<|||>3<|||>20
+Servers\Parrot-Heroku\FullTableStatus<|||>3<|||>1
+Servers\Parrot-Heroku\Databases<|||>1<|||>d8cqm1jglef71f
+Servers\Parrot-Heroku\Comment<|||>1<|||>
+Servers\Parrot-Heroku\StartupScriptFilename<|||>1<|||>
+Servers\Parrot-Heroku\TreeBackground<|||>3<|||>536870911
+Servers\Parrot-Heroku\SSHtunnelHost<|||>1<|||>
+Servers\Parrot-Heroku\SSHtunnelHostPort<|||>3<|||>22
+Servers\Parrot-Heroku\SSHtunnelUser<|||>1<|||>
+Servers\Parrot-Heroku\SSHtunnelPassword<|||>1<|||>6
+Servers\Parrot-Heroku\SSHtunnelTimeout<|||>3<|||>4
+Servers\Parrot-Heroku\SSHtunnelPrivateKey<|||>1<|||>
+Servers\Parrot-Heroku\SSHtunnelPort<|||>3<|||>3307
+Servers\Parrot-Heroku\SSL_Active<|||>3<|||>0
+Servers\Parrot-Heroku\SSL_Key<|||>1<|||>
+Servers\Parrot-Heroku\SSL_Cert<|||>1<|||>
+Servers\Parrot-Heroku\SSL_CA<|||>1<|||>
+Servers\Parrot-Heroku\SSL_Cipher<|||>1<|||>
+Servers\Parrot-Heroku\RefusedCount<|||>3<|||>7
+Servers\Parrot-Heroku\ServerVersionFull<|||>1<|||>PostgreSQL 12.3 (Ubuntu 12.3-1.pgdg16.04+1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609, 64-bit
+Servers\Parrot-Heroku\ConnectCount<|||>3<|||>3
+Servers\Parrot-Heroku\ServerVersion<|||>3<|||>120300
+Servers\Parrot-Heroku\LastConnect<|||>1<|||>2020-08-02 20:33:06
+Servers\Parrot-Heroku\lastUsedDB<|||>1<|||>
+Servers\Parrot-Heroku\QueryHistory\1<|||>1<|||>2020-08-02 15:29:03||281|CREATE SCHEMA "default"
+Servers\postgres_localhost\SessionCreated<|||>1<|||>2020-07-17 02:01:54
+Servers\postgres_localhost\Host<|||>1<|||>127.0.0.1
+Servers\postgres_localhost\WindowsAuth<|||>3<|||>0
+Servers\postgres_localhost\CleartextPluginEnabled<|||>3<|||>0
+Servers\postgres_localhost\User<|||>1<|||>postgres
+Servers\postgres_localhost\Password<|||>1<|||>736476767A7275673
+Servers\postgres_localhost\LoginPrompt<|||>3<|||>0
+Servers\postgres_localhost\Port<|||>1<|||>5432
+Servers\postgres_localhost\NetType<|||>3<|||>8
+Servers\postgres_localhost\Compressed<|||>3<|||>0
+Servers\postgres_localhost\LocalTimeZone<|||>3<|||>0
+Servers\postgres_localhost\QueryTimeout<|||>3<|||>30
+Servers\postgres_localhost\KeepAlive<|||>3<|||>20
+Servers\postgres_localhost\FullTableStatus<|||>3<|||>1
+Servers\postgres_localhost\Databases<|||>1<|||>parrot
+Servers\postgres_localhost\Comment<|||>1<|||>
+Servers\postgres_localhost\StartupScriptFilename<|||>1<|||>
+Servers\postgres_localhost\TreeBackground<|||>3<|||>536870911
+Servers\postgres_localhost\SSHtunnelHost<|||>1<|||>
+Servers\postgres_localhost\SSHtunnelHostPort<|||>3<|||>22
+Servers\postgres_localhost\SSHtunnelUser<|||>1<|||>
+Servers\postgres_localhost\SSHtunnelPassword<|||>1<|||>7
+Servers\postgres_localhost\SSHtunnelTimeout<|||>3<|||>4
+Servers\postgres_localhost\SSHtunnelPrivateKey<|||>1<|||>
+Servers\postgres_localhost\SSHtunnelPort<|||>3<|||>3307
+Servers\postgres_localhost\SSL_Active<|||>3<|||>0
+Servers\postgres_localhost\SSL_Key<|||>1<|||>
+Servers\postgres_localhost\SSL_Cert<|||>1<|||>
+Servers\postgres_localhost\SSL_CA<|||>1<|||>
+Servers\postgres_localhost\SSL_Cipher<|||>1<|||>
+Servers\postgres_localhost\ServerVersionFull<|||>1<|||>PostgreSQL 11.5, compiled by Visual C++ build 1914, 64-bit
+Servers\postgres_localhost\ConnectCount<|||>3<|||>5
+Servers\postgres_localhost\ServerVersion<|||>3<|||>110500
+Servers\postgres_localhost\LastConnect<|||>1<|||>2020-08-02 15:52:21
+Servers\postgres_localhost\lastUsedDB<|||>1<|||>default
+Servers\Unnamed\ServerVersionFull<|||>1<|||>5.7.27-log - MySQL Community Server (GPL)
+Servers\Unnamed\ConnectCount<|||>3<|||>92
+Servers\Unnamed\ServerVersion<|||>3<|||>50727
+Servers\Unnamed\LastConnect<|||>1<|||>2020-07-28 12:31:36
+Servers\Unnamed\Host<|||>1<|||>127.0.0.1
+Servers\Unnamed\WindowsAuth<|||>3<|||>0
+Servers\Unnamed\CleartextPluginEnabled<|||>3<|||>0
+Servers\Unnamed\User<|||>1<|||>root
+Servers\Unnamed\Password<|||>1<|||>707C76746F3
+Servers\Unnamed\LoginPrompt<|||>3<|||>0
+Servers\Unnamed\Port<|||>1<|||>0
+Servers\Unnamed\NetType<|||>3<|||>0
+Servers\Unnamed\Compressed<|||>3<|||>0
+Servers\Unnamed\LocalTimeZone<|||>3<|||>0
+Servers\Unnamed\QueryTimeout<|||>3<|||>30
+Servers\Unnamed\KeepAlive<|||>3<|||>20
+Servers\Unnamed\FullTableStatus<|||>3<|||>1
+Servers\Unnamed\Databases<|||>1<|||>
+Servers\Unnamed\Comment<|||>1<|||>
+Servers\Unnamed\StartupScriptFilename<|||>1<|||>
+Servers\Unnamed\TreeBackground<|||>3<|||>536870911
+Servers\Unnamed\SSHtunnelHost<|||>1<|||>
+Servers\Unnamed\SSHtunnelHostPort<|||>3<|||>22
+Servers\Unnamed\SSHtunnelUser<|||>1<|||>
+Servers\Unnamed\SSHtunnelPassword<|||>1<|||>3
+Servers\Unnamed\SSHtunnelTimeout<|||>3<|||>4
+Servers\Unnamed\SSHtunnelPrivateKey<|||>1<|||>
+Servers\Unnamed\SSHtunnelPort<|||>3<|||>0
+Servers\Unnamed\SSL_Active<|||>3<|||>0
+Servers\Unnamed\SSL_Key<|||>1<|||>
+Servers\Unnamed\SSL_Cert<|||>1<|||>
+Servers\Unnamed\SSL_CA<|||>1<|||>
+Servers\Unnamed\SSL_Cipher<|||>1<|||>
+Servers\Unnamed\lastUsedDB<|||>1<|||>newvision_db
+Servers\Unnamed\RefusedCount<|||>3<|||>30
+Servers\Unnamed\123456789|marksheet\Sort<|||>1<|||>0_exam_id|
+Servers\Unnamed\newvision_db1|authorfollowing\Sort<|||>1<|||>0_owner|
+Servers\Unnamed\newvision_db|articles\Sort<|||>1<|||>1_id|
+Servers\Unnamed\newvision_db|articles_authors\Sort<|||>1<|||>1_articles_id|1_id|
+Servers\Unnamed\newvision_db|directus_relations\Sort<|||>1<|||>1_field_one|0_collection_many|
+Servers\Unnamed\QueryHistory\60<|||>1<|||>2020-07-02 19:46:25|newvision_db|0|SELECT * FROM article_authors LIMIT 1
+Servers\Unnamed\QueryHistory\1<|||>1<|||>2020-07-02 19:46:36|newvision_db|0|SELECT * FROM articles_authors LIMIT 1
+Servers\Unnamed\QueryHistory\2<|||>1<|||>2020-07-02 19:47:08|newvision_db|0|SELECT * FROM articles_authors<{{{><}}}>WHERE authors_id  = 4<{{{><}}}> LIMIT 1
+Servers\Unnamed\QueryHistory\3<|||>1<|||>2020-07-02 19:47:24|newvision_db|0|SELECT * FROM articles_authors<{{{><}}}>WHERE articles_id  = 838<{{{><}}}> LIMIT 1
+Servers\Unnamed\strapidb|newsposts\Sort<|||>1<|||>1_newscategory|
+Servers\Unnamed\strapiengineer|core_store\Sort<|||>1<|||>0_key|
+Servers\Unnamed-1\SessionCreated<|||>1<|||>2019-10-03 14:19:54
+Servers\Unnamed-1\Host<|||>1<|||>127.0.0.1
+Servers\Unnamed-1\WindowsAuth<|||>3<|||>0
+Servers\Unnamed-1\CleartextPluginEnabled<|||>3<|||>0
+Servers\Unnamed-1\User<|||>1<|||>root
+Servers\Unnamed-1\Password<|||>1<|||>3
+Servers\Unnamed-1\LoginPrompt<|||>3<|||>0
+Servers\Unnamed-1\Port<|||>1<|||>3306
+Servers\Unnamed-1\NetType<|||>3<|||>2
+Servers\Unnamed-1\Compressed<|||>3<|||>0
+Servers\Unnamed-1\LocalTimeZone<|||>3<|||>0
+Servers\Unnamed-1\QueryTimeout<|||>3<|||>30
+Servers\Unnamed-1\KeepAlive<|||>3<|||>20
+Servers\Unnamed-1\FullTableStatus<|||>3<|||>1
+Servers\Unnamed-1\Databases<|||>1<|||>
+Servers\Unnamed-1\Comment<|||>1<|||>
+Servers\Unnamed-1\StartupScriptFilename<|||>1<|||>
+Servers\Unnamed-1\TreeBackground<|||>3<|||>536870911
+Servers\Unnamed-1\SSHtunnelHost<|||>1<|||>
+Servers\Unnamed-1\SSHtunnelHostPort<|||>3<|||>22
+Servers\Unnamed-1\SSHtunnelUser<|||>1<|||>
+Servers\Unnamed-1\SSHtunnelPassword<|||>1<|||>4
+Servers\Unnamed-1\SSHtunnelTimeout<|||>3<|||>4
+Servers\Unnamed-1\SSHtunnelPrivateKey<|||>1<|||>
+Servers\Unnamed-1\SSHtunnelPort<|||>3<|||>3307
+Servers\Unnamed-1\SSL_Active<|||>3<|||>0
+Servers\Unnamed-1\SSL_Key<|||>1<|||>
+Servers\Unnamed-1\SSL_Cert<|||>1<|||>
+Servers\Unnamed-1\SSL_CA<|||>1<|||>
+Servers\Unnamed-1\SSL_Cipher<|||>1<|||>
+Servers\Unnamed-1\RefusedCount<|||>3<|||>6
+Servers\Unnamed-3\SessionCreated<|||>1<|||>2020-03-05 11:22:32
+Servers\Unnamed-3\Host<|||>1<|||>127.0.0.1
+Servers\Unnamed-3\WindowsAuth<|||>3<|||>0
+Servers\Unnamed-3\CleartextPluginEnabled<|||>3<|||>0
+Servers\Unnamed-3\User<|||>1<|||>root
+Servers\Unnamed-3\Password<|||>1<|||>4
+Servers\Unnamed-3\LoginPrompt<|||>3<|||>0
+Servers\Unnamed-3\Port<|||>1<|||>3306
+Servers\Unnamed-3\NetType<|||>3<|||>0
+Servers\Unnamed-3\Compressed<|||>3<|||>0
+Servers\Unnamed-3\LocalTimeZone<|||>3<|||>0
+Servers\Unnamed-3\QueryTimeout<|||>3<|||>30
+Servers\Unnamed-3\KeepAlive<|||>3<|||>20
+Servers\Unnamed-3\FullTableStatus<|||>3<|||>1
+Servers\Unnamed-3\Databases<|||>1<|||>
+Servers\Unnamed-3\Comment<|||>1<|||>
+Servers\Unnamed-3\StartupScriptFilename<|||>1<|||>
+Servers\Unnamed-3\TreeBackground<|||>3<|||>536870911
+Servers\Unnamed-3\SSHtunnelHost<|||>1<|||>
+Servers\Unnamed-3\SSHtunnelHostPort<|||>3<|||>22
+Servers\Unnamed-3\SSHtunnelUser<|||>1<|||>
+Servers\Unnamed-3\SSHtunnelPassword<|||>1<|||>8
+Servers\Unnamed-3\SSHtunnelTimeout<|||>3<|||>4
+Servers\Unnamed-3\SSHtunnelPrivateKey<|||>1<|||>
+Servers\Unnamed-3\SSHtunnelPort<|||>3<|||>3307
+Servers\Unnamed-3\SSL_Active<|||>3<|||>0
+Servers\Unnamed-3\SSL_Key<|||>1<|||>
+Servers\Unnamed-3\SSL_Cert<|||>1<|||>
+Servers\Unnamed-3\SSL_CA<|||>1<|||>
+Servers\Unnamed-3\SSL_Cipher<|||>1<|||>
+Servers\Unnamed-3\RefusedCount<|||>3<|||>2
