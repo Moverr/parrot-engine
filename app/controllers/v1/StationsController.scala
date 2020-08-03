@@ -6,7 +6,11 @@ import play.api.mvc.{Action, Controller}
 //todo: create stations and move on
 object StationsController extends Controller {
     def create = Action {
-        Ok("Interesting")
+        implicit request =>
+            //todo: Authenticate
+            val authorization = request.headers.get("Authorization").get
+
+            Ok("Interesting")
     }
 
     def getAll = Action {
