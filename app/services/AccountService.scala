@@ -1,7 +1,7 @@
 package services
 
 import controllers.v1.AuthController.{BadRequest, conn}
-import entities.requests.accounts.AccountReqquest
+import entities.requests.stations.StationRequest
 import entities.responses.accounts.AccountResponse
 import play.api.db.DB
 import play.api.libs.json.Json
@@ -15,7 +15,7 @@ import play.api.Play.current
 
 class AccountService {
   //todo: create
-  def create(owner: Integer, account: AccountReqquest): Unit = {
+  def create(owner: Integer, station: StationRequest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -23,7 +23,7 @@ class AccountService {
     if (checkIfAccountExists(owner) == true) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
     } else {
-      var query = "INSERT INTO  \"default\".account (owner,name,external_id,author_id)  values ('" + owner + "','" + account.name + "','" + external_id + "','" + owner + "') ";
+      var query = "INSERT INTO  \"default\".account (owner,name,external_id,author_id)  values ('" + owner + "','" + station.name + "','" + external_id + "','" + owner + "') ";
       conn = DB getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
@@ -45,7 +45,6 @@ class AccountService {
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
-
 
 
     var account = new AccountResponse("");
