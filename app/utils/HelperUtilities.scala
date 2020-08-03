@@ -3,6 +3,8 @@ package utils
 import scala.util.Random
 import java.util.Base64
 
+import play.api.libs.json.Json
+
 
 class HelperUtilities {
 
@@ -28,6 +30,11 @@ class HelperUtilities {
       null
     } else parts
   }
+
+  def successResponse(message: String) = {
+    Json.obj("status" -> "200", "message" -> message)
+  }
+
 }
 
 object HelperUtilities extends HelperUtilities
