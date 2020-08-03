@@ -47,11 +47,12 @@ class AccountService {
     var result = stmt.executeQuery(query)
 
 
-    var account = new AccountResponse("");
+    var account = new AccountResponse(0, "");
     if (result.next()) {
 
       val accountName = result.getString("name");
-      account = new AccountResponse(accountName);
+      val accountId = result.getInt("id")
+      account = new AccountResponse(accountId, accountName);
     }
     account
   }

@@ -14,12 +14,15 @@ import play.api.Play.current
 
 
 class StationsService {
+  def getTableName = " \"default\".station"
+
+
   //todo: create
   def create(owner: Integer, account: AccountReqquest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val external_id = HelperUtilities.randomStringGenerator(20)
+
     if (checkIfAccountExists(owner) == true) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
     } else {
@@ -50,8 +53,7 @@ class StationsService {
   }
 
 
-
-  def getById(owner: Integer, stationId: Integer ): Unit = {
+  def getById(owner: Integer, stationId: Integer): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -68,8 +70,7 @@ class StationsService {
   }
 
 
-
-  def Archive(owner: Integer, stationId: Integer ): Unit = {
+  def Archive(owner: Integer, stationId: Integer): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -86,9 +87,7 @@ class StationsService {
   }
 
 
-
-
-  def Activate(owner: Integer, stationId: Integer ): Unit = {
+  def Activate(owner: Integer, stationId: Integer): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -103,12 +102,10 @@ class StationsService {
     }
 
   }
-
-
 
 
   def checkIfAccountExists(owner: Integer): Boolean = {
-    var query = "SELECT * FROM   \"default\".account WHERE owner = " + owner + "    ) ";
+    var query = "SELECT * FROM   " + getTableName + " WHERE owner = " + owner + "  AND   ) ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
