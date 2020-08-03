@@ -1,4 +1,4 @@
-name := """Parront-Engine"""
+name := """parrot_engine"""
 
 version := "1.0-SNAPSHOT"
 
