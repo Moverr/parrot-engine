@@ -36,7 +36,7 @@ class StationsService {
 
   }
 
-
+  //todo: Get All
   def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
@@ -125,21 +125,6 @@ class StationsService {
     if (result.next()) true else false
   }
 
-  def get(owner: Integer): AccountResponse = {
-    var query = "SELECT * FROM   \"default\".account WHERE owner = " + owner + " ";
-    conn = DB getConnection()
-    val stmt = conn createStatement
-    var result = stmt.executeQuery(query)
-
-
-    var account = new AccountResponse("");
-    if (result.next()) {
-
-      val accountName = result.getString("name");
-      account = new AccountResponse(accountName);
-    }
-    account
-  }
 
 }
 
