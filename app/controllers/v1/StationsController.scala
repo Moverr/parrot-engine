@@ -2,7 +2,7 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.accounts.AccountReqquest
+import entities.requests.accounts.AccountRequest
 import entities.requests.stations.StationRequest
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}

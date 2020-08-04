@@ -1,6 +1,5 @@
 package services
 
-import controllers.v1.AuthController.{BadRequest, conn}
 import entities.requests.stations.StationRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.stations.StationResponse
@@ -10,12 +9,14 @@ import play.api.libs.json.Json
 
 //////
 import play.api.Play.current
+import play.api.mvc.Results._
 ///////
 
 
 class StationsService {
-  def getTableName = " \"default\".station"
+  val tableName = " \"default\".station"
 
+  var conn = DB.getConnection()
 
   //todo: create
   def create(owner: Integer, station: StationRequest): Unit = {
@@ -28,9 +29,9 @@ class StationsService {
     if (checkIfStationExists(account.id, station.name) == true) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
     } else {
-      var query = "INSERT INTO " + getTableName + " (account_id,name,code)  values ('" + account.id + "','" + station.name + "','" + station.code + "') ";
+      var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + station.name + "','" + station.code + "') ";
       conn = DB getConnection()
-      val stmt = conn createStatement
+      val stmt = conn.createStatement
       val result = stmt executeUpdate (query)
     }
 
@@ -45,7 +46,7 @@ class StationsService {
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
-    var query = "SELECT * FROM   " + getTableName + " WHERE account_id = " + account.id + "  LIMIT  ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  LIMIT  ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -59,7 +60,7 @@ class StationsService {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    var query = "SELECT * FROM   " + getTableName + " WHERE id = " + stationId + "     ";
+    var query = "SELECT * FROM   " + tableName + " WHERE id = " + stationId + "     ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -86,7 +87,7 @@ class StationsService {
 
     if (stationResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
-      var query = "UPDATE    " + getTableName + "   SET status='ARCHIVED' where id='" + stationId + "' ";
+      var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + stationId + "' ";
       conn = DB getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
@@ -108,7 +109,7 @@ class StationsService {
 
     if (stationResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
-      var query = "UPDATE    " + getTableName + "   SET status='ACTIVE' where id='" + stationId + "' ";
+      var query = "UPDATE    " + tableName + "   SET status='ACTIVE' where id='" + stationId + "' ";
       conn = DB getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
@@ -118,7 +119,7 @@ class StationsService {
 
 
   def checkIfStationExists(accountId: Integer, stationName: String): Boolean = {
-    var query = "SELECT * FROM   " + getTableName + " WHERE account_id = " + accountId + "  AND name LIKE ='" + stationName + "' ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE ='" + stationName + "' ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
