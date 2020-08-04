@@ -28,19 +28,19 @@ object StationsController extends Controller {
 
     }
 
-    def getAll = Action {
+    def getAll(offset: Integer = 0, limit: Integer = 10) = Action {
         Ok("List all Stations")
     }
 
-    def get = Action {
+    def get(id: Integer) = Action {
         Ok("Get By Id")
     }
 
-    def archive = Action {
+    def archive(id: Integer) = Action {
         Ok("Archivee Station")
     }
 
-    def refresh = Action {
+    def activate(id: Integer) = Action {
         Ok("Refresh Station to Active")
     }
 
