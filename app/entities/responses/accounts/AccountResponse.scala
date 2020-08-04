@@ -1,3 +1,3 @@
 package entities.responses.accounts
 
-case class AccountResponse(name:String)
+case class AccountResponse(id:Integer,name:String)

@@ -7,29 +7,28 @@ import entities.responses.accounts.AccountResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.AccountService
+import utils.HelperUtilities
 
 
 object AccountController extends Controller {
 
     def create = Action {
         implicit request =>
-
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                println(s"*** headers: ${request.headers}")
+
                 val accountRequest: AccountReqquest = AccountReqquest.form.bindFromRequest.get
-
                 AccountService.create(authResponse.id, accountRequest)
-
-                Ok("Create Account")
+                Ok(HelperUtilities successResponse ("Record saved succesfully"))
 
             }
 
     }
+
 
     def get = Action {
         implicit request =>
@@ -62,5 +61,6 @@ object AccountController extends Controller {
         You should only be able to create only on  Account on a User.
         so. create and update.  the account name should be unique accross. Naa. not important.
      */
+
 
 }

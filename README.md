@@ -1,7 +1,7 @@
 # PARROT ENGINE
 
 ![Scala CI](https://github.com/Moverr/parrot-engine/workflows/Scala%20CI/badge.svg?branch=master)
-
+[![codecov](https://codecov.io/gh/Moverr/parrot-engine/branch/master/graph/badge.svg)](https://codecov.io/gh/Moverr/parrot-engine)
 <hr>
 Parrot Engine v1.0.0 Under <b>KODE INC </b>
 
