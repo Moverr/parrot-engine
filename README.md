@@ -1,7 +1,7 @@
 # PARROT ENGINE
 
 ![Scala CI](https://github.com/Moverr/parrot-engine/workflows/Scala%20CI/badge.svg?branch=master)
-[![CircleCI](https://circleci.com/gh/Moverr/parrot-engine.svg?style=svg)](https://circleci.com/gh/circleci/circleci-docs)
+[![CircleCI](https://circleci.com/gh/Moverr/parrot-engine.svg?style=svg)](https://app.circleci.com/pipelines/github/Moverr)
 
 <hr>
 Parrot Engine v1.0.0 Under <b>KODE INC </b>
