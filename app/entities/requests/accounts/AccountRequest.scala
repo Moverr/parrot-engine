@@ -5,14 +5,14 @@ import play.api.data.Forms.{mapping, _}
 
 
 //todo: Organisation Name etc
-case class AccountReqquest(name:String)
+case class AccountRequest(name:String)
 
 
-object AccountReqquest {
-  val form: Form[AccountReqquest] = Form(
+object AccountRequest {
+  val form: Form[AccountRequest] = Form(
     mapping(
       "name" -> nonEmptyText
-    )(AccountReqquest.apply)(AccountReqquest.unapply)
+    )(AccountRequest.apply)(AccountRequest.unapply)
   )
 }
 
