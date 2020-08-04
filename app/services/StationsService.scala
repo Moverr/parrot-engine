@@ -6,6 +6,8 @@ import entities.responses.stations.StationResponse
 import play.api.db.DB
 import play.api.libs.json.Json
 
+import scala.collection.mutable.ListBuffer
+
 
 //////
 import play.api.Play.current
@@ -38,7 +40,7 @@ class StationsService {
   }
 
   //todo: Get All
-  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): List[StationResponse] = {
+  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): Seq[StationResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -51,7 +53,13 @@ class StationsService {
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
 
-    null
+    val photoNodes = new ListBuffer[StationResponse]()
+
+    while (result next()) {
+      val stationResponse: StationResponse = new StationResponse(1, "d", "d")
+      photoNodes += stationResponse
+    }
+    photoNodes.toSeq
 
 
   }

@@ -23,11 +23,9 @@ object StationsController extends Controller {
                 val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
                 StationsService.create(authResponse.id, stationRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
-
             }
 
 
-            Ok("Interesting")
     }
 
     def getAll = Action {
