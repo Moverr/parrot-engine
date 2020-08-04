@@ -6,7 +6,6 @@ import entities.responses.accounts.AccountResponse
 import entities.responses.stations.StationResponse
 import play.api.db.DB
 import play.api.libs.json.Json
-import utils.HelperUtilities
 
 
 //////
@@ -97,15 +96,19 @@ class StationsService {
   }
 
 
-  def Activate(stationId: Integer, stationId: Integer): Unit = {
+  //todo: Activate
+  def Activate(owner: Integer, stationId: Integer): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val external_id = HelperUtilities.randomStringGenerator(20)
-    if (checkIfStationExists(owner) == true) {
-      BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
-    } else {
-      var query = "INSERT INTO  \"default\".account (owner,name,external_id,author_id)  values ('" + owner + "','" + account.name + "','" + external_id + "','" + owner + "') ";
+    val account: AccountResponse = AccountService.get(owner);
+    if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
+
+    val stationResponse: StationResponse = getById(owner, stationId)
+
+    if (stationResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
+    else {
+      var query = "UPDATE    " + getTableName + "   SET status='ACTIVE' where id='" + stationId + "' ";
       conn = DB getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
