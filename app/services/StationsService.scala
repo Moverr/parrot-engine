@@ -38,7 +38,7 @@ class StationsService {
   }
 
   //todo: Get All
-  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): Unit = {
+  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): List[StationResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -50,7 +50,8 @@ class StationsService {
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
-    if (result.next()) true else false
+
+    null
 
 
   }
@@ -129,4 +130,4 @@ class StationsService {
 
 }
 
-object StationsService extends AccountService
+object StationsService extends StationsService

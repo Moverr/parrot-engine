@@ -2,11 +2,10 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.accounts.AccountRequest
 import entities.requests.stations.StationRequest
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.AccountService
+import services.StationsService
 import utils.HelperUtilities
 
 //todo: deploy to the server and move
@@ -22,7 +21,7 @@ object StationsController extends Controller {
             else {
 
                 val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
-                AccountService.create(authResponse.id, stationRequest)
+                StationsService.create(authResponse.id, stationRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
 
             }
