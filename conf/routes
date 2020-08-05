@@ -14,6 +14,8 @@ GET  /v1/account                            controllers.v1.AccountController.get
 #STATIONS
 POST /v1/station                            controllers.v1.StationsController.create
 GET  /v1/station                            controllers.v1.StationsController.getAll
+GET  /v1/station/:id                            controllers.v1.StationsController.show(id:Long)
+
 
 
 

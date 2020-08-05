@@ -12,6 +12,16 @@ import utils.HelperUtilities
 //todo: deploy to the server and move
 //todo: create stations and move on
 object StationsController extends Controller {
+
+    implicit val resposnse = new Writes[StationResponse] {
+        def writes(_account: StationResponse) = Json.obj(
+            "id" -> _account.id.toString,
+            "name" -> _account.name,
+            "code" -> _account.code
+        )
+    }
+
+
     def create = Action {
         implicit request =>
             //todo: Authenticate
@@ -48,14 +58,6 @@ object StationsController extends Controller {
             else {
                 var response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
 
-                implicit val resposnse = new Writes[StationResponse] {
-                    def writes(_account: StationResponse) = Json.obj(
-                        "id" -> _account.id.toString,
-                        "name" -> _account.name,
-                        "code" -> _account.code
-                    )
-                }
-
 
                 val json = Json.toJson(response)
 
@@ -67,10 +69,9 @@ object StationsController extends Controller {
 
     //todo:update the station name
 
-    def get = Action {
+    def show(id: Long) = Action {
         implicit request =>
-            val stationId: Long =
-                request.getQueryString("id").map(_.toLong).getOrElse(0)
+            val stationId: Long = id
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
@@ -82,8 +83,11 @@ object StationsController extends Controller {
                 else {
                     try {
 
-                        StationsService.Archive(authResponse.id, stationId)
-                        Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                        var response: StationResponse = StationsService.getById(authResponse.id, stationId)
+                        val json = Json.toJson(response)
+
+                        Ok(json)
+
                     }
                     catch {
                         case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
@@ -92,7 +96,6 @@ object StationsController extends Controller {
             }
 
 
-            Ok("Get By Id")
     }
 
     def archive = Action {
