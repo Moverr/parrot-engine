@@ -60,7 +60,7 @@ object StationsController extends Controller {
         implicit request =>
             val stationId: Long =
                 request.getQueryString("limit").map(_.toLong).getOrElse(0)
-          
+
 
             Ok("Refresh Station to Active")
     }
