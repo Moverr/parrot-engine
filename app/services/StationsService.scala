@@ -66,6 +66,7 @@ class StationsService {
   }
 
   //todo: get Station by Id
+  @throws
   def getById(owner: Integer, stationId: Long): StationResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
@@ -81,7 +82,7 @@ class StationsService {
       val response = new StationResponse(id, name, code)
       response
     } else
-      null
+      throw new RuntimeException("Record does not exist in the database")
   }
 
 
