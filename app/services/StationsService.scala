@@ -49,7 +49,7 @@ class StationsService {
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  LIMIT  ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
