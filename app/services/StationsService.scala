@@ -54,13 +54,13 @@ class StationsService {
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
 
-    val photoNodes = new ListBuffer[StationResponse]()
+    val stationResponses = new ListBuffer[StationResponse]()
 
     while (result next()) {
-      val stationResponse: StationResponse = new StationResponse(1, "d", "d")
-      photoNodes += stationResponse
+      val stationResponse: StationResponse = new StationResponse(result.getInt("id"), result.getString("name"), result.getString("code"))
+      stationResponses += stationResponse
     }
-    photoNodes.toSeq
+    stationResponses.toSeq
 
 
   }

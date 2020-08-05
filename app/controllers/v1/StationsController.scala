@@ -4,7 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.stations.StationRequest
 import entities.responses.stations.StationResponse
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.StationsService
 import utils.HelperUtilities
@@ -48,7 +48,18 @@ object StationsController extends Controller {
             else {
                 var response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
 
-                Ok("List all Stations")
+                implicit val resposnse = new Writes[StationResponse] {
+                    def writes(_account: StationResponse) = Json.obj(
+                        "id" -> _account.id.toString,
+                        "name" -> _account.name,
+                        "code" -> _account.code
+                    )
+                }
+
+
+                val json = Json.toJson(response)
+
+                Ok(json)
             }
 
 
