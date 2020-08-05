@@ -20,9 +20,14 @@ object StationsController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
-                StationsService.create(authResponse.id, stationRequest)
-                Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                try{
+                    val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
+                    StationsService.create(authResponse.id, stationRequest)
+                    Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                }
+                catch
+
+
             }
 
     }

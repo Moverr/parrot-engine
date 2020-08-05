@@ -16,7 +16,7 @@ import play.api.mvc.Results._
 
 
 class StationsService {
-  val tableName = " \"default\".station"
+  val tableName = " \"default\".stations"
 
   var conn = DB.getConnection()
 
@@ -128,11 +128,15 @@ class StationsService {
 
 
   def checkIfStationExists(accountId: Integer, stationName: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE ='" + stationName + "' ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE '" + stationName + "' ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
-    if (result.next()) true else false
+    if (result.next()) {
+      true
+    } else {
+      false
+    }
   }
 
 
