@@ -25,23 +25,44 @@ object StationsController extends Controller {
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
             }
 
+    }
+
+    def getAll = Action {
+        implicit request =>
+            val limit: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+            val offset: Long =
+                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+
+
+            Ok("List all Stations")
+    }
+
+    def get = Action {
+        implicit request =>
+            val stationId: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(0)
+            Ok("Get By Id")
+    }
+
+    def archive = Action {
+
+        implicit request =>
+            val stationId: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(0)
+            Ok("Get By Id")
+
 
     }
 
-    def getAll(offset: Integer = 0, limit: Integer = 10) = Action {
-        Ok("List all Stations")
-    }
+    def activate = Action {
 
-    def get(id: Integer) = Action {
-        Ok("Get By Id")
-    }
+        implicit request =>
+            val stationId: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(0)
+          
 
-    def archive(id: Integer) = Action {
-        Ok("Archivee Station")
-    }
-
-    def activate(id: Integer) = Action {
-        Ok("Refresh Station to Active")
+            Ok("Refresh Station to Active")
     }
 
 }
