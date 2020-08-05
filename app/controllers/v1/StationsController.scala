@@ -40,8 +40,17 @@ object StationsController extends Controller {
             val offset: Long =
                 request.getQueryString("offset").map(_.toLong).getOrElse(0)
 
+            val authorization = request.headers.get("Authorization").get
 
-            Ok("List all Stations")
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            else{
+               // StationsService.getAll()
+
+                Ok("List all Stations")
+            }
+
+
     }
 
     def get = Action {
