@@ -6,6 +6,8 @@ import entities.responses.stations.StationResponse
 import play.api.db.DB
 import play.api.libs.json.Json
 
+import scala.collection.mutable.ListBuffer
+
 
 //////
 import play.api.Play.current
@@ -14,11 +16,12 @@ import play.api.mvc.Results._
 
 
 class StationsService {
-  val tableName = " \"default\".station"
+  val tableName = " \"default\".stations"
 
   var conn = DB.getConnection()
 
   //todo: create
+  @throws
   def create(owner: Integer, station: StationRequest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
@@ -27,7 +30,7 @@ class StationsService {
 
 
     if (checkIfStationExists(account.id, station.name) == true) {
-      BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
+      throw new RuntimeException("Account already created for user")
     } else {
       var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + station.name + "','" + station.code + "') ";
       conn = DB getConnection()
@@ -38,7 +41,7 @@ class StationsService {
   }
 
   //todo: Get All
-  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): List[StationResponse] = {
+  def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[StationResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -46,18 +49,25 @@ class StationsService {
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  LIMIT  ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
 
-    null
+    val stationResponses = new ListBuffer[StationResponse]()
+
+    while (result next()) {
+      val stationResponse: StationResponse = new StationResponse(result.getInt("id"), result.getString("name"), result.getString("code"))
+      stationResponses += stationResponse
+    }
+    stationResponses.toSeq
 
 
   }
 
   //todo: get Station by Id
-  def getById(owner: Integer, stationId: Integer): StationResponse = {
+  @throws
+  def getById(owner: Integer, stationId: Long): StationResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -72,12 +82,12 @@ class StationsService {
       val response = new StationResponse(id, name, code)
       response
     } else
-      null
+      throw new RuntimeException("Record does not exist in the database")
   }
 
 
   //todo: Archive Station
-  def Archive(owner: Integer, stationId: Integer): Unit = {
+  def Archive(owner: Integer, stationId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -99,7 +109,7 @@ class StationsService {
 
 
   //todo: Activate
-  def Activate(owner: Integer, stationId: Integer): Unit = {
+  def Activate(owner: Integer, stationId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -120,11 +130,15 @@ class StationsService {
 
 
   def checkIfStationExists(accountId: Integer, stationName: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE ='" + stationName + "' ";
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE '" + stationName + "' ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
-    if (result.next()) true else false
+    if (result.next()) {
+      true
+    } else {
+      false
+    }
   }
 
 

@@ -16,8 +16,8 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.4-1201-jdbc41",
   "com.typesafe.play" %% "play-json" % "2.3.0",
   "org.scalactic" %% "scalactic" % "3.2.0",
-  "org.scalatest" %% "scalatest" % "3.2.0" % "test",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % Test,
+  "org.scalatest" %% "scalatest-flatspec" % "3.2.0" % "test",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % "test",
   javaJpa,
   ws
 )
