@@ -21,6 +21,7 @@ class StationsService {
   var conn = DB.getConnection()
 
   //todo: create
+  @throws
   def create(owner: Integer, station: StationRequest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
@@ -29,7 +30,7 @@ class StationsService {
 
 
     if (checkIfStationExists(account.id, station.name) == true) {
-      BadRequest(Json.obj("status" -> "Error", "message" -> "Account already created for user"))
+      throw new RuntimeException("Account already created for user")
     } else {
       var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + station.name + "','" + station.code + "') ";
       conn = DB getConnection()
