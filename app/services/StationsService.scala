@@ -66,7 +66,7 @@ class StationsService {
   }
 
   //todo: get Station by Id
-  def getById(owner: Integer, stationId: Integer): StationResponse = {
+  def getById(owner: Integer, stationId: Long): StationResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -86,7 +86,7 @@ class StationsService {
 
 
   //todo: Archive Station
-  def Archive(owner: Integer, stationId: Integer): Unit = {
+  def Archive(owner: Integer, stationId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -108,7 +108,7 @@ class StationsService {
 
 
   //todo: Activate
-  def Activate(owner: Integer, stationId: Integer): Unit = {
+  def Activate(owner: Integer, stationId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 

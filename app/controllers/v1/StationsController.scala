@@ -65,10 +65,33 @@ object StationsController extends Controller {
 
     }
 
+    //todo:update the station name
+
     def get = Action {
         implicit request =>
             val stationId: Long =
-                request.getQueryString("limit").map(_.toLong).getOrElse(0)
+                request.getQueryString("id").map(_.toLong).getOrElse(0)
+
+            val authorization = request.headers.get("Authorization").get
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+
+            else {
+                if (stationId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+
+                else {
+                    try {
+
+                        StationsService.Archive(authResponse.id, stationId)
+                        Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                    }
+                    catch {
+                        case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                    }
+                }
+            }
+
+
             Ok("Get By Id")
     }
 
