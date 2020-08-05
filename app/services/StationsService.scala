@@ -41,7 +41,7 @@ class StationsService {
   }
 
   //todo: Get All
-  def getAll(owner: Integer, limit: Integer = 0, offset: Integer = 10): Seq[StationResponse] = {
+  def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[StationResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 

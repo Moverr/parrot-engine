@@ -3,6 +3,7 @@ package controllers.v1
 import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.stations.StationRequest
+import entities.responses.stations.StationResponse
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.StationsService
@@ -44,8 +45,8 @@ object StationsController extends Controller {
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
-            else{
-               // StationsService.getAll()
+            else {
+                var response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
 
                 Ok("List all Stations")
             }
