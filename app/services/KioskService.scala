@@ -1,5 +1,6 @@
 package services
 
+import entities.requests.kiosks.KioskRequest
 import entities.requests.stations.StationRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.stations.StationResponse
@@ -16,17 +17,17 @@ class KioskService {
 
   //todo: create
   @throws
-  def create(owner: Integer, station: StationRequest): Unit = {
+  def create(owner: Integer, kiosk: KioskRequest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
     //todo: get Account Id by owner
     val account: AccountResponse = AccountService.get(owner);
 
 
-    if (checkIfStationExists(account.id, station.name) == true) {
+    if (checkIfKioskExists(account.id, kiosk.reference_id) == true) {
       throw new RuntimeException("Account already created for user")
     } else {
-      var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + station.name + "','" + station.code + "') ";
+      var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + kiosk.name + "','" + kiosk.code + "') ";
       conn = DB getConnection()
       val stmt = conn.createStatement
       val result = stmt executeUpdate (query)
@@ -123,8 +124,8 @@ class KioskService {
   }
 
 
-  def checkIfStationExists(accountId: Integer, stationName: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE '" + stationName + "' ";
+  def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
+    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE '" + reference_id + "' ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
