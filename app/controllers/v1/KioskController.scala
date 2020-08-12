@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
+import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.AccountService
@@ -11,9 +12,12 @@ import utils.HelperUtilities
 
 object KioskController extends Controller {
 
-    implicit val resposnse = new Writes[AccountResponse] {
-        def writes(_account: AccountResponse) = Json.obj(
-            "name" -> _account.name
+    implicit val resposnse = new Writes[KioskResponse] {
+        def writes(_kiosk: KioskResponse) = Json.obj(
+            "station_id" -> _kiosk.station_id
+            ,"reference_id" -> _kiosk.reference_id
+            ,"device_token" -> _kiosk.device_token
+            ,"details" -> _kiosk.details
         )
     }
 
