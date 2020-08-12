@@ -43,11 +43,11 @@ class KioskService {
   }
 
   //todo: Get All
-  def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[StationResponse] = {
+  def getAllByAccount(accountId: Integer, offset: Long = 0, limit: Long = 10): Seq[StationResponse] = {
     //todo: verify that owner is not null
-    if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
+    if (accountId == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val account: AccountResponse = AccountService.get(owner);
+    val account: AccountResponse = AccountService.get(accountId);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
@@ -69,11 +69,11 @@ class KioskService {
 
   //todo: get Station by Id
   @throws
-  def getById(owner: Integer, stationId: Long): StationResponse = {
+  def getById(owner: Integer, kioskId: Long): StationResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    var query = "SELECT * FROM   " + tableName + " WHERE id = " + stationId + "     ";
+    var query = "SELECT * FROM   " + tableName + " WHERE id = " + kioskId + "   AND    ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
