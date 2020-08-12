@@ -2,6 +2,7 @@ package services
 
 import entities.requests.kiosks.KioskRequest
 import entities.responses.accounts.AccountResponse
+import entities.responses.kiosks.KioskResponse
 import entities.responses.stations.StationResponse
 import play.api.db.DB._
 import play.api.libs.json.Json
@@ -43,7 +44,7 @@ class KioskService {
   }
 
   //todo: Get All
-  def getAllByAccount(accountId: Integer, offset: Long = 0, limit: Long = 10): Seq[StationResponse] = {
+  def getAllByAccount(accountId: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
     //todo: verify that owner is not null
     if (accountId == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -51,15 +52,15 @@ class KioskService {
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    var query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN "+StationsService.tableName+" B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
 
-    val stationResponses = new ListBuffer[StationResponse]()
+    val stationResponses = new ListBuffer[KioskResponse]()
 
     while (result next()) {
-      val stationResponse: StationResponse = new StationResponse(result.getInt("id"), result.getString("name"), result.getString("code"))
+      val stationResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("name"), result.getString("code"))
       stationResponses += stationResponse
     }
     stationResponses.toSeq
