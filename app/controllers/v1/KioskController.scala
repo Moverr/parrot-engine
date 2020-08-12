@@ -3,6 +3,7 @@ package controllers.v1
 import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
+import entities.requests.kiosks.KioskRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
@@ -31,7 +32,7 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val accountRequest: AccountRequest = AccountRequest.form.bindFromRequest.get
+                val accountRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
                 AccountService.create(authResponse.id, accountRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
 

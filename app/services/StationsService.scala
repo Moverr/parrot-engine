@@ -16,9 +16,9 @@ import play.api.mvc.Results._
 
 
 class StationsService {
-  val tableName = " \"default\".stations"
+  implicit val tableName = " \"default\".stations"
 
-  var conn = DB.getConnection()
+  implicit var conn = DB.getConnection()
 
   //todo: create
   @throws
