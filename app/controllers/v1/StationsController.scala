@@ -87,7 +87,6 @@ object StationsController extends Controller {
                 }
             }
 
-
     }
 
     def archive = Action {

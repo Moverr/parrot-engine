@@ -16,14 +16,14 @@ import play.api.Play.current
 ///////
 
 
-class KioskService {
-  val tableName = " \"default\".kiosks"
+class KioskService extends TKioskService {
+  override val tableName = " \"default\".kiosks"
 
-  var conn = getConnection()
+  override var conn = getConnection()
 
   //todo: create
   @throws
-  def create(owner: Integer, kiosk: KioskRequest): Unit = {
+  override def create(owner: Integer, kiosk: KioskRequest): Unit = {
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
@@ -44,7 +44,7 @@ class KioskService {
   }
 
   //todo: Get All By Account
-  def getAllByAccount(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
+  override def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -68,7 +68,7 @@ class KioskService {
 
 
   //todo: Get All By Account
-  def getAllByStation(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
+  override def getAll(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
 
@@ -97,7 +97,7 @@ class KioskService {
 
   //todo: get Station by Id
   @throws
-  def getById(owner: Integer, kioskId: Long): KioskResponse = {
+  override def getById(owner: Integer, kioskId: Long): KioskResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -114,7 +114,7 @@ class KioskService {
 
 
   //todo: Archive Station
-  def Archive(owner: Integer, stationId: Long): Unit = {
+  override def Archive(owner: Integer, stationId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -136,7 +136,7 @@ class KioskService {
 
 
   //todo: Activate
-  def Activate(owner: Integer, kioskId: Long): Unit = {
+  override def Activate(owner: Integer, kioskId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -157,7 +157,7 @@ class KioskService {
 
 
   //todo: check if kiosk exists
-  def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
+  override def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
     var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement

@@ -47,13 +47,22 @@ object KioskController extends Controller {
             val offset: Long =
                 request.getQueryString("offset").map(_.toLong).getOrElse(0)
 
+            val stationId:Long =
+                request.getQueryString("stationid").map(_.toLong).getOrElse(0)
+
             val authorization = request.headers.get("Authorization").get
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[KioskResponse] = KioskService.getAllByAccount(authResponse.id, offset, limit)
-                Ok(Json.toJson(response))
+                if(stationId > 0 ){
+                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id,stationId, offset, limit)
+                    Ok(Json.toJson(response))
+                }else{
+                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id, offset, limit)
+                    Ok(Json.toJson(response))
+                }
+
             }
 
 
