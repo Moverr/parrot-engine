@@ -44,15 +44,14 @@ class KioskService {
   }
 
   //todo: Get All By Account
-  def getAllByAccount(owner:Integer,accountId: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
+  def getAllByAccount(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-
-    var query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -66,34 +65,6 @@ class KioskService {
     kioskResponses.toSeq
 
   }
-
-
-
-
-  //todo: Get All By Station
-  def getAllByStation(stationId: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
-    //todo: verify that owner is not null
-    if (stationId == null) BadRequest(Json.obj(s"status" -> "Error", "message" -> "Invalid Authentication"))
-
-    val account: AccountResponse = AccountService.get(stationId);
-    if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
-
-
-    var query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
-    conn = getConnection()
-    val stmt = conn createStatement
-    val result = stmt.executeQuery(query)
-
-    val kioskResponses = new ListBuffer[KioskResponse]()
-
-    while (result next()) {
-      val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
-      kioskResponses += kioskResponse
-    }
-    kioskResponses.toSeq
-
-  }
-
 
 
   //todo: get Station by Id
