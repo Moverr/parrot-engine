@@ -3,8 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-# GET     /db                         controllers.Application.db
+GET     /                                  controllers.Application.index
+# GET     /db                              controllers.Application.db
 
 
 #ACCOUNTS
@@ -14,21 +14,26 @@ GET  /v1/account                            controllers.v1.AccountController.get
 #STATIONS
 POST /v1/station                            controllers.v1.StationsController.create
 GET  /v1/station                            controllers.v1.StationsController.getAll
-GET  /v1/station/:id                            controllers.v1.StationsController.show(id:Long)
+GET  /v1/station/:id                        controllers.v1.StationsController.show(id:Long)
+
+#KIOSKS
+POST /v1/kiosk                              controllers.v1.KioskController.create
+GET  /v1/kiosk                              controllers.v1.KioskController.getAll
+GET  /v1/kiosk/:id                          controllers.v1.KioskController.show(id:Long)
 
 
 
 
 #USERS
-GET /v1/users                                     controllers.v1.UsersController.index
+GET /v1/users                                controllers.v1.UsersController.index
 
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                         controllers.Assets.at(path="/public", file)
 
 #AUTH CONTROLLER
-#POST /v1/auth                              controllers.v1.AuthController.index
-POST /v1/auth/login                        controllers.v1.AuthController.login
-POST /v1/auth/register                     controllers.v1.AuthController.register
+#POST /v1/auth                                controllers.v1.AuthController.index
+POST /v1/auth/login                           controllers.v1.AuthController.login
+POST /v1/auth/register                        controllers.v1.AuthController.register
 
