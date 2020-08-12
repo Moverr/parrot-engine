@@ -56,12 +56,8 @@ object StationsController extends Controller {
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                var response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
-
-
-                val json = Json.toJson(response)
-
-                Ok(json)
+                val response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
+                Ok(Json.toJson(response))
             }
 
 
@@ -82,12 +78,8 @@ object StationsController extends Controller {
 
                 else {
                     try {
-
-                        var response: StationResponse = StationsService.getById(authResponse.id, stationId)
-                        val json = Json.toJson(response)
-
-                        Ok(json)
-
+                        val response: StationResponse = StationsService.getById(authResponse.id, stationId)
+                        Ok(Json.toJson(response))
                     }
                     catch {
                         case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
@@ -113,8 +105,6 @@ object StationsController extends Controller {
         implicit request =>
             val stationId: Long =
                 request.getQueryString("limit").map(_.toLong).getOrElse(0)
-
-
             Ok("Refresh Station to Active")
     }
 
