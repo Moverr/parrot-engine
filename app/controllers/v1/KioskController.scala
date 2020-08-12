@@ -31,9 +31,15 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                KioskService.create(authResponse.id, kioskRequest)
-                Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                try{
+                    val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
+                    KioskService.create(authResponse.id, kioskRequest)
+                    Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                }
+                catch {
+                    case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                }
+
 
             }
 

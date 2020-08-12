@@ -21,6 +21,14 @@ class KioskService extends TKioskService {
 
   override var conn = getConnection()
 
+  @throws[RuntimeException]
+  private def validate(kiosk: KioskRequest): Unit = {
+    if (kiosk.station_id == null) throw new RuntimeException("Station id is mandatory")
+    if (kiosk.token.length == 0) throw new RuntimeException("Token  is mandatory")
+    if (kiosk.details.length == 0) throw new RuntimeException("Kiosk Details is mandatory  ")
+
+  }
+
   //todo: create
   @throws
   override def create(owner: Integer, kiosk: KioskRequest): Unit = {
@@ -31,11 +39,10 @@ class KioskService extends TKioskService {
     val station: StationResponse = StationsService.getById(owner, kiosk.station_id)
     if (station == null) throw new RuntimeException("Station Does not exist")
 
+    validate(kiosk)
+
     val account: AccountResponse = AccountService.get(owner);
-    if (checkIfKioskExists(account.id, kiosk.reference_id) == true) throw new RuntimeException("Account already created for user")
-
-
-    var query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + HelperUtilities.randomStringGenerator(10) + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + HelperUtilities.randomStringGenerator(10) + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
