@@ -4,7 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data.format.Formats._
 
-case class KioskRequest(station_id:Long,reference_id:String,device_token:String,details:String)
+case class KioskRequest(station_id:Long, reference_id:String, token:String, details:String)
 
 object KioskRequest {
   val form: Form[KioskRequest] = Form(

@@ -1,45 +1,44 @@
 package services
 
 import entities.requests.kiosks.KioskRequest
-import entities.requests.stations.StationRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.stations.StationResponse
-
 import play.api.db.DB._
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
+import utils.HelperUtilities
 
 import scala.collection.mutable.ListBuffer
 
 //////
 import play.api.Play.current
-import play.api.mvc.Results._
 ///////
 
 
-
 class KioskService {
-    val tableName = " \"default\".stations"
+  val tableName = " \"default\".kiosks"
 
-    val conn = getConnection()
+  var conn = getConnection()
 
   //todo: create
   @throws
   def create(owner: Integer, kiosk: KioskRequest): Unit = {
     //todo: verify that owner is not null
-    if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
-    //todo: get Account Id by owner
+    if (owner == null) throw new RuntimeException("Invalid Authentication")
+    //todo: check to see that  station exists
+
+    val station: StationResponse = StationsService.getById(owner, kiosk.station_id)
+    if (station == null) throw new RuntimeException("Station Does not exist")
+
     val account: AccountResponse = AccountService.get(owner);
+    if (checkIfKioskExists(account.id, kiosk.reference_id) == true) throw new RuntimeException("Account already created for user")
 
 
-    if (checkIfKioskExists(account.id, kiosk.reference_id) == true) {
-      throw new RuntimeException("Account already created for user")
-    } else {
-      var query = "INSERT INTO " + tableName + " (account_id,name,code)  values ('" + account.id + "','" + kiosk.name + "','" + kiosk.code + "') ";
-      conn = getConnection()
-      val stmt = conn.createStatement
-      val result = stmt executeUpdate (query)
-    }
+    var query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + HelperUtilities.randomStringGenerator(10) + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
+    conn = getConnection()
+    val stmt = conn.createStatement
+    val result = stmt executeUpdate (query)
+
 
   }
 
@@ -145,4 +144,5 @@ class KioskService {
   }
 
 }
+
 object KioskService extends KioskService
