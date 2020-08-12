@@ -2,23 +2,22 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.accounts.AccountRequest
 import entities.requests.kiosks.KioskRequest
-import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
-import services.AccountService
+import services.KioskService
 import utils.HelperUtilities
 
 object KioskController extends Controller {
 
     implicit val resposnse = new Writes[KioskResponse] {
         def writes(_kiosk: KioskResponse) = Json.obj(
-            "station_id" -> _kiosk.station_id
-            ,"reference_id" -> _kiosk.reference_id
-            ,"device_token" -> _kiosk.device_token
-            ,"details" -> _kiosk.details
+            "id" -> _kiosk.id
+            , "reference_id" -> _kiosk.reference_id
+            , "details" -> _kiosk.details
+            , "device_token" -> _kiosk.device_token
+            , "created_on" -> _kiosk.created_on
         )
     }
 
@@ -32,8 +31,8 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val accountRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                AccountService.create(authResponse.id, accountRequest)
+                val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
+                KioskService.create(authResponse.id, kioskRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
 
             }
@@ -41,23 +40,23 @@ object KioskController extends Controller {
     }
 
 
-    def get = Action {
+    def getAll = Action {
         implicit request =>
-            //todo: Authenticate
+            val limit: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+            val offset: Long =
+                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+
             val authorization = request.headers.get("Authorization").get
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-
-
-                val response: AccountResponse = AccountService.get(authResponse.id)
-
-                // Ok(Json.obj("name" -> response.name))
+                val response: Seq[KioskResponse] = KioskService.getAllByAccount(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
-
-
             }
+
+
     }
 
 
