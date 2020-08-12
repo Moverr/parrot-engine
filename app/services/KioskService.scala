@@ -68,7 +68,7 @@ class KioskService extends TKioskService {
 
 
   //todo: Get All By Account
-  override def getAll(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
+  override def getAllByStation(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
 

@@ -18,7 +18,7 @@ trait TKioskService {
   def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[KioskResponse]
 
   //todo: Get All By Account
-  def getAll(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse]
+  def getAllByStation(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse]
 
   //todo: get Station by Id
   @_root_.scala.throws[Nothing]

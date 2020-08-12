@@ -56,7 +56,7 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 if(stationId > 0 ){
-                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id,stationId, offset, limit)
+                    val response: Seq[KioskResponse] = KioskService.getAllByStation(authResponse.id,stationId, offset, limit)
                     Ok(Json.toJson(response))
                 }else{
                     val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id, offset, limit)
