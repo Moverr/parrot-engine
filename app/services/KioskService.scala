@@ -97,7 +97,7 @@ class KioskService {
 
   //todo: get Station by Id
   @throws
-  def getById(owner: Integer, kioskId: Long): StationResponse = {
+  def getById(owner: Integer, kioskId: Long): KioskResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
@@ -106,10 +106,7 @@ class KioskService {
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
     if (result.next()) {
-      val id = result.getInt("id")
-      val name = result.getString("name")
-      val code = result.getString("code")
-      val response = new StationResponse(id, name, code)
+      val response: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
       response
     } else
       throw new RuntimeException("Record does not exist in the database")
@@ -124,9 +121,9 @@ class KioskService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val stationResponse: StationResponse = getById(owner, stationId)
+    val kioskResponse: KioskResponse = getById(owner, stationId)
 
-    if (stationResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
+    if (kioskResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
       var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + stationId + "' ";
       conn = getConnection()
@@ -139,18 +136,18 @@ class KioskService {
 
 
   //todo: Activate
-  def Activate(owner: Integer, stationId: Long): Unit = {
+  def Activate(owner: Integer, kioskId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val stationResponse: StationResponse = getById(owner, stationId)
+    val kioskResponse: KioskResponse = getById(owner, kioskId)
 
-    if (stationResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
+    if (kioskResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
-      var query = "UPDATE    " + tableName + "   SET status='ACTIVE' where id='" + stationId + "' ";
+      var query = "UPDATE    " + tableName + "   SET status='ACTIVE' where id='" + kioskId + "' ";
       conn = getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
@@ -159,8 +156,9 @@ class KioskService {
   }
 
 
+  //todo: check if kiosk exists
   def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + accountId + "  AND name LIKE '" + reference_id + "' ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
