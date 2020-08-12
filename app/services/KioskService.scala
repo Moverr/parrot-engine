@@ -67,6 +67,34 @@ class KioskService {
   }
 
 
+  //todo: Get All By Account
+  def getAllByStation(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
+    //todo: verify that owner is not null
+    if (owner == null) throw new RuntimeException("Invalid Authentication")
+
+
+    val account: AccountResponse = AccountService.get(owner);
+    if (account == null) throw new RuntimeException("Account does not exist")
+
+    val station: StationResponse = StationsService.getById(owner, stationId.longValue())
+    if (station == null) throw new RuntimeException("Station does not exist")
+
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.id = " + station.id + "  offset " + offset + " limit " + limit + "  ";
+    conn = getConnection()
+    val stmt = conn createStatement
+    val result = stmt.executeQuery(query)
+
+    val kioskResponses = new ListBuffer[KioskResponse]()
+
+    while (result next()) {
+      val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
+      kioskResponses += kioskResponse
+    }
+    kioskResponses.toSeq
+
+  }
+
+
   //todo: get Station by Id
   @throws
   def getById(owner: Integer, kioskId: Long): StationResponse = {
