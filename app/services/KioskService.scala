@@ -52,18 +52,18 @@ class KioskService {
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
 
-    var query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN "+StationsService.tableName+" B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    var query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
-    var result = stmt.executeQuery(query)
+    val result = stmt.executeQuery(query)
 
-    val stationResponses = new ListBuffer[KioskResponse]()
+    val kioskResponses = new ListBuffer[KioskResponse]()
 
     while (result next()) {
-      val stationResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("name"), result.getString("code"))
-      stationResponses += stationResponse
+      val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
+      kioskResponses += kioskResponse
     }
-    stationResponses.toSeq
+    kioskResponses.toSeq
 
 
   }

@@ -1,3 +1,5 @@
 package entities.responses.kiosks
 
-case class KioskResponse(station_id:Long,reference_id:String,device_token:String,details:String)
+import java.util._
+
+case class KioskResponse(id: Long, reference_id: String, details: String, device_token: String, created_on: Date)
