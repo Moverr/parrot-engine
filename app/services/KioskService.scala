@@ -51,7 +51,7 @@ class KioskService extends TKioskService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B ON A.station_id = B.id  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
