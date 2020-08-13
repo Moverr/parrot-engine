@@ -82,8 +82,18 @@ object StationsController extends Controller {
                         Ok(Json.toJson(response))
                     }
                     catch {
-                        case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                        case e: RuntimeException => {
+
+                            var message = ""
+                            if (e.getMessage != null) message = e getMessage
+
+                            BadRequest(Json.obj("status" -> "Error", "message" -> message))
+                        }
+                        case _ => {
+                            BadRequest(Json.obj("status" -> "Error", "message" -> "Something went wrong check input data"))
+                        }
                     }
+
                 }
             }
 

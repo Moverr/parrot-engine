@@ -21,7 +21,7 @@ class KioskService extends TKioskService {
 
   override var conn = getConnection()
 
-  @throws[RuntimeException]
+  @throws
   private def validate(kiosk: KioskRequest): Unit = {
     if (kiosk.station_id == null) throw new RuntimeException("Station id is mandatory")
     if (kiosk.token.length == 0) throw new RuntimeException("Token  is mandatory")
@@ -32,6 +32,8 @@ class KioskService extends TKioskService {
   //todo: create
   @throws
   override def create(owner: Integer, kiosk: KioskRequest): Unit = {
+
+
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
@@ -46,7 +48,7 @@ class KioskService extends TKioskService {
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
-
+    conn.close()
 
   }
 
@@ -69,6 +71,7 @@ class KioskService extends TKioskService {
       val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
       kioskResponses += kioskResponse
     }
+    conn.close()
     kioskResponses.toSeq
 
   }
@@ -97,6 +100,7 @@ class KioskService extends TKioskService {
       val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
       kioskResponses += kioskResponse
     }
+    conn.close()
     kioskResponses.toSeq
 
   }
@@ -136,6 +140,7 @@ class KioskService extends TKioskService {
       conn = getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
+      conn.close()
     }
 
 
@@ -158,6 +163,7 @@ class KioskService extends TKioskService {
       conn = getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
+      conn.close()
     }
 
   }
@@ -170,10 +176,13 @@ class KioskService extends TKioskService {
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
     if (result.next()) {
+      conn.close()
       true
     } else {
+      conn.close()
       false
     }
+
   }
 
 }
