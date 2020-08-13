@@ -44,7 +44,8 @@ class KioskService extends TKioskService {
     validate(kiosk)
 
     val account: AccountResponse = AccountService.get(owner);
-    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + HelperUtilities.randomStringGenerator(10) + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
+    val reference = HelperUtilities.randStr(10);
+    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + reference + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)

@@ -35,6 +35,9 @@ class HelperUtilities {
     Json.obj("status" -> "200", "message" -> message)
   }
 
+  val alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  def randStr(n:Int) = (1 to n).map(_ => alpha(Random.nextInt(alpha.length))).mkString
+
 }
 
 object HelperUtilities extends HelperUtilities
