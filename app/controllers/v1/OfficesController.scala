@@ -1,5 +1,7 @@
 package controllers.v1
 
-class OfficesController {
+import play.api.mvc.Controller
+
+object   OfficesController  extends Controller{
 
 }
