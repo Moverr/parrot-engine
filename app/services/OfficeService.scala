@@ -30,21 +30,21 @@ class OfficeService {
 
   //todo: create
   @throws
-    def create(owner: Integer, kiosk: KioskRequest): Unit = {
+    def create(owner: Integer, office: OfficeRequest): Unit = {
 
 
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
 
-    val station: StationResponse = StationsService.getById(owner, kiosk.station_id)
-    if (station == null) throw new RuntimeException("Station Does not exist")
+//    val station: StationResponse = StationsService.getById(owner, office.station_id)
+//    if (station == null) throw new RuntimeException("Station Does not exist")
 
-    validate(kiosk)
+    validate(office)
 
     val account: AccountResponse = AccountService.get(owner);
     val reference = HelperUtilities.randStr(10);
-    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + reference + "','" + kiosk.details + "','" + kiosk.token + "','" + kiosk.station_id + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + reference + "','" + office.details + "','" + office.token + "','" + office.station_id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
