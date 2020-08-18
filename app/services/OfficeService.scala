@@ -35,15 +35,13 @@ class OfficeService {
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
 
-    //    val station: StationResponse = StationsService.getById(owner, office.station_id)
-    //    if (station == null) throw new RuntimeException("Station Does not exist")
 
     validate(office)
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Invalid Authentication")
 
-    val query = "INSERT INTO " + tableName + " (name,parent_office,author_id)  values ( '" + office.name + "','" + office.parent_office + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (name,parent_office,account_id,author_id)  values ( '" + office.name + "','" + office.parent_office + "','"+account.id+"','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
