@@ -40,7 +40,7 @@ class OfficeService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Invalid Authentication")
 
-    val query = "INSERT INTO " + tableName + " (name,parent_office,account_id,author_id)  values ( '" + office.name + "','" + office.parent_office + "','"+account.id+"','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (name,parent_office,account_id,author_id)  values ( '" + office.name + "','" + office.parent_office + "','" + account.id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
@@ -51,7 +51,7 @@ class OfficeService {
   //todo: Get All By Account
   def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[OfficeResponse] = {
     //todo: verify that owner is not null
-    if (owner == null)  throw new RuntimeException("Invalid Authentication")
+    if (owner == null) throw new RuntimeException("Invalid Authentication")
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
@@ -73,7 +73,7 @@ class OfficeService {
 
 
   private def populateResponse(result: ResultSet) = {
-   new OfficeResponse(result.getInt("id"), result.getString("name"), "-", result.getDate("created_on"))
+    new OfficeResponse(result.getInt("id"), result.getString("name"), "-", result.getDate("created_on"))
   }
 
   //todo: get Station by Id
@@ -82,13 +82,13 @@ class OfficeService {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE  A.id ='"+officeId+"' ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE  A.id ='" + officeId + "' ";
 
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
     if (result.next()) {
-       val response: OfficeResponse = populateResponse(result)
+      val response: OfficeResponse = populateResponse(result)
       response
     } else
       throw new RuntimeException("Record does not exist in the database")
@@ -96,18 +96,16 @@ class OfficeService {
 
 
   //todo: Archive Station
-  def Archive(owner: Integer, stationId: Long): Unit = {
+  def Archive(owner: Integer, officeId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val account: AccountResponse = AccountService.get(owner);
-    if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val kioskResponse: KioskResponse = getById(owner, stationId)
+    val kioskResponse: KioskResponse = getById(owner, officeId)
 
     if (kioskResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
-      var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + stationId + "' ";
+      var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + officeId + "' ";
       conn = getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
@@ -119,18 +117,18 @@ class OfficeService {
 
 
   //todo: Activate
-  def Activate(owner: Integer, kioskId: Long): Unit = {
+  def Activate(owner: Integer, officeId: Long): Unit = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val kioskResponse: KioskResponse = getById(owner, kioskId)
+    val officeResponse: OfficeResponse = getById(owner, officeId)
 
-    if (kioskResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
+    if (officeResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
-      var query = "UPDATE    " + tableName + "   SET status='ACTIVE' where id='" + kioskId + "' ";
+      var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + officeId + "' ";
       conn = getConnection()
       val stmt = conn createStatement
       var result = stmt executeUpdate (query)
