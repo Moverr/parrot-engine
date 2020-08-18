@@ -82,13 +82,5 @@ object OfficesController extends Controller {
 
     }
 
-    //todo: create
 
-    //list
-
-    //getby id
-
-    //deactivate
-    //activate
-    //update
 }
