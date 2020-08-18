@@ -2,7 +2,6 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import controllers.v1.KioskController.{BadRequest, Ok}
 import entities.requests.kiosks.KioskRequest
 import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
