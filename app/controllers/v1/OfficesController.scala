@@ -4,19 +4,19 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.kiosks.KioskRequest
 import entities.responses.kiosks.KioskResponse
+import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.KioskService
 import utils.HelperUtilities
 
 object   OfficesController  extends Controller{
-    implicit val resposnse = new Writes[KioskResponse] {
-        def writes(_kiosk: KioskResponse) = Json.obj(
-            "id" -> _kiosk.id
-            , "reference_id" -> _kiosk.reference_id
-            , "details" -> _kiosk.details
-            , "device_token" -> _kiosk.device_token
-            , "created_on" -> _kiosk.created_on
+    implicit val resposnse = new Writes[OfficeResponse] {
+        def writes(_office: OfficeResponse) = Json.obj(
+            "id" -> _office.id
+            , "name" -> _office.name
+            , "parent_office" -> _office.parent_office
+            , "created_on" -> _office.created_on
         )
     }
 
