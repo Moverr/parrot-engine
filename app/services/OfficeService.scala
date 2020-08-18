@@ -1,5 +1,7 @@
 package services
 
+import java.sql.ResultSet
+
 import entities.requests.offices.OfficeRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
@@ -62,7 +64,7 @@ class OfficeService {
     val officeResponses = new ListBuffer[OfficeResponse]()
 
     while (result next()) {
-      val officeResponse: OfficeResponse = new OfficeResponse(result.getInt("id"), result.getString("name"), "-",    result.getDate("created_on"))
+      val officeResponse: OfficeResponse = populateResponse(result)
       officeResponses += officeResponse
     }
     conn.close()
@@ -70,18 +72,23 @@ class OfficeService {
   }
 
 
+  private def populateResponse(result: ResultSet) = {
+   new OfficeResponse(result.getInt("id"), result.getString("name"), "-", result.getDate("created_on"))
+  }
+
   //todo: get Station by Id
   @throws
-  def getById(owner: Integer, kioskId: Long): KioskResponse = {
+  def getById(owner: Integer, officeId: Long): OfficeResponse = {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    var query = "SELECT * FROM   " + tableName + " WHERE id = " + kioskId + "   AND    ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE  A.id ='"+officeId+"' ";
+
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
     if (result.next()) {
-      val response: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
+       val response: OfficeResponse = populateResponse(result)
       response
     } else
       throw new RuntimeException("Record does not exist in the database")
