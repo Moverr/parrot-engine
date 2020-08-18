@@ -1,6 +1,5 @@
 package services
 
-import entities.requests.kiosks.KioskRequest
 import entities.requests.offices.OfficeRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
@@ -44,7 +43,7 @@ class OfficeService {
 
     val account: AccountResponse = AccountService.get(owner);
     val reference = HelperUtilities.randStr(10);
-    val query = "INSERT INTO " + tableName + " (reference,details,device_token,station_id,author_id)  values ('" + reference + "','" + office.details + "','" + office.token + "','" + office.station_id + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (name,parent_office,author_id)  values ( '" + office.name + "','" + office.parent_office + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
