@@ -3,6 +3,7 @@ package controllers.v1
 import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.kiosks.KioskRequest
+import entities.requests.offices.OfficeRequest
 import entities.responses.kiosks.KioskResponse
 import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
@@ -31,8 +32,8 @@ object   OfficesController  extends Controller{
             else {
 
                 try{
-                    val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                    KioskService.create(authResponse.id, kioskRequest)
+                    val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
+                    KioskService.create(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
