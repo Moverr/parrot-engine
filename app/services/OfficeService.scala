@@ -4,7 +4,6 @@ import java.sql.ResultSet
 
 import entities.requests.offices.OfficeRequest
 import entities.responses.accounts.AccountResponse
-import entities.responses.kiosks.KioskResponse
 import entities.responses.offices.OfficeResponse
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
@@ -101,9 +100,9 @@ class OfficeService {
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
 
-    val kioskResponse: KioskResponse = getById(owner, officeId)
+    val officeResponse: OfficeResponse = getById(owner, officeId)
 
-    if (kioskResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
+    if (officeResponse == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Record does not exist in the database"))
     else {
       var query = "UPDATE    " + tableName + "   SET status='ARCHIVED' where id='" + officeId + "' ";
       conn = getConnection()
