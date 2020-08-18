@@ -67,9 +67,8 @@ class OfficeService {
     }
     conn.close()
     officeResponses.toSeq
-
   }
- 
+
 
   //todo: get Station by Id
   @throws
