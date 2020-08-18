@@ -4,7 +4,6 @@ import entities.requests.offices.OfficeRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
 import entities.responses.offices.OfficeResponse
-import entities.responses.stations.StationResponse
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
@@ -30,11 +29,9 @@ class OfficeService {
   @throws
   def create(owner: Integer, office: OfficeRequest): Unit = {
 
-
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
-
 
     validate(office)
 
@@ -52,56 +49,27 @@ class OfficeService {
   //todo: Get All By Account
   def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[OfficeResponse] = {
     //todo: verify that owner is not null
-    if (owner == null) throw new RuntimeException("Invalid Authentication")
-
-    val account: AccountResponse = AccountService.get(owner);
-    if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
-
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B ON A.station_id = B.id  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
-    conn = getConnection()
-    val stmt = conn createStatement
-    val result = stmt.executeQuery(query)
-
-    val kioskResponses = new ListBuffer[KioskResponse]()
-
-    while (result next()) {
-      val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
-      kioskResponses += kioskResponse
-    }
-    conn.close()
-    kioskResponses.toSeq
-
-  }
-
-
-  //todo: Get All By Account
-  def getAllByStation(owner: Integer, stationId: Long, offset: Long = 0, limit: Long = 10): Seq[KioskResponse] = {
-    //todo: verify that owner is not null
-    if (owner == null) throw new RuntimeException("Invalid Authentication")
-
+    if (owner == null)  throw new RuntimeException("Invalid Authentication")
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val station: StationResponse = StationsService.getById(owner, stationId.longValue())
-    if (station == null) throw new RuntimeException("Station does not exist")
-
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.id = " + station.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE B.id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
 
-    val kioskResponses = new ListBuffer[KioskResponse]()
+    val officeResponses = new ListBuffer[OfficeResponse]()
 
     while (result next()) {
-      val kioskResponse: KioskResponse = new KioskResponse(result.getInt("id"), result.getString("reference"), result.getString("details"), result.getString("device_token"), result.getDate("created_on"))
-      kioskResponses += kioskResponse
+      val officeResponse: OfficeResponse = new OfficeResponse(result.getInt("id"), result.getString("name"), "-",    result.getDate("created_on"))
+      officeResponses += officeResponse
     }
     conn.close()
-    kioskResponses.toSeq
+    officeResponses.toSeq
 
   }
-
+ 
 
   //todo: get Station by Id
   @throws
