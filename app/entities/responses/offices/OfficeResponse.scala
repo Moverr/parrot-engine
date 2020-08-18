@@ -2,4 +2,4 @@ package entities.responses.offices
 
 import java.util.Date
 
-case class OfficeResponse(id: Long, reference_id: String, details: String, device_token: String, created_on: Date)
+case class OfficeResponse(id: Long,  name: String, parent_office:Long, created_on: Date)
