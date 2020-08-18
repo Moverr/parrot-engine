@@ -1,6 +1,7 @@
 package services
 
 import entities.requests.kiosks.KioskRequest
+import entities.requests.offices.OfficeRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
 import entities.responses.stations.StationResponse
@@ -19,15 +20,12 @@ import play.api.Play.current
 
 class OfficeService {
     val tableName = " \"default\".offices"
-
     var conn = getConnection()
 
   @throws
-  private def validate(kiosk: KioskRequest): Unit = {
-    if (kiosk.station_id == null) throw new RuntimeException("Station id is mandatory")
-    if (kiosk.token.length == 0) throw new RuntimeException("Token  is mandatory")
-    if (kiosk.details.length == 0) throw new RuntimeException("Kiosk Details is mandatory  ")
-
+  private def validate(office: OfficeRequest): Unit = {
+    if (office.name == null) throw new RuntimeException("Office Name id is mandatory")
+    if (office.code  == null) throw new RuntimeException("Office Code  is mandatory")
   }
 
   //todo: create
