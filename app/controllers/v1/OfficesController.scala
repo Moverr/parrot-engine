@@ -2,16 +2,14 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.kiosks.KioskRequest
 import entities.requests.offices.OfficeRequest
-import entities.responses.kiosks.KioskResponse
 import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
-import services.{KioskService, OfficeService}
+import services.OfficeService
 import utils.HelperUtilities
 
-object   OfficesController  extends Controller{
+object OfficesController extends Controller {
     implicit val resposnse = new Writes[OfficeResponse] {
         def writes(_office: OfficeResponse) = Json.obj(
             "id" -> _office.id
@@ -30,8 +28,7 @@ object   OfficesController  extends Controller{
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-
-                try{
+                try {
                     val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
                     OfficeService.create(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
@@ -39,10 +36,7 @@ object   OfficesController  extends Controller{
                 catch {
                     case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
                 }
-
-
             }
-
     }
 
 
@@ -53,7 +47,6 @@ object   OfficesController  extends Controller{
             val offset: Long =
                 request.getQueryString("offset").map(_.toLong).getOrElse(0)
 
-
             val authorization = request.headers.get("Authorization").get
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
@@ -62,11 +55,7 @@ object   OfficesController  extends Controller{
 
                 val response: Seq[OfficeResponse] = OfficeService.getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
-
-
             }
-
-
     }
 
     def show(id: Long) = Action {
@@ -82,7 +71,7 @@ object   OfficesController  extends Controller{
 
                 else {
                     try {
-                        val response: KioskResponse = KioskService.getById(authResponse.id, kioskId)
+                        val response: OfficeResponse = OfficeService.getById(authResponse.id, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {
