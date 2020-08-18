@@ -154,3 +154,4 @@ class OfficeService {
   }
 
 }
+object OfficeService extends OfficeService

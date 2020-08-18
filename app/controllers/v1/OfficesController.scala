@@ -8,7 +8,7 @@ import entities.responses.kiosks.KioskResponse
 import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
-import services.KioskService
+import services.{KioskService, OfficeService}
 import utils.HelperUtilities
 
 object   OfficesController  extends Controller{
@@ -33,7 +33,7 @@ object   OfficesController  extends Controller{
 
                 try{
                     val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
-                    KioskService.create(authResponse.id, officeRequest)
+                    OfficeService.create(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -53,21 +53,16 @@ object   OfficesController  extends Controller{
             val offset: Long =
                 request.getQueryString("offset").map(_.toLong).getOrElse(0)
 
-            val stationId:Long =
-                request.getQueryString("stationid").map(_.toLong).getOrElse(0)
 
             val authorization = request.headers.get("Authorization").get
 
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                if(stationId > 0 ){
-                    val response: Seq[KioskResponse] = KioskService.getAllByStation(authResponse.id,stationId, offset, limit)
-                    Ok(Json.toJson(response))
-                }else{
-                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id, offset, limit)
-                    Ok(Json.toJson(response))
-                }
+
+                val response: Seq[OfficeResponse] = OfficeService.getAll(authResponse.id, offset, limit)
+                Ok(Json.toJson(response))
+
 
             }
 
