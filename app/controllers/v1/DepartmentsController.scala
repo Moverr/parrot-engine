@@ -3,12 +3,10 @@ package controllers.v1
 import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.departments.DepartmentRequest
-import entities.requests.kiosks.KioskRequest
 import entities.responses.departments.DepartmentResponse
-import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.{DepartmentService, KioskService}
+import services.DepartmentService
 import utils.HelperUtilities
 
 
@@ -63,14 +61,8 @@ object DepartmentsController extends Controller  {
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                if(stationId > 0 ){
-                    val response: Seq[KioskResponse] = KioskService.getAllByStation(authResponse.id,stationId, offset, limit)
-                    Ok(Json.toJson(response))
-                }else{
-                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id, offset, limit)
-                    Ok(Json.toJson(response))
-                }
-
+                val response: Seq[DepartmentResponse] = DepartmentService.getAll(authResponse.id, offset, limit)
+                Ok(Json.toJson(response))
             }
 
 
@@ -89,7 +81,7 @@ object DepartmentsController extends Controller  {
 
                 else {
                     try {
-                        val response: KioskResponse = KioskService.getById(authResponse.id, kioskId)
+                        val response: DepartmentResponse = DepartmentService.getById(authResponse.id, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {
