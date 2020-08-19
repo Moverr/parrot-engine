@@ -43,9 +43,9 @@ object OfficesController extends Controller {
     def getAll = Action {
         implicit request =>
             val limit: Long =
-                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+                request.getQueryString("limit").map(_.toLong).getOrElse(HelperUtilities.defaultLimit)
             val offset: Long =
-                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+                request.getQueryString("offset").map(_.toLong).getOrElse(HelperUtilities.defaultOffset)
 
             val authorization = request.headers.get("Authorization").get
 
@@ -60,18 +60,18 @@ object OfficesController extends Controller {
 
     def show(id: Long) = Action {
         implicit request =>
-            val kioskId: Long = id
+            val officeId: Long = id
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
-                if (kioskId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+                if (officeId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
 
                 else {
                     try {
-                        val response: OfficeResponse = OfficeService.getById(authResponse.id, kioskId)
+                        val response: OfficeResponse = OfficeService.getById(authResponse.id, officeId)
                         Ok(Json.toJson(response))
                     }
                     catch {

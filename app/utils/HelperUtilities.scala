@@ -8,6 +8,9 @@ import play.api.libs.json.Json
 
 class HelperUtilities {
 
+  def defaultOffset = 0
+  def defaultLimit = 50
+
   def randomStringGenerator(size: Integer): String = {
     val x = Random.alphanumeric
     val result = x take (size)
