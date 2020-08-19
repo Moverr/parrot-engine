@@ -2,7 +2,7 @@ package services
 
 import java.sql.ResultSet
 
-import entities.requests.offices.OfficeRequest
+import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.accounts.AccountResponse
 import entities.responses.offices.OfficeResponse
 import play.api.db.DB.getConnection
@@ -18,12 +18,19 @@ import play.api.Play.current
 
 class OfficeService {
   val tableName = " \"default\".offices"
+  val assignTableName = " \"default\".offices"
   var conn = getConnection()
 
   @throws
   private def validate(office: OfficeRequest): Unit = {
     if (office.name == null) throw new RuntimeException("Office Name id is mandatory")
     if (office.code == null) throw new RuntimeException("Office Code  is mandatory")
+  }
+
+  @throws
+  private def validate(office: OfficeAssignRequest): Unit = {
+    if (office.office_id == null) throw new RuntimeException("Office ID id is mandatory")
+    if (office.station_id == null) throw new RuntimeException("station ID  is mandatory")
   }
 
   //todo: create
@@ -47,6 +54,28 @@ class OfficeService {
 
   }
 
+
+  @throws
+  def assign(owner: Integer, office: OfficeAssignRequest): Unit = {
+
+    //todo: verify that owner is not null
+    if (owner == null) throw new RuntimeException("Invalid Authentication")
+    //todo: check to see that  station exists
+
+    validate(office)
+
+    val account: AccountResponse = AccountService.get(owner);
+    if (account == null) throw new RuntimeException("Invalid Authentication")
+
+    val query = "INSERT INTO " + assignTableName + " (office_id,station_id)  values ( '" + office.office_id + "','" + office.station_id + "') ";
+    conn = getConnection()
+    val stmt = conn.createStatement
+    val result = stmt executeUpdate (query)
+    conn.close()
+
+  }
+
+
   //todo: Get All By Account
   def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[OfficeResponse] = {
     //todo: verify that owner is not null
@@ -55,7 +84,7 @@ class OfficeService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val query = "SELECT A.*,C.name as parent_office_name  FROM   " + tableName + "   A LEFT OUTER JOIN "+tableName+"  C ON C.id = A.parent_office INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE B.id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.*,C.name as parent_office_name  FROM   " + tableName + "   A LEFT OUTER JOIN " + tableName + "  C ON C.id = A.parent_office INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE B.id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -154,4 +183,5 @@ class OfficeService {
   }
 
 }
+
 object OfficeService extends OfficeService
