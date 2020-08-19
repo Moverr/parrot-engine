@@ -27,6 +27,12 @@ POST /v1/office/assign                       controllers.v1.OfficesController.as
 GET  /v1/office                              controllers.v1.OfficesController.getAll
 GET  /v1/office/:id                          controllers.v1.OfficesController.show(id:Long)
 
+#DEPARTMENT
+POST /v1/department                              controllers.v1.DepartmentsController.create
+GET  /v1/department                              controllers.v1.DepartmentsController.getAll
+GET  /v1/department/:id                          controllers.v1.DepartmentsController.show(id:Long)
+
+
 
 #USERS
 GET /v1/users                                controllers.v1.UsersController.index
