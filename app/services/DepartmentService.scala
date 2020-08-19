@@ -12,14 +12,13 @@ import play.api.mvc.Results.BadRequest
 
 import scala.collection.mutable.ListBuffer
 
-
 //////
+import play.api.Play.current
 ///////
 
 
 class DepartmentService {
   val tableName = " \"default\".departments"
-  val assignTableName = " \"default\".offices"
   var conn = getConnection()
 
   @throws
@@ -44,7 +43,7 @@ class DepartmentService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Invalid Authentication")
 
-    val query = "INSERT INTO " + tableName + " (name,parent_office,account_id,author_id)  values ( '" + department.name + "','" + department.parent_office + "','" + account.id + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (name,code,office_id,author_id)  values ( '" + department.name + "','" + department.code + "','" + department.office_id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
