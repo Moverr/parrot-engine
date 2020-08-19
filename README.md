@@ -66,3 +66,8 @@ $ heroku open
  import app.utils.JwtUtility
 ```
 
+-- Gadget --
+
+<br/>
+ 
+ Login... Register Gadget..
