@@ -50,7 +50,7 @@ object OfficesController extends Controller {
             else {
                 try {
                     val officeRequest: OfficeAssignRequest = OfficeAssignRequest.form.bindFromRequest.get
-                    OfficeService.create(authResponse.id, officeRequest)
+                    OfficeService.assign(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -58,7 +58,6 @@ object OfficesController extends Controller {
                 }
             }
     }
-
 
 
     def getAll = Action {

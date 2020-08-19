@@ -10,7 +10,7 @@ case class OfficeAssignRequest(office_id: Long, station_id: Long)
 
 object OfficeAssignRequest {
   val form: Form[OfficeAssignRequest] = Form(
-    mapping(
+    mapping(s
       "office_id" -> of[Long]
       , "station_id" -> of[Long]
     )(OfficeAssignRequest.apply)(OfficeAssignRequest.unapply)
