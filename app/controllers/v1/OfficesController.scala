@@ -40,6 +40,27 @@ object OfficesController extends Controller {
     }
 
 
+    def assign = Action {
+        implicit request =>
+            //todo: Authenticate
+            val authorization = request.headers.get("Authorization").get
+
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            else {
+                try {
+                    val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
+                    OfficeService.create(authResponse.id, officeRequest)
+                    Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                }
+                catch {
+                    case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                }
+            }
+    }
+
+
+
     def getAll = Action {
         implicit request =>
             val limit: Long =
