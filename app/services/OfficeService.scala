@@ -55,7 +55,7 @@ class OfficeService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE B.id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.*,C.name as parent_office_name  FROM   " + tableName + "   A LEFT OUTER JOIN "+tableName+"  C ON C.id = A.parent_office INNER JOIN " + AccountService.tableName + " B ON A.account_id = B.id  WHERE B.id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -72,7 +72,7 @@ class OfficeService {
 
 
   private def populateResponse(result: ResultSet) = {
-    new OfficeResponse(result.getInt("id"), result.getString("name"), "-", result.getDate("created_on"))
+    new OfficeResponse(result.getInt("id"), result.getString("name"), result.getString("parent_office_name"), result.getDate("created_on"))
   }
 
   //todo: get Station by Id
