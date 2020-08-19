@@ -21,7 +21,11 @@ POST /v1/kiosk                              controllers.v1.KioskController.creat
 GET  /v1/kiosk                              controllers.v1.KioskController.getAll
 GET  /v1/kiosk/:id                          controllers.v1.KioskController.show(id:Long)
 
-
+#OFFICES
+POST /v1/office                              controllers.v1.OfficesController.create
+POST /v1/office/assign                       controllers.v1.OfficesController.assign
+GET  /v1/office                              controllers.v1.OfficesController.getAll
+GET  /v1/office/:id                          controllers.v1.OfficesController.show(id:Long)
 
 
 #USERS
