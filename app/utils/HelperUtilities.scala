@@ -1,19 +1,22 @@
 package utils
 
-import scala.util.Random
 import java.util.Base64
 
 import play.api.libs.json.Json
 
+import scala.util.Random
+
 
 class HelperUtilities {
+
+  val defaultOffset: Int = 0
+  val defaultLimit: Int = 50
 
   def randomStringGenerator(size: Integer): String = {
     val x = Random.alphanumeric
     val result = x take (size)
     result.toString()
   }
-
 
 
   def convertToBasicAuth(username: String, Password: String): String = {
@@ -36,7 +39,8 @@ class HelperUtilities {
   }
 
   val alpha = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-  def randStr(n:Int) = (1 to n).map(_ => alpha(Random.nextInt(alpha.length))).mkString
+
+  def randStr(n: Int) = (1 to n).map(_ => alpha(Random.nextInt(alpha.length))).mkString
 
 }
 

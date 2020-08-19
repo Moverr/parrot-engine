@@ -2,7 +2,7 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.offices.OfficeRequest
+import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
@@ -40,12 +40,32 @@ object OfficesController extends Controller {
     }
 
 
+    def assign = Action {
+        implicit request =>
+            //todo: Authenticate
+            val authorization = request.headers.get("Authorization").get
+
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            else {
+                try {
+                    val officeRequest: OfficeAssignRequest = OfficeAssignRequest.form.bindFromRequest.get
+                    OfficeService.assign(authResponse.id, officeRequest)
+                    Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                }
+                catch {
+                    case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                }
+            }
+    }
+
+
     def getAll = Action {
         implicit request =>
             val limit: Long =
-                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+                request.getQueryString("limit").map(_.toLong).getOrElse(HelperUtilities.defaultLimit)
             val offset: Long =
-                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+                request.getQueryString("offset").map(_.toLong).getOrElse(HelperUtilities.defaultOffset)
 
             val authorization = request.headers.get("Authorization").get
 
@@ -60,18 +80,18 @@ object OfficesController extends Controller {
 
     def show(id: Long) = Action {
         implicit request =>
-            val kioskId: Long = id
+            val officeId: Long = id
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
-                if (kioskId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+                if (officeId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
 
                 else {
                     try {
-                        val response: OfficeResponse = OfficeService.getById(authResponse.id, kioskId)
+                        val response: OfficeResponse = OfficeService.getById(authResponse.id, officeId)
                         Ok(Json.toJson(response))
                     }
                     catch {
@@ -82,9 +102,6 @@ object OfficesController extends Controller {
 
     }
 
-    //todo: assign: station
-
-    //todo: its about time to put between here and there
 
 
 }
