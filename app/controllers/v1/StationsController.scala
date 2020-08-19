@@ -89,9 +89,8 @@ object StationsController extends Controller {
 
                             BadRequest(Json.obj("status" -> "Error", "message" -> message))
                         }
-                        case _ => {
-                            BadRequest(Json.obj("status" -> "Error", "message" -> "Something went wrong check input data"))
-                        }
+//                        case _ =>    BadRequest(Json.obj("status" -> "Error", "message" -> "Something went wrong check input data"))
+
                     }
 
                 }

@@ -23,7 +23,7 @@ class KioskService extends TKioskService {
 
   @throws
   private def validate(kiosk: KioskRequest): Unit = {
-    if (kiosk.station_id == null) throw new RuntimeException("Station id is mandatory")
+    if (kiosk.station_id == 0) throw new RuntimeException("Station id is mandatory")
     if (kiosk.token.length == 0) throw new RuntimeException("Token  is mandatory")
     if (kiosk.details.length == 0) throw new RuntimeException("Kiosk Details is mandatory  ")
 

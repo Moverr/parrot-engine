@@ -6,7 +6,7 @@ import play.api.data.Forms._
 import play.api.data.format.Formats._
 
 
-case class OfficeRequest(name: String, code: String, parent_office: Long = null)
+case class OfficeRequest(name: String, code: String,parent_office: Long)
 
 object OfficeRequest {
   val form: Form[OfficeRequest] = Form(

@@ -29,8 +29,9 @@ class OfficeService {
 
   @throws
   private def validate(office: OfficeAssignRequest): Unit = {
-    if (office.office_id == null) throw new RuntimeException("Office ID id is mandatory")
-    if (office.station_id == null) throw new RuntimeException("station ID  is mandatory")
+
+    if (office.office_id == 0) throw new RuntimeException("Office ID id is mandatory")
+    if (office.station_id == 0) throw new RuntimeException("station ID  is mandatory")
   }
 
   //todo: create
