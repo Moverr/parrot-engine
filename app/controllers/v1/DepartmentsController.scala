@@ -2,12 +2,13 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
+import entities.requests.departments.DepartmentRequest
 import entities.requests.kiosks.KioskRequest
 import entities.responses.departments.DepartmentResponse
 import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.KioskService
+import services.{DepartmentService, KioskService}
 import utils.HelperUtilities
 
 
@@ -33,8 +34,8 @@ object DepartmentsController extends Controller  {
             else {
 
                 try{
-                    val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                    KioskService.create(authResponse.id, kioskRequest)
+                    val departmentRequest: DepartmentRequest = DepartmentRequest.form.bindFromRequest.get
+                    DepartmentService.create(authResponse.id, departmentRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
