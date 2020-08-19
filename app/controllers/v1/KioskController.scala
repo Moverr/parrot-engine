@@ -98,13 +98,4 @@ object KioskController extends Controller {
 
     }
 
-    //todo: create
-
-    //list
-
-    //getby id
-
-    //deactivate
-    //activate
-    //update
 }
