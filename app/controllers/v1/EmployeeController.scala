@@ -3,6 +3,7 @@ package controllers.v1
 import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.departments.DepartmentRequest
+import entities.requests.employee.EmployeeRequest
 import entities.responses.departments.DepartmentResponse
 import entities.responses.employee.EmployeeResponse
 import play.api.libs.json.{Json, Writes}
@@ -34,8 +35,8 @@ object EmployeeController extends Controller {
             else {
 
                 try {
-                    val departmentRequest: DepartmentRequest = DepartmentRequest.form.bindFromRequest.get
-                    DepartmentService.create(authResponse.id, departmentRequest)
+                    val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
+                    DepartmentService.create(authResponse.id, employeeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
