@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.departments.DepartmentRequest
 import entities.responses.departments.DepartmentResponse
+import entities.responses.employee.EmployeeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.DepartmentService
@@ -13,12 +14,12 @@ import utils.HelperUtilities
 object EmployeeController extends Controller {
 
 
-    implicit val resposnse = new Writes[DepartmentResponse] {
-        def writes(_department: DepartmentResponse) = Json.obj(
-            "id" -> _department.id
-            , "name" -> _department.name
-            , "code" -> _department.code
-            , "created_on" -> _department.created_on
+    implicit val resposnse = new Writes[EmployeeResponse] {
+        def writes(_employee: EmployeeResponse) = Json.obj(
+            "id" -> _employee.id
+            , "names" -> _employee.names
+            , "gender" -> _employee.gender
+            , "created_on" -> _employee.created_on
         )
     }
 
