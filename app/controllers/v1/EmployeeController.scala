@@ -2,13 +2,11 @@ package controllers.v1
 
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import entities.requests.departments.DepartmentRequest
 import entities.requests.employee.EmployeeRequest
-import entities.responses.departments.DepartmentResponse
 import entities.responses.employee.EmployeeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.DepartmentService
+import services.EmployeeService
 import utils.HelperUtilities
 
 //todo: working on employee and moving on
@@ -36,7 +34,7 @@ object EmployeeController extends Controller {
 
                 try {
                     val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
-                    DepartmentService.create(authResponse.id, employeeRequest)
+                    EmployeeService.create(authResponse.id, employeeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -64,7 +62,7 @@ object EmployeeController extends Controller {
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[DepartmentResponse] = DepartmentService.getAll(authResponse.id, offset, limit)
+                val response: Seq[EmployeeResponse] = EmployeeService.getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -84,7 +82,7 @@ object EmployeeController extends Controller {
 
                 else {
                     try {
-                        val response: DepartmentResponse = DepartmentService.getById(authResponse.id, kioskId)
+                        val response: EmployeeResponse = EmployeeService.getById(authResponse.id, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {
