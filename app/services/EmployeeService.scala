@@ -180,3 +180,5 @@ class EmployeeService {
   }
 
 }
+
+object EmployeeService extends EmployeeService
