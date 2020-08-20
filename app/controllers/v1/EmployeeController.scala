@@ -1,10 +1,97 @@
 package controllers.v1
-import javax.inject.Inject
-import play.api.Logger
-import play.api.data.Form
-import play.api.libs.json.Json
-import play.api.mvc._
 
+import app.entities.responses.AuthResponse
+import app.services.UsersService
+import entities.requests.employee.EmployeeRequest
+import entities.responses.employee.EmployeeResponse
+import play.api.libs.json.{Json, Writes}
+import play.api.mvc._
+import services.EmployeeService
+import utils.HelperUtilities
+
+//todo: working on employee and moving on
 object EmployeeController extends Controller {
+
+
+    implicit val resposnse = new Writes[EmployeeResponse] {
+        def writes(_employee: EmployeeResponse) = Json.obj(
+            "id" -> _employee.id
+            , "names" -> _employee.names
+            , "gender" -> _employee.gender
+            , "created_on" -> _employee.created_on
+        )
+    }
+
+
+    def create = Action {
+        implicit request =>
+            //todo: Authenticate
+            val authorization = request.headers.get("Authorization").get
+
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            else {
+
+                try {
+                    val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
+                    EmployeeService.create(authResponse.id, employeeRequest)
+                    Ok(HelperUtilities successResponse ("Record saved succesfully"))
+                }
+                catch {
+                    case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                }
+
+
+            }
+
+    }
+
+
+    def getAll = Action {
+        implicit request =>
+            val limit: Long =
+                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+            val offset: Long =
+                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+
+            val stationId: Long =
+                request.getQueryString("stationid").map(_.toLong).getOrElse(0)
+
+            val authorization = request.headers.get("Authorization").get
+
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            else {
+                val response: Seq[EmployeeResponse] = EmployeeService.getAll(authResponse.id, offset, limit)
+                Ok(Json.toJson(response))
+            }
+
+
+    }
+
+    def show(id: Long) = Action {
+        implicit request =>
+            val kioskId: Long = id
+
+            val authorization = request.headers.get("Authorization").get
+            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+
+            else {
+                if (kioskId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+
+                else {
+                    try {
+                        val response: EmployeeResponse = EmployeeService.getById(authResponse.id, kioskId)
+                        Ok(Json.toJson(response))
+                    }
+                    catch {
+                        case e: RuntimeException => BadRequest(Json.obj("status" -> "Error", "message" -> e.getMessage))
+                    }
+                }
+            }
+
+    }
+
 
 }
