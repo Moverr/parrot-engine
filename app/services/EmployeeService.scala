@@ -2,9 +2,9 @@ package services
 
 import java.sql.ResultSet
 
-import entities.requests.employee.EmployeeRequest
-import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
+import entities.requests.employee.{EmployeeAsignRequest, EmployeeRequest}
 import entities.responses.accounts.AccountResponse
+import entities.responses.employee.EmployeeResponse
 import entities.responses.offices.OfficeResponse
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
@@ -18,7 +18,7 @@ import play.api.Play.current
 
 
 class EmployeeService {
-  val tableName = " \"default\".employee"
+  val tableName = " \"default\".employees"
   val assignTableName = " \"default\".offices"
   var conn = getConnection()
 
@@ -29,26 +29,27 @@ class EmployeeService {
   }
 
   @throws
-  private def validate(office: OfficeAssignRequest): Unit = {
+  private def validate(office: EmployeeAsignRequest): Unit = {
 
     if (office.office_id == 0) throw new RuntimeException("Office ID id is mandatory")
     if (office.station_id == 0) throw new RuntimeException("station ID  is mandatory")
+    if (office.employee_id == 0) throw new RuntimeException("employee  ID  is mandatory")
   }
 
   //todo: create
   @throws
-  def create(owner: Integer, office: OfficeRequest): Unit = {
+  def create(owner: Integer, employee: EmployeeRequest): Unit = {
 
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
 
-    validate(office)
+    validate(employee)
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Invalid Authentication")
 
-    val query = "INSERT INTO " + tableName + " (name,parent_office,account_id,author_id)  values ( '" + office.name + "','" + office.parent_office + "','" + account.id + "','" + owner + "' ) ";
+    val query = "INSERT INTO " + tableName + " (names,gender,account_id,author_id)  values ( '" + employee.names + "','" + employee.gender + "','" + account.id + "','" + owner + "' ) ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
@@ -58,25 +59,28 @@ class EmployeeService {
 
 
   @throws
-  def assign(owner: Integer, office: OfficeAssignRequest): Unit = {
+  def assign(owner: Integer, employeeAssign: EmployeeAsignRequest): Unit = {
 
     //todo: verify that owner is not null
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
 
-    validate(office)
+    validate(employeeAssign)
 
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Invalid Authentication")
 
-    val query = "INSERT INTO " + assignTableName + " (office_id,station_id)  values ( '" + office.office_id + "','" + office.station_id + "') ";
+    val query = "INSERT INTO " + assignTableName + " (office_id,station_id)  values ( '" + employeeAssign.office_id + "','" + employeeAssign.station_id + "') ";
     conn = getConnection()
     val stmt = conn.createStatement
     val result = stmt executeUpdate (query)
     conn.close()
-
   }
 
+
+  private def populateResponse(result: ResultSet) = {
+    new EmployeeResponse(result.getInt("id"), result.getString("names"), result.getString("gender"), result.getDate("created_on"))
+  }
 
   //todo: Get All By Account
   def getAll(owner: Integer, offset: Long = 0, limit: Long = 10): Seq[OfficeResponse] = {
@@ -101,10 +105,6 @@ class EmployeeService {
     officeResponses.toSeq
   }
 
-
-  private def populateResponse(result: ResultSet) = {
-    new OfficeResponse(result.getInt("id"), result.getString("name"), result.getString("parent_office_name"), result.getDate("created_on"))
-  }
 
   //todo: get Station by Id
   @throws
