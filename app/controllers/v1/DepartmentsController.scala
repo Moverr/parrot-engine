@@ -70,18 +70,18 @@ object DepartmentsController extends Controller  {
 
     def show(id: Long) = Action {
         implicit request =>
-            val kioskId: Long = id
+            val departmentId: Long = id
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
-                if (kioskId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+                if (departmentId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
 
                 else {
                     try {
-                        val response: DepartmentResponse = DepartmentService.getById(authResponse.id, kioskId)
+                        val response: DepartmentResponse = DepartmentService.getById(authResponse.id, departmentId)
                         Ok(Json.toJson(response))
                     }
                     catch {
