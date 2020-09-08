@@ -22,7 +22,6 @@ import play.api.db._
 class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 
-
   def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
