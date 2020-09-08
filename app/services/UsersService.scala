@@ -7,6 +7,7 @@ import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
+import javax.inject.Inject
 import play.api.libs.json.Json
 import utils.{HelperUtilities, PasswordHashing}
 
@@ -17,14 +18,17 @@ import play.api.db._
 ///////
 
 
-class UsersService extends UserServiceTrait {
+
+class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
+
+
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
     }
     else if (registrationRequest.password.isEmpty()) {
-      BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
+      BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mazndatory"))
     }
 
     false
@@ -46,7 +50,7 @@ class UsersService extends UserServiceTrait {
     val username = resultSet.getString("username")
     val password = resultSet.getString("password")
     val createdOn = resultSet.getDate("created_on")
-    val token = HelperUtilities.convertToBasicAuth(username, password)
+    val token = util.convertToBasicAuth(username, password)
     new AuthResponse(id, username, token, createdOn)
   }
 
@@ -129,4 +133,7 @@ class UsersService extends UserServiceTrait {
 
 }
 
-object UsersService extends UsersService
+object UsersService {
+  def apply(util: HelperUtilities): UsersService = new UsersService(util)
+}
+

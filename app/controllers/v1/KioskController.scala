@@ -11,6 +11,9 @@ import utils.HelperUtilities
 
 object KioskController extends Controller {
 
+    implicit  def userService =  UsersService.apply( HelperUtilities)
+
+
     implicit val resposnse = new Writes[KioskResponse] {
         def writes(_kiosk: KioskResponse) = Json.obj(
             "id" -> _kiosk.id
@@ -27,7 +30,7 @@ object KioskController extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
@@ -58,7 +61,7 @@ object KioskController extends Controller {
 
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 if(stationId > 0 ){
@@ -79,7 +82,7 @@ object KioskController extends Controller {
             val kioskId: Long = id
 
             val authorization = request.headers.get("Authorization").get
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {

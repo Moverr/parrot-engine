@@ -13,6 +13,8 @@ import utils.HelperUtilities
 //todo: create stations and move on
 object StationsController extends Controller {
 
+    implicit  def userService =  UsersService.apply( HelperUtilities)
+
     implicit val resposnse = new Writes[StationResponse] {
         def writes(_account: StationResponse) = Json.obj(
             "id" -> _account.id.toString,
@@ -27,7 +29,7 @@ object StationsController extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
@@ -53,7 +55,7 @@ object StationsController extends Controller {
 
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 val response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
@@ -70,7 +72,7 @@ object StationsController extends Controller {
             val stationId: Long = id
 
             val authorization = request.headers.get("Authorization").get
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
