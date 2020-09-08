@@ -8,9 +8,8 @@ import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.EmployeeService
 import utils.HelperUtilities
-
 //todo: working on employee and moving on
-object EmployeeController extends Controller {
+object EmployeeController   extends Controller {
 
 
     implicit val resposnse = new Writes[EmployeeResponse] {

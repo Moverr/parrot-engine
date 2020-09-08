@@ -7,6 +7,7 @@ import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
+import javax.inject.{Inject, Singleton}
 import play.api.libs.json.Json
 import utils.{HelperUtilities, PasswordHashing}
 
@@ -17,7 +18,8 @@ import play.api.db._
 ///////
 
 
-class UsersService extends UserServiceTrait {
+@Singleton
+class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
@@ -46,7 +48,7 @@ class UsersService extends UserServiceTrait {
     val username = resultSet.getString("username")
     val password = resultSet.getString("password")
     val createdOn = resultSet.getDate("created_on")
-    val token = HelperUtilities.convertToBasicAuth(username, password)
+    val token = util.convertToBasicAuth(username, password)
     new AuthResponse(id, username, token, createdOn)
   }
 
@@ -129,4 +131,3 @@ class UsersService extends UserServiceTrait {
 
 }
 
-object UsersService extends UsersService
