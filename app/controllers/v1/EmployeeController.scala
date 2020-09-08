@@ -11,6 +11,7 @@ import utils.HelperUtilities
 //todo: working on employee and moving on
 object EmployeeController   extends Controller {
 
+    implicit  def userService =  UsersService.apply( HelperUtilities)
 
     implicit val resposnse = new Writes[EmployeeResponse] {
         def writes(_employee: EmployeeResponse) = Json.obj(
@@ -27,7 +28,7 @@ object EmployeeController   extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
@@ -58,7 +59,7 @@ object EmployeeController   extends Controller {
 
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 val response: Seq[EmployeeResponse] = EmployeeService.getAll(authResponse.id, offset, limit)
@@ -73,7 +74,7 @@ object EmployeeController   extends Controller {
             val kioskId: Long = id
 
             val authorization = request.headers.get("Authorization").get
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {

@@ -5,6 +5,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import play.api.libs.json.Json
 import play.api.mvc._
+import utils.HelperUtilities
 
 //////
 import play.api.Play.current
@@ -15,7 +16,7 @@ import play.api.libs.json._
 
 object AuthController extends Controller {
     var conn = DB.getConnection()
-
+    implicit  def userService =  UsersService.apply( HelperUtilities)
 
     def login() = Action {
         implicit request =>
@@ -28,7 +29,7 @@ object AuthController extends Controller {
                 )
             }
 
-            var response: AuthResponse = UsersService login (authRequest)
+            var response: AuthResponse = userService login (authRequest)
             if (response == null) Unauthorized(Json.obj("status" -> "Un Authorized", "message" -> " Bingo  User is not Authorized"))
             else {
                 implicit val resposnse = new Writes[AuthResponse] {
@@ -59,11 +60,11 @@ object AuthController extends Controller {
             else if (registrationRequest.password.isEmpty()) {
                 BadRequest(Json.obj("status" -> "Error", "message" -> "Password is Mandatory"))
             } else {
-                var userExists: Boolean = UsersService ValidateIfUserExists(registrationRequest.email, registrationRequest.password)
+                var userExists: Boolean = userService ValidateIfUserExists(registrationRequest.email, registrationRequest.password)
                 if (userExists == true)
                     BadRequest(Json.obj("code" -> 400, "status" -> "Badrequest", "message" -> "User already registered to the system "))
                 else {
-                    UsersService createUser registrationRequest
+                    userService createUser registrationRequest
                     Ok(Json.obj("code" -> 200, "status" -> "Success", "message" -> "User Created"))
                 }
             }

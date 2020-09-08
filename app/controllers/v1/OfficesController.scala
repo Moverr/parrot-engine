@@ -10,6 +10,8 @@ import services.OfficeService
 import utils.HelperUtilities
 
 object OfficesController extends Controller {
+    implicit  def userService =  UsersService.apply( HelperUtilities)
+
     implicit val resposnse = new Writes[OfficeResponse] {
         def writes(_office: OfficeResponse) = Json.obj(
             "id" -> _office.id
@@ -25,7 +27,7 @@ object OfficesController extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 try {
@@ -45,7 +47,7 @@ object OfficesController extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 try {
@@ -69,7 +71,7 @@ object OfficesController extends Controller {
 
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
@@ -83,7 +85,7 @@ object OfficesController extends Controller {
             val officeId: Long = id
 
             val authorization = request.headers.get("Authorization").get
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {

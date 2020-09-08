@@ -12,6 +12,9 @@ import utils.HelperUtilities
 
 object DepartmentsController extends Controller  {
 
+    implicit  def userService =  UsersService.apply( HelperUtilities)
+
+
     implicit val resposnse = new Writes[DepartmentResponse] {
         def writes(_department: DepartmentResponse) = Json.obj(
             "id" -> _department.id
@@ -27,7 +30,7 @@ object DepartmentsController extends Controller  {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
@@ -58,7 +61,7 @@ object DepartmentsController extends Controller  {
 
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 val response: Seq[DepartmentResponse] = DepartmentService.getAll(authResponse.id, offset, limit)
@@ -73,7 +76,7 @@ object DepartmentsController extends Controller  {
             val departmentId: Long = id
 
             val authorization = request.headers.get("Authorization").get
-            val authResponse: AuthResponse = UsersService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
