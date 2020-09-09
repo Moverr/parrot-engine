@@ -38,7 +38,7 @@ object AccountController extends Controller {
             //todo: Authenticate
             val authorization = request.headers.get("Authorization").get
 
-            val authResponse: AuthResponse = userService.validateAuthorization(authorization)
+            val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
