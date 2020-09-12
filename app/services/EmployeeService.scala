@@ -5,9 +5,11 @@ import java.sql.ResultSet
 import entities.requests.employee.{EmployeeAsignRequest, EmployeeRequest}
 import entities.responses.accounts.AccountResponse
 import entities.responses.employee.EmployeeResponse
+import javax.inject.Inject
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
+import utils.HelperUtilities
 
 import scala.collection.mutable.ListBuffer
 
@@ -16,7 +18,7 @@ import play.api.Play.current
 ///////
 
 
-class EmployeeService {
+class EmployeeService @Inject()(stationsService: StationsService) {
   val tableName = " \"default\".employees"
   val assignTableName = " \"default\".employee_station"
   var conn = getConnection()
@@ -165,7 +167,7 @@ class EmployeeService {
 
   //todo: check if kiosk exists
   def checkIfEmployeeExists(accountId: Integer): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + stationsService.tableName + " B WHERE B.account_id = " + accountId + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -181,4 +183,11 @@ class EmployeeService {
 
 }
 
-object EmployeeService extends EmployeeService
+object EmployeeService{
+  def apply(util:HelperUtilities):StationsService = new StationsService(util)
+}
+
+
+
+
+//object EmployeeService extends EmployeeService
