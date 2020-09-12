@@ -9,7 +9,6 @@ import javax.inject.Inject
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
-import utils.HelperUtilities
 
 import scala.collection.mutable.ListBuffer
 
@@ -184,7 +183,7 @@ class EmployeeService @Inject()(stationsService: StationsService) {
 }
 
 object EmployeeService{
-  def apply(util:HelperUtilities):StationsService = new StationsService(util)
+  def apply(stationService: StationsService):EmployeeService = new EmployeeService(stationService)
 }
 
 
