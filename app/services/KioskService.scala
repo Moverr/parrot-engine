@@ -190,6 +190,6 @@ class KioskService @Inject()(stationsService: StationsService) extends TKioskSer
 }
 
 object KioskService{
-  def apply(util:HelperUtilities):StationsService = new StationsService(util)
+  def apply(stsationService:StationsService):KioskService = new KioskService(stsationService)
 }
 
