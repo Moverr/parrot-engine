@@ -4,6 +4,7 @@ import entities.requests.kiosks.KioskRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.kiosks.KioskResponse
 import entities.responses.stations.StationResponse
+import javax.inject.Inject
 import play.api.db.DB._
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
@@ -16,7 +17,7 @@ import play.api.Play.current
 ///////
 
 
-class KioskService extends TKioskService {
+class KioskService @Inject()(stationsService: StationsService) extends TKioskService {
   override val tableName = " \"default\".kiosks"
 
   override var conn = getConnection()
@@ -38,7 +39,7 @@ class KioskService extends TKioskService {
     if (owner == null) throw new RuntimeException("Invalid Authentication")
     //todo: check to see that  station exists
 
-    val station: StationResponse = StationsService.getById(owner, kiosk.station_id)
+    val station: StationResponse = stationsService.getById(owner, kiosk.station_id)
     if (station == null) throw new RuntimeException("Station Does not exist")
 
     validate(kiosk)
@@ -61,7 +62,7 @@ class KioskService extends TKioskService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Account does not exist"))
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B ON A.station_id = B.id  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + stationsService.tableName + " B ON A.station_id = B.id  WHERE B.account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -87,10 +88,10 @@ class KioskService extends TKioskService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val station: StationResponse = StationsService.getById(owner, stationId.longValue())
+    val station: StationResponse = stationsService.getById(owner, stationId.longValue())
     if (station == null) throw new RuntimeException("Station does not exist")
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + StationsService.tableName + " B  WHERE B.id = " + station.id + "  offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + stationsService.tableName + " B  WHERE B.id = " + station.id + "  offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -172,7 +173,7 @@ class KioskService extends TKioskService {
 
   //todo: check if kiosk exists
   override def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + stationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -188,4 +189,7 @@ class KioskService extends TKioskService {
 
 }
 
-object KioskService extends KioskService
+object KioskService{
+  def apply(util:HelperUtilities):StationsService = new StationsService(util)
+}
+
