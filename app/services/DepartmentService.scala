@@ -5,6 +5,7 @@ import java.sql.ResultSet
 import entities.requests.departments.DepartmentRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.departments.DepartmentResponse
+import javax.inject.Inject
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
@@ -16,9 +17,11 @@ import play.api.Play.current
 ///////
 
 
-class DepartmentService {
+class DepartmentService  @Inject()(stationsService: StationsService) {
   val tableName = " \"default\".departments"
   var conn = getConnection()
+
+  //def _stationService :StationsService = StationsService.apply(util = HelperUtilities)
 
   @throws
   private def validate(department: DepartmentRequest): Unit = {
@@ -143,7 +146,7 @@ class DepartmentService {
 
   //todo: check if kiosk exists
   def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + stationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -160,4 +163,12 @@ class DepartmentService {
 
 }
 
-object DepartmentService extends DepartmentService
+object DepartmentService {
+  def apply(stationsService: StationsService): DepartmentService = new DepartmentService(stationsService)
+}
+
+
+
+
+
+//object DepartmentService extends DepartmentService
