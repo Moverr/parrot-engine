@@ -6,13 +6,14 @@ import entities.requests.departments.DepartmentRequest
 import entities.responses.departments.DepartmentResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.DepartmentService
+import services.{DepartmentService, OfficeService, StationsService}
 import utils.HelperUtilities
 
 
 object DepartmentsController extends Controller  {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
+    implicit  def departmentService = DepartmentService.apply(StationsService.apply(HelperUtilities),OfficeService.apply(StationsService.apply(HelperUtilities)))
 
 
     implicit val resposnse = new Writes[DepartmentResponse] {
@@ -36,7 +37,7 @@ object DepartmentsController extends Controller  {
 
                 try{
                     val departmentRequest: DepartmentRequest = DepartmentRequest.form.bindFromRequest.get
-                    DepartmentService.create(authResponse.id, departmentRequest)
+                    departmentService create(authResponse.id, departmentRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -64,7 +65,7 @@ object DepartmentsController extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[DepartmentResponse] = DepartmentService.getAll(authResponse.id, offset, limit)
+                val response: Seq[DepartmentResponse] = departmentService getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -84,7 +85,7 @@ object DepartmentsController extends Controller  {
 
                 else {
                     try {
-                        val response: DepartmentResponse = DepartmentService.getById(authResponse.id, departmentId)
+                        val response: DepartmentResponse = departmentService getById(authResponse.id, departmentId)
                         Ok(Json.toJson(response))
                     }
                     catch {

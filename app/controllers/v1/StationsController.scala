@@ -14,6 +14,7 @@ import utils.HelperUtilities
 object StationsController extends Controller {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
+    implicit  def stationService =  StationsService.apply( HelperUtilities)
 
     implicit val resposnse = new Writes[StationResponse] {
         def writes(_account: StationResponse) = Json.obj(
@@ -35,7 +36,7 @@ object StationsController extends Controller {
 
                 try {
                     val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
-                    StationsService.create(authResponse.id, stationRequest)
+                    stationService create(authResponse.id, stationRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -58,7 +59,7 @@ object StationsController extends Controller {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[StationResponse] = StationsService.getAll(authResponse.id, offset, limit)
+                val response: Seq[StationResponse] = stationService getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -80,7 +81,7 @@ object StationsController extends Controller {
 
                 else {
                     try {
-                        val response: StationResponse = StationsService.getById(authResponse.id, stationId)
+                        val response: StationResponse = stationService getById(authResponse.id, stationId)
                         Ok(Json.toJson(response))
                     }
                     catch {

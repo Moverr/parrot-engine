@@ -6,12 +6,13 @@ import entities.requests.kiosks.KioskRequest
 import entities.responses.kiosks.KioskResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
-import services.KioskService
+import services.{KioskService, StationsService}
 import utils.HelperUtilities
 
 object KioskController extends Controller {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
+    implicit  def kioskService = KioskService.apply(StationsService.apply(HelperUtilities))
 
 
     implicit val resposnse = new Writes[KioskResponse] {
@@ -36,7 +37,7 @@ object KioskController extends Controller {
 
                 try{
                     val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                    KioskService.create(authResponse.id, kioskRequest)
+                    kioskService.create(authResponse.id, kioskRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -65,10 +66,10 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 if(stationId > 0 ){
-                    val response: Seq[KioskResponse] = KioskService.getAllByStation(authResponse.id,stationId, offset, limit)
+                    val response: Seq[KioskResponse] = kioskService.getAllByStation(authResponse.id,stationId, offset, limit)
                     Ok(Json.toJson(response))
                 }else{
-                    val response: Seq[KioskResponse] = KioskService.getAll(authResponse.id, offset, limit)
+                    val response: Seq[KioskResponse] = kioskService.getAll(authResponse.id, offset, limit)
                     Ok(Json.toJson(response))
                 }
 
@@ -90,7 +91,7 @@ object KioskController extends Controller {
 
                 else {
                     try {
-                        val response: KioskResponse = KioskService.getById(authResponse.id, kioskId)
+                        val response: KioskResponse = kioskService.getById(authResponse.id, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {

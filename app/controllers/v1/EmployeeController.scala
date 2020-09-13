@@ -6,12 +6,13 @@ import entities.requests.employee.EmployeeRequest
 import entities.responses.employee.EmployeeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.EmployeeService
+import services.{EmployeeService, StationsService}
 import utils.HelperUtilities
 //todo: working on employee and moving on
 object EmployeeController   extends Controller {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
+    implicit  def employeeService = EmployeeService(StationsService.apply(HelperUtilities))
 
     implicit val resposnse = new Writes[EmployeeResponse] {
         def writes(_employee: EmployeeResponse) = Json.obj(
@@ -34,7 +35,7 @@ object EmployeeController   extends Controller {
 
                 try {
                     val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
-                    EmployeeService.create(authResponse.id, employeeRequest)
+                    employeeService.create(authResponse.id, employeeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -62,7 +63,7 @@ object EmployeeController   extends Controller {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[EmployeeResponse] = EmployeeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[EmployeeResponse] = employeeService.getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -82,7 +83,7 @@ object EmployeeController   extends Controller {
 
                 else {
                     try {
-                        val response: EmployeeResponse = EmployeeService.getById(authResponse.id, kioskId)
+                        val response: EmployeeResponse = employeeService.getById(authResponse.id, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {

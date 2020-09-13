@@ -5,6 +5,7 @@ import java.sql.ResultSet
 import entities.requests.departments.DepartmentRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.departments.DepartmentResponse
+import javax.inject.Inject
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
@@ -16,9 +17,11 @@ import play.api.Play.current
 ///////
 
 
-class DepartmentService {
+class DepartmentService  @Inject()(stationsService: StationsService,officeService: OfficeService) {
   val tableName = " \"default\".departments"
   var conn = getConnection()
+
+  //def _stationService :StationsService = StationsService.apply(util = HelperUtilities)
 
   @throws
   private def validate(department: DepartmentRequest): Unit = {
@@ -62,7 +65,7 @@ class DepartmentService {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val query = "SELECT A.*,B.name as office_name  FROM   " + tableName + "    INNER JOIN " + OfficeService.tableName + " B ON A.office_id = B.id      offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.*,B.name as office_name  FROM   " + tableName + "    INNER JOIN " + officeService.tableName + " B ON A.office_id = B.id      offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -86,7 +89,7 @@ class DepartmentService {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + OfficeService.tableName + " B ON A.office_id = B.id  WHERE  A.id ='" + officeId + "' ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + officeService.tableName + " B ON A.office_id = B.id  WHERE  A.id ='" + officeId + "' ";
 
     conn = getConnection()
     val stmt = conn createStatement
@@ -143,7 +146,7 @@ class DepartmentService {
 
   //todo: check if kiosk exists
   def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + stationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -160,4 +163,12 @@ class DepartmentService {
 
 }
 
-object DepartmentService extends DepartmentService
+object DepartmentService {
+  def apply(stationsService: StationsService,officeService: OfficeService): DepartmentService = new DepartmentService(stationsService,officeService)
+}
+
+
+
+
+
+//object DepartmentService extends DepartmentService

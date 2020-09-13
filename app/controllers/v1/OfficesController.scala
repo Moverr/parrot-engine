@@ -6,11 +6,13 @@ import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.offices.OfficeResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
-import services.OfficeService
+import services.{OfficeService, StationsService}
 import utils.HelperUtilities
 
 object OfficesController extends Controller {
     implicit  def userService =  UsersService.apply( HelperUtilities)
+
+    implicit  def officeService = OfficeService.apply(StationsService.apply(HelperUtilities))
 
     implicit val resposnse = new Writes[OfficeResponse] {
         def writes(_office: OfficeResponse) = Json.obj(
@@ -32,7 +34,7 @@ object OfficesController extends Controller {
             else {
                 try {
                     val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
-                    OfficeService.create(authResponse.id, officeRequest)
+                    officeService.create(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -52,7 +54,7 @@ object OfficesController extends Controller {
             else {
                 try {
                     val officeRequest: OfficeAssignRequest = OfficeAssignRequest.form.bindFromRequest.get
-                    OfficeService.assign(authResponse.id, officeRequest)
+                    officeService.assign(authResponse.id, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -75,7 +77,7 @@ object OfficesController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val response: Seq[OfficeResponse] = OfficeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[OfficeResponse] = officeService.getAll(authResponse.id, offset, limit)
                 Ok(Json.toJson(response))
             }
     }
@@ -93,7 +95,7 @@ object OfficesController extends Controller {
 
                 else {
                     try {
-                        val response: OfficeResponse = OfficeService.getById(authResponse.id, officeId)
+                        val response: OfficeResponse = officeService.getById(authResponse.id, officeId)
                         Ok(Json.toJson(response))
                     }
                     catch {

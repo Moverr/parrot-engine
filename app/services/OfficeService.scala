@@ -5,6 +5,7 @@ import java.sql.ResultSet
 import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.accounts.AccountResponse
 import entities.responses.offices.OfficeResponse
+import javax.inject.Inject
 import play.api.db.DB.getConnection
 import play.api.libs.json.Json
 import play.api.mvc.Results.BadRequest
@@ -16,7 +17,7 @@ import play.api.Play.current
 ///////
 
 
-class OfficeService {
+class OfficeService @Inject()(stationsService: StationsService) {
   val tableName = " \"default\".offices"
   val assignTableName = " \"default\".offices"
   var conn = getConnection()
@@ -168,7 +169,7 @@ class OfficeService {
 
   //todo: check if kiosk exists
   def checkIfKioskExists(accountId: Integer, reference_id: String): Boolean = {
-    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + StationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
+    var query = "SELECT * FROM   " + tableName + " A INNER JOIN " + stationsService.tableName + " B WHERE B.account_id = " + accountId + "  AND reference LIKE '" + reference_id + "' ";
     conn = getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -184,4 +185,7 @@ class OfficeService {
 
 }
 
-object OfficeService extends OfficeService
+
+object OfficeService{
+  def apply(stationsService: StationsService):OfficeService = new OfficeService(stationsService)
+}

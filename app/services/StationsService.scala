@@ -3,8 +3,10 @@ package services
 import entities.requests.stations.StationRequest
 import entities.responses.accounts.AccountResponse
 import entities.responses.stations.StationResponse
+import javax.inject.Inject
 import play.api.db.DB
 import play.api.libs.json.Json
+import utils.HelperUtilities
 
 import scala.collection.mutable.ListBuffer
 
@@ -15,7 +17,7 @@ import play.api.mvc.Results._
 ///////
 
 
-class StationsService {
+class StationsService @Inject()(util:HelperUtilities) {
   implicit val tableName = " \"default\".stations"
 
   implicit var conn = DB.getConnection()
@@ -144,4 +146,10 @@ class StationsService {
 
 }
 
-object StationsService extends StationsService
+
+object StationsService {
+  def apply(util: HelperUtilities): StationsService = new StationsService(util)
+}
+
+
+
