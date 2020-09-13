@@ -17,7 +17,7 @@ import play.api.Play.current
 ///////
 
 
-class DepartmentService  @Inject()(stationsService: StationsService) {
+class DepartmentService  @Inject()(stationsService: StationsService,officeService: OfficeService) {
   val tableName = " \"default\".departments"
   var conn = getConnection()
 
@@ -65,7 +65,7 @@ class DepartmentService  @Inject()(stationsService: StationsService) {
     val account: AccountResponse = AccountService.get(owner);
     if (account == null) throw new RuntimeException("Account does not exist")
 
-    val query = "SELECT A.*,B.name as office_name  FROM   " + tableName + "    INNER JOIN " + OfficeService.tableName + " B ON A.office_id = B.id      offset " + offset + " limit " + limit + "  ";
+    val query = "SELECT A.*,B.name as office_name  FROM   " + tableName + "    INNER JOIN " + officeService.tableName + " B ON A.office_id = B.id      offset " + offset + " limit " + limit + "  ";
     conn = getConnection()
     val stmt = conn createStatement
     val result = stmt.executeQuery(query)
@@ -89,7 +89,7 @@ class DepartmentService  @Inject()(stationsService: StationsService) {
     //todo: verify that owner is not null
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
-    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + OfficeService.tableName + " B ON A.office_id = B.id  WHERE  A.id ='" + officeId + "' ";
+    val query = "SELECT A.* FROM   " + tableName + "  A INNER JOIN " + officeService.tableName + " B ON A.office_id = B.id  WHERE  A.id ='" + officeId + "' ";
 
     conn = getConnection()
     val stmt = conn createStatement
@@ -164,7 +164,7 @@ class DepartmentService  @Inject()(stationsService: StationsService) {
 }
 
 object DepartmentService {
-  def apply(stationsService: StationsService): DepartmentService = new DepartmentService(stationsService)
+  def apply(stationsService: StationsService,officeService: OfficeService): DepartmentService = new DepartmentService(stationsService,officeService)
 }
 
 
