@@ -6,14 +6,14 @@ import entities.requests.departments.DepartmentRequest
 import entities.responses.departments.DepartmentResponse
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import services.{DepartmentService, StationsService}
+import services.{DepartmentService, OfficeService, StationsService}
 import utils.HelperUtilities
 
 
 object DepartmentsController extends Controller  {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
-    implicit  def departmentService = DepartmentService.apply(StationsService.apply(HelperUtilities))
+    implicit  def departmentService = DepartmentService.apply(StationsService.apply(HelperUtilities),OfficeService.apply(StationsService.apply(HelperUtilities)))
 
 
     implicit val resposnse = new Writes[DepartmentResponse] {
