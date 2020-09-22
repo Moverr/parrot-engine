@@ -59,7 +59,7 @@ object StationsController  extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[StationResponse] = stationService getAll(authResponse.id, offset, limit)
+                val response: Seq[StationResponse] = stationService getAll(authResponse id, offset, limit)
                 Ok(Json.toJson(response))
             }
 
