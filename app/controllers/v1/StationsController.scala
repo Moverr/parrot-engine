@@ -11,7 +11,7 @@ import utils.HelperUtilities
 
 //todo: deploy to the server and move
 //todo: create stations and move on
-object StationsController extends Controller {
+object StationsController  extends Controller  {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
     implicit  def stationService =  StationsService.apply( HelperUtilities)
@@ -50,9 +50,9 @@ object StationsController extends Controller {
     def getAll = Action {
         implicit request =>
             val limit: Long =
-                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+                request.getQueryString("limit").map(_.toLong).getOrElse(HelperUtilities defaultLimit)
             val offset: Long =
-                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+                request.getQueryString("offset").map(_.toLong).getOrElse(HelperUtilities defaultOffset)
 
             val authorization = request.headers.get("Authorization").get
 
