@@ -11,7 +11,7 @@ import utils.HelperUtilities
 
 //todo: deploy to the server and move
 //todo: create stations and move on
-object StationsController extends Controller {
+object StationsController  extends Controller  {
 
     implicit  def userService =  UsersService.apply( HelperUtilities)
     implicit  def stationService =  StationsService.apply( HelperUtilities)
@@ -50,9 +50,9 @@ object StationsController extends Controller {
     def getAll = Action {
         implicit request =>
             val limit: Long =
-                request.getQueryString("limit").map(_.toLong).getOrElse(50)
+                request.getQueryString("limit").map(_.toLong).getOrElse(HelperUtilities defaultLimit)
             val offset: Long =
-                request.getQueryString("offset").map(_.toLong).getOrElse(0)
+                request.getQueryString("offset").map(_.toLong).getOrElse(HelperUtilities defaultOffset)
 
             val authorization = request.headers.get("Authorization").get
 
@@ -74,10 +74,10 @@ object StationsController extends Controller {
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
-            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            if (authResponse == null) BadRequest(Json obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
-                if (stationId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+                if (stationId == 0) BadRequest(Json obj("status" -> "Error", "message" -> "Invalid Station ID "))
 
                 else {
                     try {
@@ -90,7 +90,7 @@ object StationsController extends Controller {
                             var message = ""
                             if (e.getMessage != null) message = e getMessage
 
-                            BadRequest(Json.obj("status" -> "Error", "message" -> message))
+                            BadRequest(Json obj("status" -> "Error", "message" -> message))
                         }
 //                        case _ =>    BadRequest(Json.obj("status" -> "Error", "message" -> "Something went wrong check input data"))
 
