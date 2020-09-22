@@ -74,10 +74,10 @@ object StationsController  extends Controller  {
 
             val authorization = request.headers.get("Authorization").get
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
-            if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
+            if (authResponse == null) BadRequest(Json obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
 
             else {
-                if (stationId == 0) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Station ID "))
+                if (stationId == 0) BadRequest(Json obj("status" -> "Error", "message" -> "Invalid Station ID "))
 
                 else {
                     try {
@@ -90,7 +90,7 @@ object StationsController  extends Controller  {
                             var message = ""
                             if (e.getMessage != null) message = e getMessage
 
-                            BadRequest(Json.obj("status" -> "Error", "message" -> message))
+                            BadRequest(Json obj("status" -> "Error", "message" -> message))
                         }
 //                        case _ =>    BadRequest(Json.obj("status" -> "Error", "message" -> "Something went wrong check input data"))
 
