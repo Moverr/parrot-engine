@@ -52,6 +52,9 @@ class StationsService @Inject()(util:HelperUtilities) {
 
 
     var query = "SELECT * FROM   " + tableName + " WHERE account_id = " + account.id + "  offset " + offset + " limit " + limit + "  ";
+
+    print("STR: " + query)
+
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
@@ -74,6 +77,7 @@ class StationsService @Inject()(util:HelperUtilities) {
     if (owner == null) BadRequest(Json.obj("status" -> "Error", "message" -> "Invalid Authentication"))
 
     var query = "SELECT * FROM   " + tableName + " WHERE id = " + stationId + "     ";
+    print("STR: " + query)
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt.executeQuery(query)
