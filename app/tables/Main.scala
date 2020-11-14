@@ -24,16 +24,18 @@ object Main {
                     )
 
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
-    def owner = column[Long]("owner")
 
-    def name = column[String]("name")
+   def id  = column[Long]("id")
+    def owner= column[Long]("id")
+    def name= column[String]("name")
+    def created_on= column[DateTime]("created_on")
+    def updated_on= column[DateTime]("updated_on")
+    def author_id= column[Long]("author_id")
+    def updated_by= column[Long]("updated_by")
+    def external_id= column[String]("external_id")
 
-    def external_id = column[String]("external_id")
 
-    def author_id = column[Long]("author_id")
-
-
-    def * = (owner, name, external_id, author_id) <> (Account.tupled, Account.unapply)
+    def * = (owner, name, created_on, updated_on,author_id,updated_by,external_id) <> (Account.tupled, Account.unapply)
   }
 
 }
