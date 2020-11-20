@@ -19,7 +19,7 @@ object Main {
                       owner: Long,
                       name: String,
                       created_on: DateTime,
-                      updated_on: DateTime,
+                      updated_on:Option[DateTime],
                       author_id: Long,
                       updated_by: Long,
                       external_id: String
@@ -29,7 +29,7 @@ object Main {
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
 
 
-    def * = (id, owner, name, created_on, updated_on, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
+    def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
 
     def id = column[Long]("id")
 
