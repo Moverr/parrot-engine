@@ -23,7 +23,7 @@ object AccountController extends Controller {
             val authResponse: AuthResponse = userService.validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-s
+
                val accountRequest: AccountRequest = AccountRequest.form.bindFromRequest.get
                 //val accountRequest: AccountRequest = AccountRequest.format[AccountRequest]
 

@@ -12,4 +12,5 @@ class MainTest extends AnyFlatSpec  {
     assert(account.owner == 1)
   }
 
+
 }
