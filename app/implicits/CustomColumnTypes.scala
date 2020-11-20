@@ -9,7 +9,7 @@ import slick.driver.PostgresDriver.api._
 
 
 object CustomColumnTypes {
-  implicit val jodaDateTimeType =
+  implicit def jodaDateTimeType =
     MappedColumnType.base[DateTime, Timestamp](
       dt => new Timestamp(dt.getMillis),
       ts => new DateTime(ts.getTime, UTC)
