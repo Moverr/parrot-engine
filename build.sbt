@@ -19,7 +19,7 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest-flatspec" % "3.2.0" % "test",
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % "test",
   "com.typesafe.slick" %% "slick" % "3.3.2",
-
+  "org.scalatest" %% "scalatest-funsuite" % "3.2.2" % "test",
 
   javaJpa,
   ws
