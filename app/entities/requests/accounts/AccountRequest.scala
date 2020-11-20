@@ -15,7 +15,7 @@ object AccountRequest {
 }
 
 */
-//todo: Better approach on converting the case class request 
+//todo: Better approach on converting the case class request
 object AccountRequest {
   implicit  val format = Json.format[AccountRequest]
 }
