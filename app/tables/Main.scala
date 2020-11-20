@@ -8,16 +8,12 @@ package tables
 import java.sql.Date
 import java.util.Formatter
 
-
-import slick.driver.PostgresDriver.api._
-
-import java.sql.Timestamp
 import org.joda.time.DateTime
-import org.joda.time.DateTimeZone.UTC
+import slick.driver.PostgresDriver.api._
+//import defaults :: 
+import utils.CustomColumnTypes._
 
 
-
-//import slick.driver.pos.
 object Main {
 
   case class Account(
