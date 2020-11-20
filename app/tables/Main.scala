@@ -20,7 +20,7 @@
 												created_on: DateTime,
 												updated_on: DateTime,
 												author_id: Long,
-												updated_by: Long,
+												updated_by: Long=null,
 												external_id: String
 
 											)
