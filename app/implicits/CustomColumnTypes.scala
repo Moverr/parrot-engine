@@ -1,10 +1,10 @@
-package utils
-
-import slick.driver.PostgresDriver.api._
+package implicits
 
 import java.sql.Timestamp
+
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone.UTC
+import slick.driver.PostgresDriver.api._
 
 
 
@@ -15,3 +15,6 @@ object CustomColumnTypes {
       ts => new DateTime(ts.getTime, UTC)
     )
 }
+
+
+

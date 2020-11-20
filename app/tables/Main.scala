@@ -8,7 +8,7 @@ package tables
 import org.joda.time.DateTime
 import slick.driver.PostgresDriver.api._
 //import defaults ::
-import utils.CustomColumnTypes._
+import implicits.CustomColumnTypes._
 
 
 object Main {
