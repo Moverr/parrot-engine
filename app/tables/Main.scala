@@ -5,9 +5,6 @@ package tables
 //import scala.concurrent.ExecutionContext.Implicits.global
 //import slick.driver.PostgresDriver.api._
 
-import java.sql.Date
-import java.util.Formatter
-
 import org.joda.time.DateTime
 import slick.driver.PostgresDriver.api._
 //import defaults ::
@@ -40,7 +37,7 @@ object Main {
     def external_id= column[String]("external_id")
 
 
-    def * = (owner, name, created_on, updated_on,author_id,updated_by,external_id) <> (Account.tupled, Account.unapply)
+    def * = (id,owner, name, created_on, updated_on,author_id,updated_by,external_id) <> (Account.tupled, Account.unapply)
   }
 
 }
