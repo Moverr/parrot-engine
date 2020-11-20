@@ -10,7 +10,7 @@ import java.util.Formatter
 
 import org.joda.time.DateTime
 import slick.driver.PostgresDriver.api._
-//import defaults :: 
+//import defaults ::
 import utils.CustomColumnTypes._
 
 
