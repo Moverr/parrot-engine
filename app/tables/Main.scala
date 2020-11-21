@@ -48,5 +48,7 @@ object Main {
     def external_id = column[String]("external_id")
   }
 
+  lazy  val AccountTable = TableQuery[AccountTable]
+
   //todo: another table
 }
