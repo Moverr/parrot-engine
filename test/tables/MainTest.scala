@@ -3,7 +3,7 @@ package tables
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 import org.scalatest.flatspec.AnyFlatSpec
-import tables.Main.Account
+import tables.Main.{Account, Department}
 
 class MainTest extends AnyFlatSpec  {
 
@@ -12,5 +12,8 @@ class MainTest extends AnyFlatSpec  {
     assert(account.owner == 1)
   }
 
-
+"Departments Table" should "Initialize well" in {
+  var department = Department(0L,"Department One","CO",1,null)
+  assert(department.office == null)
+}
 }
