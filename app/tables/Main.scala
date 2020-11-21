@@ -6,7 +6,9 @@ package tables
 //import slick.driver.PostgresDriver.api._
 
 import org.joda.time.DateTime
-import slick.driver.PostgresDriver.api._
+//todo : Deprecated
+//import slick.driver.PostgresDriver.api._
+import  slick.jdbc.PostgresProfile.api._
 //import defaults ::
 import implicits.CustomColumnTypes._
 
