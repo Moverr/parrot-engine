@@ -53,6 +53,7 @@ object Main {
 
   }
 
+  //Query DSL to intergrate the Table
   lazy  val AccountTable = TableQuery[AccountTable]
 
   //todo: another table
