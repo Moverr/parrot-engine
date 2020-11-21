@@ -13,7 +13,7 @@ class MainTest extends AnyFlatSpec  {
   }
 
 "Departments Table" should "Initialize well" in {
-  var department = Department(0L,"Department One","CO",1,null)
-  assert(department.office == null)
+  var department = Department(0L,"Department One","CO",1,1)
+  assert(department.office == 1)
 }
 }

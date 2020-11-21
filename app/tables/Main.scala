@@ -58,7 +58,7 @@ object Main {
                       name: String,
                       code: String,
                       office: Long,
-                      parent: Long
+                      parent:Long
                     )
 
   class DepartmentTable(tag:Tag) extends Table[Department](tag,"departments"){
