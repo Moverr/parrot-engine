@@ -20,7 +20,6 @@ object Main {
                       author_id: Long,
                       updated_by: Long,
                       external_id: String
-
                     )
 
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
