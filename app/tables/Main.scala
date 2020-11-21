@@ -60,4 +60,17 @@ object Main {
                       office: Long,
                       parent: Long
                     )
+
+  class DepartmentTable(tag:Tag) extends Table[Department](tag,"departments"){
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
+    def name = column[String]("name")
+    def code  = column[String]("code")
+    def office = column[Long]("office_id")
+    def parent = column[Long]("parent_department")
+
+    override def * = (id,name,code,office,parent).mapTo[Department]
+  }
+
+  lazy  val DepartmentTable = TableQuery[DepartmentTable]
+
 }
