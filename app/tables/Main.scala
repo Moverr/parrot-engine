@@ -56,5 +56,12 @@ object Main {
   //Query DSL to intergrate the Table
   lazy  val AccountTable = TableQuery[AccountTable]
 
-  //todo: another table
+  //todo: Departments table
+  case class Department(
+                      id: Long = 0L,
+                      name: String,
+                      code: String,
+                      office: Long,
+                      parent: Long
+                    )
 }
