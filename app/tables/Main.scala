@@ -29,9 +29,8 @@ object Main {
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
 
 
-    def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
 
-    def id = column[Long]("id")
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
 
     def owner = column[Long]("id")
 
@@ -46,6 +45,12 @@ object Main {
     def updated_by = column[Long]("updated_by")
 
     def external_id = column[String]("external_id")
+
+
+   // def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
+
+    def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id).mapTo[Account]
+
   }
 
   lazy  val AccountTable = TableQuery[AccountTable]
