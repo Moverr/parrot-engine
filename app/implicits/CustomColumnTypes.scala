@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone.UTC
-import slick.driver.PostgresDriver.api._
+import  slick.jdbc.PostgresProfile.api._
 
 
 

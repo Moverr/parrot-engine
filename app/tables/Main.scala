@@ -1,13 +1,8 @@
 package tables
 
-//import scala.concurrent._
-//import scala.concurrent.duration._
-//import scala.concurrent.ExecutionContext.Implicits.global
-//import slick.driver.PostgresDriver.api._
 
 import org.joda.time.DateTime
-//todo : Deprecated
-//import slick.driver.PostgresDriver.api._
+
 import  slick.jdbc.PostgresProfile.api._
 //import defaults ::
 import implicits.CustomColumnTypes._
@@ -49,9 +44,9 @@ object Main {
     def external_id = column[String]("external_id")
 
 
-   // def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
+   def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
 
-    def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id).mapTo[Account]
+   // def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id).mapTo[Account]
 
   }
 
