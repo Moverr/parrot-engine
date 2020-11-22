@@ -78,7 +78,7 @@ object Main {
                          updated_by: Long
                        )
 
-  class EmployeeEmployee(tag:Tag) extends Table[Employee](tag,"employees"){
+  class EmployeeTable(tag:Tag) extends Table[Employee](tag,"employees"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def name = column[String]("names")
     def gender  = column[String]("gender")
@@ -91,7 +91,7 @@ object Main {
     override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Employee.tupled,Employee.apply())
   }
 
-  lazy  val EmployeeEmployee = TableQuery[EmployeeEmployee]
+  lazy  val EmployeeTable = TableQuery[EmployeeTable]
 
 
 
@@ -111,7 +111,7 @@ object Main {
 
                      )
 
-  class EmployeeEmployee(tag:Tag) extends Table[Employee](tag,"employees"){
+  class Kiosk(tag:Tag) extends Table[Employee](tag,"employees"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def name = column[String]("names")
     def gender  = column[String]("gender")
