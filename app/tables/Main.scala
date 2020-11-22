@@ -24,22 +24,13 @@ object Main {
 
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
 
-
-
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
-
     def owner = column[Long]("id")
-
     def name = column[String]("name")
-
     def created_on = column[DateTime]("created_on")
-
     def updated_on = column[DateTime]("updated_on")
-
     def author_id = column[Long]("author_id")
-
     def updated_by = column[Long]("updated_by")
-
     def external_id = column[String]("external_id")
 
 
@@ -68,7 +59,7 @@ object Main {
     def office = column[Long]("office_id")
     def parent = column[Long]("parent_department")
 
-    override def * = (id,name,code,office,parent).mapTo[Department]
+    override def * = (id,name,code,office,parent) <> (Department.tupled,Department.apply())
   }
 
   lazy  val DepartmentTable = TableQuery[DepartmentTable]
