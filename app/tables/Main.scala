@@ -422,9 +422,8 @@ object Main {
   //todo:   user    table
   case class User(
                        id: Long = 0L,
-                       user_id: Long,
-                       role_id: Long,
-                       status: String,
+                       username: String,
+                       password: String,
 
                        author_id:Long,
                        created_on: DateTime,
@@ -433,14 +432,13 @@ object Main {
                      )
 
   class UserTable(tag:Tag) extends Table[User](tag,"user"){
-    override def * = (id,user_id,role_id,status,author_id,created_on,updated_by,updated_on.?) <> (User.tupled,User.unapply)
+    override def * = (id,username,password,author_id,created_on,updated_by,updated_on.?) <> (User.tupled,User.unapply)
 
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
 
-    def user_id = column[Long]("user_id")
+    def username = column[String]("username")
 
-    def role_id = column[Long]("role_id")
-    def status = column[String]("status")
+    def password = column[String]("password")
 
     def created_on = column[DateTime]("created_on")
 
