@@ -94,31 +94,24 @@ object Main {
   lazy  val EmployeeTable = TableQuery[EmployeeTable]
 
 
-  //todo: Employee  table
+  //todo: Employee Station   table
   case class EmployeeStation(
                        id: Long = 0L,
-                       name: String,
-                       gender: String,
-                       created_on: DateTime,
-                       updated_on:Option[DateTime],
-                       author_id: Long,
-                       updated_by: Long
+                       employee_id: Long,
+                       office_id: Long,
+                       station_id: Long
                      )
 
-  class EmployeeTable(tag:Tag) extends Table[Employee](tag,"employees"){
+  class EmployeeStationTable(tag:Tag) extends Table[EmployeeStation](tag,"employee_station"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
-    def name = column[String]("names")
-    def gender  = column[String]("gender")
+    def employee_id = column[Long]("employee_id")
+    def office_id = column[Long]("office_id")
+    def station_id = column[Long]("station_id")
 
-    def created_on = column[DateTime]("created_on")
-    def updated_on = column[DateTime]("updated_on")
-    def author_id = column[Long]("author_id")
-    def updated_by = column[Long]("updated_by")
-
-    override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Employee.tupled,Employee.apply())
+    override def * = (id,employee_id,office_id,station_id) <> (EmployeeStation.tupled,EmployeeStation.apply())
   }
 
-  lazy  val EmployeeTable = TableQuery[EmployeeTable]
+  lazy  val EmployeeStationTable = TableQuery[EmployeeStationTable]
 
   //todo: Kiosk  table
   case class Kiosk(
