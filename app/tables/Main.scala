@@ -346,7 +346,7 @@ object Main {
                               updated_on:Option[DateTime]
                           )
 
-  class RolePermissionTable(tag:Tag) extends Table[RolePermission](tag,"office_station"){
+  class RolePermissionTable(tag:Tag) extends Table[RolePermission](tag,"role_permission"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def role_id = column[Long]("role_id")
     def permission_id = column[Long]("station_id")
