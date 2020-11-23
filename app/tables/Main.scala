@@ -136,7 +136,8 @@ object Main {
 
     def details = column[String]("details")
 
-    def device_token = column[String]("device_token")
+    def token = column[String]("device_token")
+    def station = column[Long]("station_id")
 
     def created_on = column[DateTime]("created_on")
 
@@ -146,9 +147,9 @@ object Main {
 
     def updated_by = column[Long]("updated_by")
 
-    def station_id = column[Long]("station_id")
 
-    override def * = (id,reference,details,device_token,created_on,updated_on,author_id,updated_by,station_id) <> (Kiosk.tupled,Kiosk.unapply)
+
+    override def * = (id,reference,details,token,created_on,updated_on,author_id,updated_by,station) <> (Kiosk.tupled,Kiosk.unapply)
 
   }
 
