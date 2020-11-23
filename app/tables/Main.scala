@@ -123,8 +123,7 @@ object Main {
                     created_on: DateTime,
                     updated_on:Option[DateTime],
                     author_id: Long,
-                    updated_by:Option[Long] ,
-                    station_id:Long
+                    updated_by:Option[Long]
 
                   )
 
@@ -149,7 +148,7 @@ object Main {
 
 
 
-    override def * = (id,reference,details,token,created_on,updated_on.?,author_id,updated_by.?,station) <> (Kiosk.tupled,Kiosk.unapply)
+    override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by.?) <> (Kiosk.tupled,Kiosk.unapply)
 
   }
 
