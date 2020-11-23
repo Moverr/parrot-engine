@@ -1,9 +1,10 @@
 package tables
 
 
-import org.joda.time.DateTime
+import java.sql.Date
 
-import  slick.jdbc.PostgresProfile.api._
+import org.joda.time.DateTime
+import slick.jdbc.PostgresProfile.api._
 //import defaults ::
 import implicits.CustomColumnTypes._
 
@@ -153,8 +154,48 @@ object Main {
   }
   lazy  val KioskTable = TableQuery[KioskTable]
 
-//todo:
- 
+//todo: Offices
+
+  case class Office(
+                     id: Long = 0L,
+                     name: String,
+                     date_opened: Date,
+                     parent_office: Option[Long],
+                     created_on: DateTime,
+                     updated_on:Option[DateTime],
+                     author_id: Long,
+                     updated_by:Option[Long],
+                     account_id:Long
+
+                  )
+
+
+  class OfficeTable(tag:Tag) extends Table[Office](tag,"offices") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+
+    def reference = column[String]("reference")
+
+    def details = column[String]("details")
+
+    def token = column[String]("device_token")
+    def station = column[Long]("station_id")
+
+    def created_on = column[DateTime]("created_on")
+
+    def updated_on = column[DateTime]("updated_on")
+
+    def author_id = column[Long]("author_id")
+
+    def updated_by = column[Long]("updated_by")
+
+
+
+    override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by.?) <> (Kiosk.tupled,Kiosk.unapply)
+
+  }
+  lazy  val KioskTable = TableQuery[KioskTable]
+
+
 
 
 
