@@ -334,6 +334,23 @@ object Main {
 
 
 
+  //todo: Roles  Permissions    table
+  case class RolePermission(
+                            id: Long = 0L,
+                            office_id: Long,
+                            station_id: Long
+                          )
+
+  class RolePermissionTable(tag:Tag) extends Table[RolePermission](tag,"office_station"){
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
+    def office_id = column[Long]("office_id")
+    def station_id = column[Long]("station_id")
+
+    override def * = (id,office_id,station_id) <> (RolePermission.tupled,RolePermission.unapply)
+  }
+
+  lazy  val RolePermissionTable = TableQuery[RolePermissionTable]
+
 
 
 }
