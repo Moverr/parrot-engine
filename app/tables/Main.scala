@@ -113,6 +113,7 @@ object Main {
 
   lazy  val EmployeeStationTable = TableQuery[EmployeeStationTable]
 
+  /*
   //todo: Kiosk  table
   case class Kiosk(
                        id: Long = 0L,
@@ -121,9 +122,9 @@ object Main {
                        token: String,
                        station: Long,
                        created_on: DateTime,
-                       updated_on:Option[DateTime],
+                       updated_on:DateTime,
                        author_id: Long,
-                       updated_by:Option[Long] ,
+                       updated_by:Long ,
                        station_id:Long
 
                      )
@@ -137,13 +138,14 @@ object Main {
     def created_on = column[DateTime]("created_on")
     def updated_on = column[DateTime]("updated_on")
     def author_id = column[Long]("author_id")
-    def updated_by = column[Long]("udated_by")
+    def updated_by = column[Long]("updated_by")
     def station_id = column[Long]("station_id")
 
-    override def * = (id,reference,details,device_token,created_on,updated_on.?,author_id,updated_by.?,station_id) <> (Kiosk.tupled,Kiosk.unapply)
+    override def * = (id,reference,details,device_token,created_on,updated_on,author_id,updated_by,station_id) <> (Kiosk.tupled,Kiosk.unapply)
   }
 
   lazy  val KioskTable = TableQuery[KioskTable]
+  */
 
 //todo:
 
