@@ -216,6 +216,26 @@ object Main {
 
 
 
+  //todo: Permission Scope   table
+  case class PermissionScope(
+                            id: Long = 0L,
+                            key: String,
+                            value: String
+                          )
+
+  class PermissionScopeTable(tag:Tag) extends Table[PermissionScope](tag,"permission_scope"){
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
+    def key = column[String]("key")
+    def value = column[String]("value")
+
+    override def * = (id,key,value) <> (PermissionScope.tupled,PermissionScope.unapply)
+  }
+
+  lazy  val PermissionScopeTable = TableQuery[PermissionScopeTable]
+
+
+
+
 
 
 }
