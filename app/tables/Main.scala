@@ -173,12 +173,11 @@ object Main {
   class OfficeTable(tag:Tag) extends Table[Office](tag,"offices") {
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
-    def reference = column[String]("reference")
+    def name = column[String]("name")
 
-    def details = column[String]("details")
+    def date_opened = column[Date]("date_opened")
 
-    def token = column[String]("device_token")
-    def station = column[Long]("station_id")
+    def parent_office = column[Long]("parent_office")
 
     def created_on = column[DateTime]("created_on")
 
@@ -187,6 +186,7 @@ object Main {
     def author_id = column[Long]("author_id")
 
     def updated_by = column[Long]("updated_by")
+    def account_id = column[Long]("account_id")
 
 
 
