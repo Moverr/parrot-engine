@@ -374,7 +374,6 @@ object Main {
 
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def account_id = column[Long]("account_id")
-
     def name = column[String]("name")
     def code = column[String]("code")
 
