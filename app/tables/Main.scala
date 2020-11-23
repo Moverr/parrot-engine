@@ -190,10 +190,10 @@ object Main {
 
 
 
-    override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by.?) <> (Kiosk.tupled,Kiosk.unapply)
+    override def * = (id,name,date_opened,parent_office.?,created_on,updated_on.?,author_id,updated_by.?,account_id) <> (Office.tupled,Office.unapply)
 
   }
-  lazy  val KioskTable = TableQuery[KioskTable]
+  lazy  val OfficeTable = TableQuery[OfficeTable]
 
 
 
