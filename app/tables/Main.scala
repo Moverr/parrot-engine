@@ -59,7 +59,7 @@ object Main {
     def office = column[Long]("office_id")
     def parent = column[Long]("parent_department")
 
-    override def * = (id,name,code,office,parent) <> (Department.tupled,Department.apply())
+    override def * = (id,name,code,office,parent) <> (Department.tupled,Department.unapply
   }
 
   lazy  val DepartmentTable = TableQuery[DepartmentTable]
@@ -88,7 +88,7 @@ object Main {
     def author_id = column[Long]("author_id")
     def updated_by = column[Long]("updated_by")
 
-    override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Employee.tupled,Employee.apply())
+    override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Employee.tupled,Employee.unapply)
   }
 
   lazy  val EmployeeTable = TableQuery[EmployeeTable]
@@ -108,7 +108,7 @@ object Main {
     def office_id = column[Long]("office_id")
     def station_id = column[Long]("station_id")
 
-    override def * = (id,employee_id,office_id,station_id) <> (EmployeeStation.tupled,EmployeeStation.apply())
+    override def * = (id,employee_id,office_id,station_id) <> (EmployeeStation.tupled,EmployeeStation.unapply
   }
 
   lazy  val EmployeeStationTable = TableQuery[EmployeeStationTable]
@@ -138,7 +138,7 @@ object Main {
     def author_id = column[Long]("author_id")
     def updated_by = column[Long]("updated_by")
 
-    override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Kiosk.tupled,Kiosk.apply())
+    override def * = (id,name,gender,created_on,updated_on.?,author_id,updated_by) <> (Kiosk.tupled,Kiosk.unapply)
   }
 
   lazy  val KioskTable = TableQuery[KioskTable]
