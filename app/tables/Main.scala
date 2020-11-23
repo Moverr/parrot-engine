@@ -274,7 +274,7 @@ object Main {
     def firstname = column[String]("firstname")
     def lastname = column[String]("lastname")
 
- 
+
 
 
     def created_on = column[DateTime]("created_on")
@@ -291,6 +291,7 @@ object Main {
   }
 
   lazy  val ProfileTable = TableQuery[ProfileTable]
+
 
 
 
