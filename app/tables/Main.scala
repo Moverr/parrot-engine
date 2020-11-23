@@ -265,16 +265,29 @@ object Main {
                          author_id:Long,
                          created_on: DateTime,
                          updated_by: Long,
-                         dateupdated:Option[DateTime]
+                         updated_on:Option[DateTime]
                        )
 
-  class ProfileTable(tag:Tag) extends Table[Permission](tag,"profile"){
+  class ProfileTable(tag:Tag) extends Table[Profile](tag,"profile"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
-    def code = column[String]("code")
-    def name = column[String]("name")
-    def grouping = column[String]("grouping")
+    def user_id = column[Long]("user_id")
+    def firstname = column[String]("firstname")
+    def lastname = column[String]("lastname")
 
-    override def * = (id,code,name,grouping) <> (Permission.tupled,Permission.unapply)
+ 
+
+
+    def created_on = column[DateTime]("created_on")
+
+    def updated_on = column[DateTime]("dateupdated")
+
+    def author_id = column[Long]("author_id")
+
+    def updated_by = column[Long]("updated_by")
+
+
+
+    override def * = (id,user_id,firstname,lastname,author_id,created_on,updated_by,updated_on.?) <> (Profile.tupled,Profile.unapply)
   }
 
   lazy  val ProfileTable = TableQuery[ProfileTable]
