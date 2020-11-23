@@ -294,23 +294,24 @@ object Main {
 
 
 
-  //todo: Profiles    table
-  case class Profile(
+  //todo: Roles    table
+  case class Role(
                       id: Long = 0L,
-                      user_id:Long,
-                      firstname: String,
-                      lastname: String,
+                      code:String,
+                      name: String,
+                      is_system: Boolean,
                       author_id:Long,
                       created_on: DateTime,
                       updated_by: Long,
                       updated_on:Option[DateTime]
                     )
 
-  class ProfileTable(tag:Tag) extends Table[Profile](tag,"profile"){
+  class RoleTable(tag:Tag) extends Table[Role](tag,"role"){
     def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def user_id = column[Long]("user_id")
-    def firstname = column[String]("firstname")
-    def lastname = column[String]("lastname")
+    def code = column[String]("code")
+    def name = column[String]("name")
+    def is_system = column[Boolean]("is_system")
 
 
 
@@ -325,14 +326,14 @@ object Main {
 
 
 
-    override def * = (id,user_id,firstname,lastname,author_id,created_on,updated_by,updated_on.?) <> (Profile.tupled,Profile.unapply)
+    override def * = (id,user_id,code,name,author_id,created_on,updated_by,updated_on.?) <> (Profile.tupled,Profile.unapply)
   }
 
   lazy  val ProfileTable = TableQuery[ProfileTable]
 
 
 
-  
+
 
 
 
