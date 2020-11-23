@@ -155,7 +155,6 @@ object Main {
   lazy  val KioskTable = TableQuery[KioskTable]
 
 //todo: Offices
-
   case class Office(
                      id: Long = 0L,
                      name: String,
