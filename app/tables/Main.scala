@@ -151,29 +151,10 @@ object Main {
     override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by.?) <> (Kiosk.tupled,Kiosk.unapply)
 
   }
-
-  /*
-
-  class KioskTable(tag:Tag) extends Table[Kiosk](tag,"kiosks"){
-    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
-    def reference = column[String]("reference")
-    def details  = column[String]("details")
-    def device_token  = column[String]("device_token")
-
-    def created_on = column[DateTime]("created_on")
-    def updated_on = column[DateTime]("updated_on")
-    def author_id = column[Long]("author_id")
-    def updated_by = column[Long]("updated_by")
-    def station_id = column[Long]("station_id")
-
-    override def * = (id,reference,details,device_token,created_on,updated_on,author_id,updated_by,station_id) <> (Kiosk.tupled,Kiosk.unapply)
-  }
-
   lazy  val KioskTable = TableQuery[KioskTable]
-  */
 
 //todo:
-
+ 
 
 
 
