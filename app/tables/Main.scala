@@ -256,4 +256,31 @@ object Main {
 
 
 
+  //todo: Profiles    table
+  case class Profile(
+                         id: Long = 0L,
+                         user_id:Long,
+                         firstname: String,
+                         lastname: String,
+                         author_id:Long,
+                         created_on: DateTime,
+                         updated_by: Long,
+                         dateupdated:Option[DateTime]
+                       )
+
+  class ProfileTable(tag:Tag) extends Table[Permission](tag,"profile"){
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
+    def code = column[String]("code")
+    def name = column[String]("name")
+    def grouping = column[String]("grouping")
+
+    override def * = (id,code,name,grouping) <> (Permission.tupled,Permission.unapply)
+  }
+
+  lazy  val ProfileTable = TableQuery[ProfileTable]
+
+
+
+
+
 }
