@@ -24,6 +24,8 @@ object Main {
   lazy  val ProfileTable = TableQuery[ProfileTable]
   lazy  val RoleTable = TableQuery[RoleTable]
   lazy  val RolePermissionTable = TableQuery[RolePermissionTable]
+  lazy  val StationTable = TableQuery[StationTable]
+  lazy  val UserRoleTable = TableQuery[UserRoleTable]
 
   //todo: Accounts Table
   case class Account(
@@ -378,6 +380,39 @@ object Main {
     def code = column[String]("code")
 
   }
+
+
+
+  //todo:   user   Roles  table
+  case class UserRole(
+                             id: Long = 0L,
+                             role_id: Long,
+                             permission_id: Long,
+
+                             author_id:Long,
+                             created_on: DateTime,
+                             updated_by: Long,
+                             updated_on:Option[DateTime]
+                           )
+
+  class UserRoleTable(tag:Tag) extends Table[UserRole](tag,"user_role"){
+    override def * = (id,role_id,permission_id,author_id,created_on,updated_by,updated_on.?) <> (UserRole.tupled,UserRole.unapply)
+
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
+
+    def role_id = column[Long]("role_id")
+
+    def permission_id = column[Long]("station_id")
+
+    def created_on = column[DateTime]("created_on")
+
+    def updated_on = column[DateTime]("dateupdated")
+
+    def author_id = column[Long]("author_id")
+
+    def updated_by = column[Long]("updated_by")
+  }
+
 
 
 
