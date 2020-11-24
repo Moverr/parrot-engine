@@ -50,13 +50,24 @@ class MainTest extends AnyFlatSpec  {
   }
 
 
-  "Office   Table" should "Initialize well" in {
-    var office =  Office(1,"office",Date,null,DateTime.now(),null,1,null,1)
+  "OfficeStation   Table" should "Initialize well" in {
+    var officeStation =  OfficeStation(1,1,1)
 
-    assert(office.id  == 1)
+    assert(officeStation.id  == 1)
   }
 
-  
+
+
+
+  "PermissionScope   Table" should "Initialize well" in {
+    var permissionScope =  PermissionScope(1,1,1)
+
+    assert(officeStation.id  == 1)
+  }
+
+
+
+
 
 
 }
