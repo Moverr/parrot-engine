@@ -1,9 +1,11 @@
 package tables
 
+import java.sql.Date
+
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
 import org.scalatest.flatspec.AnyFlatSpec
-import tables.Main.{Account, Department, Employee}
+import tables.Main._
 
 class MainTest extends AnyFlatSpec  {
 
@@ -25,6 +27,36 @@ class MainTest extends AnyFlatSpec  {
   }
 
 
+  "Employee Station Table" should "Initialize well" in {
+    var employeeStation = EmployeeStation(1,1,1,1)
+
+    assert(employeeStation.id  == 1)
+  }
+
+
+
+  "Kiosk   Table" should "Initialize well" in {
+    var kiosk = Kiosk(1,"reference","details","token",1,DateTime.now(),null,1,0L)
+
+    assert(kiosk.id  == 1)
+  }
+
+
+
+  "Office   Table" should "Initialize well" in {
+    var office =  Office(1,"office",Date,null,DateTime.now(),null,1,null,1)
+
+    assert(office.id  == 1)
+  }
+
+
+  "Office   Table" should "Initialize well" in {
+    var office =  Office(1,"office",Date,null,DateTime.now(),null,1,null,1)
+
+    assert(office.id  == 1)
+  }
+
+  
 
 
 }

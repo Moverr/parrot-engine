@@ -145,12 +145,12 @@ object Main {
                     created_on: DateTime,
                     updated_on:Option[DateTime],
                     author_id: Long,
-                    updated_by:Option[Long]
+                    updated_by:Long
 
                   )
 
   class KioskTable(tag:Tag) extends Table[Kiosk](tag,"kiosks") {
-    override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by.?) <> (Kiosk.tupled,Kiosk.unapply)
+    override def * = (id,reference,details,token,station,created_on,updated_on.?,author_id,updated_by) <> (Kiosk.tupled,Kiosk.unapply)
 
     def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
