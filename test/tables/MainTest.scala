@@ -22,14 +22,12 @@ class MainTest extends AnyFlatSpec  {
 
   "Employee Table" should "Initialize well" in {
     var employee = Employee(1,"office","male",DateTime.now(),null,1,1)
-
     assert(employee.name  == "office")
   }
 
 
   "Employee Station Table" should "Initialize well" in {
     var employeeStation = EmployeeStation(1,1,1,1)
-
     assert(employeeStation.id  == 1)
   }
 
@@ -37,7 +35,6 @@ class MainTest extends AnyFlatSpec  {
 
   "Kiosk   Table" should "Initialize well" in {
     var kiosk = Kiosk(1,"reference","details","token",1,DateTime.now(),null,1,0L)
-
     assert(kiosk.id  == 1)
   }
 
@@ -45,14 +42,12 @@ class MainTest extends AnyFlatSpec  {
 
   "Office   Table" should "Initialize well" in {
     var office =  Office(1,"office",Date,null,DateTime.now(),null,1,null,1)
-
     assert(office.id  == 1)
   }
 
 
   "OfficeStation   Table" should "Initialize well" in {
     var officeStation =  OfficeStation(1,1,1)
-
     assert(officeStation.id  == 1)
   }
 
@@ -60,9 +55,8 @@ class MainTest extends AnyFlatSpec  {
 
 
   "PermissionScope   Table" should "Initialize well" in {
-    var permissionScope =  PermissionScope(1,1,1)
-
-    assert(officeStation.id  == 1)
+    var permissionScope =  PermissionScope(1,"key","value")
+    assert(permissionScope.id  == 1)
   }
 
 
