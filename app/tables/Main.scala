@@ -30,7 +30,7 @@ object Main {
 
 
   // Create an in-memory H2 database;
-  val db: Nothing = Database.forConfig("chapter01")
+  val db: Database = Database.forConfig("DefaultDS")
 
   //todo: Accounts Table
   case class Account(
