@@ -9,6 +9,7 @@ import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
+import tables.Main
 import utils.{HelperUtilities, PasswordHashing}
 
 
@@ -35,6 +36,8 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   def login(authRequest: AuthenticationRequest): AuthResponse = {
 
+
+
     val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
     // if resulset is not empty
     if (resultSet.next()) {
@@ -54,6 +57,11 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
+   // val users = Main.UserTable.filter(_.username == email && _.password === password)
+    val users = for {
+      coffee <- Main.UserTable if coffee.username like "%expresso%"
+    } yield (coffee.username, coffee.password)
+
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
     print("STR: " + query)
     conn = DB getConnection()
