@@ -30,7 +30,10 @@ object Main {
 
 
   // Create an in-memory H2 database;
-  val db: Database = Database.forConfig("DefaultDS")
+  //val db: Database = Database.forConfig("DefaultDS")
+
+  val connections:Option[Int] = 20
+  val db:Database = Database.forName("DefaultDS",connections,null)
 
   //todo: Accounts Table
   case class Account(
