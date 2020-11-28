@@ -27,6 +27,11 @@ object Main {
   lazy  val StationTable = TableQuery[StationTable]
   lazy  val UserRoleTable = TableQuery[UserRoleTable]
   lazy  val UserTable = TableQuery[UserTable]
+
+
+  // Create an in-memory H2 database;
+  val db: Nothing = Database.forConfig("chapter01")
+
   //todo: Accounts Table
   case class Account(
                       id: Long = 0L,

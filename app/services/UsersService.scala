@@ -58,9 +58,12 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
    // val users = Main.UserTable.filter(_.username == email && _.password === password)
+
+    /*
     val users = for {
       coffee <- Main.UserTable if coffee.username like "%expresso%"
     } yield (coffee.username, coffee.password)
+    */
 
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
     print("STR: " + query)
