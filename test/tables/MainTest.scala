@@ -1,6 +1,6 @@
 package tables
 
-import java.sql.Date
+import java.text.SimpleDateFormat
 
 import org.joda.time.DateTime
 import org.scalatest.FunSuite
@@ -8,6 +8,12 @@ import org.scalatest.flatspec.AnyFlatSpec
 import tables.Main._
 
 class MainTest extends AnyFlatSpec  {
+
+  val dadte = "01/01/1990"
+  var formate = new SimpleDateFormat("dd/MM/yyyy").parse(dadte)
+  var aDate = new java.sql.Date(formate.getTime());
+
+
 
   " Accounts Table " should "Initialize well " in {
     var account =   Account(1,1,"moee",DateTime.now(),null,1,1,"12345")
@@ -34,6 +40,9 @@ class MainTest extends AnyFlatSpec  {
 
 
   "Kiosk   Table" should "Initialize well" in {
+
+
+
     var kiosk = Kiosk(1,"reference","details","token",1,DateTime.now(),null,1,0L)
     assert(kiosk.id  == 1)
   }
@@ -41,7 +50,7 @@ class MainTest extends AnyFlatSpec  {
 
 
   "Office   Table" should "Initialize well" in {
-    var office =  Office(1,"office",Date.valueOf("12/8/2020"),null,DateTime.now(),null,1,null,1)
+    var office =  Office(1,"office", aDate,null,DateTime.now(),null,1,null,1)
     assert(office.id  == 1)
   }
 
