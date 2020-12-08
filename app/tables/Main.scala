@@ -23,8 +23,8 @@ object Main {
   lazy  val PermissionTable = TableQuery[PermissionTable]
   lazy  val ProfileTable = TableQuery[ProfileTable]
   lazy  val RoleTable = TableQuery[RoleTable]
-  lazy  val RolePermissionTable = TableQuery[RolePermissionTable]
-  lazy  val StationTable = TableQuery[StationTable]
+  lazy  val role_permissions = TableQuery[RolePermissionTable]
+  lazy  val stations = TableQuery[StationTable]
   lazy  val user_roles = TableQuery[UserRoleTable]
   lazy  val users = TableQuery[UserTable]
 
