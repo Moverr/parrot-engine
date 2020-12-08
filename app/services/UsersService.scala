@@ -63,7 +63,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 
     val users = Main.UserTable.filter(_.username equals(email))
-      .filter(_.password equals(password)).map(_)
+      .filter(_.password equals(password)).take(1)
 
 
    // val users = Main.UserTable.filter(_.username == email && _.password === password)
