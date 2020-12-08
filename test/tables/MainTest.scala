@@ -41,7 +41,7 @@ class MainTest extends AnyFlatSpec  {
 
 
   "Office   Table" should "Initialize well" in {
-    var office =  Office(1,"office",Date,null,DateTime.now(),null,1,null,1)
+    var office =  Office(1,"office",Date.valueOf("12/8/2020"),null,DateTime.now(),null,1,null,1)
     assert(office.id  == 1)
   }
 

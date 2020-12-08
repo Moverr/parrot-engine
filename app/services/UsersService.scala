@@ -9,7 +9,6 @@ import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
-import tables.Main
 import utils.{HelperUtilities, PasswordHashing}
 
 
@@ -22,7 +21,7 @@ import play.api.db._
 
 class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
- 
+
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
