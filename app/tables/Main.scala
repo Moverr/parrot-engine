@@ -29,10 +29,11 @@ object Main {
   lazy  val UserTable = TableQuery[UserTable]
 
 
-  // Create an in-memory H2 database;
+  // Create an in-memory H2 database; 
   //val db: Database = Database.forConfig("DefaultDS")
 
-  val connections:Option[Int] = 20
+  val connections:Option[Int] =  Some(10)
+
   val db:Database = Database.forName("DefaultDS",connections,null)
 
   //todo: Accounts Table
