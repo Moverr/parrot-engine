@@ -36,6 +36,7 @@ object Main {
 
   val db:Database = Database.forName("DefaultDS",connections,null)
 
+  //todo: Define Scehma
   //todo: Accounts Table
   case class Account(
                       id: Long = 0L,
@@ -48,6 +49,7 @@ object Main {
                       external_id: String
                     )
 
+  //todo: Define Table
   class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
 
    def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
