@@ -62,7 +62,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
 
-    val users = Main.UserTable.filter(_.username == email)
+    val users = Main.users.filter(_.username == email)
       .filter(_.password  == password).take(1)
 
 
