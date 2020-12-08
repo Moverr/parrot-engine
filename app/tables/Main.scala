@@ -33,7 +33,7 @@ object Main {
   //val db: Database = Database.forConfig("DefaultDS")
 
   val connections:Option[Int] =  Some(10)
-
+//todo: COnfiguring a database
   val db:Database = Database.forName("DefaultDS",connections,null)
 
   //todo: Define Scehma
