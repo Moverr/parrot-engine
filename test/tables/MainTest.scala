@@ -41,8 +41,6 @@ class MainTest extends AnyFlatSpec  {
 
   "Kiosk   Table" should "Initialize well" in {
 
-
-
     var kiosk = Kiosk(1,"reference","details","token",1,DateTime.now(),null,1,0L)
     assert(kiosk.id  == 1)
   }
@@ -67,6 +65,13 @@ class MainTest extends AnyFlatSpec  {
     var permissionScope =  PermissionScope(1,"key","value")
     assert(permissionScope.id  == 1)
   }
+
+
+  "Permission   Table" should "Initialize well" in {
+    var permission =   Permission(1L,"permission","permission","grouping")
+    assert(permission.grouping  equals("grouping") )
+  }
+
 
 
 
