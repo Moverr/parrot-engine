@@ -73,7 +73,7 @@ class MainTest extends AnyFlatSpec  {
   }
 
   "Profile   Table" should "Initialize well" in {
-    var profile =  Profile(1L,1L,"firstname","lastname",1L,DateTime.now(),null,Some(None))
+    var profile =  Profile(1L,1L,"firstname","lastname",1L,DateTime.now(),1L,None)
     assert(profile.id ==1L )
   }
 

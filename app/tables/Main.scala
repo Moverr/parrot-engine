@@ -312,7 +312,6 @@ object Main {
                       code:String,
                       name: String,
                       is_system: Boolean,
-
                       author_id:Long,
                       created_on: DateTime,
                       updated_by: Long,

@@ -9,6 +9,7 @@ import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
+import tables.Main
 import utils.{HelperUtilities, PasswordHashing}
 
 
@@ -24,6 +25,8 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
+
+
     if (registrationRequest.email.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
     }
@@ -57,6 +60,12 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   }
 
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
+
+
+    val users = Main.UserTable.filter(_.username equals(email))
+      .filter(_.password equals(password)).map(_)
+
+
    // val users = Main.UserTable.filter(_.username == email && _.password === password)
 
     /*
