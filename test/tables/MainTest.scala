@@ -72,6 +72,10 @@ class MainTest extends AnyFlatSpec  {
     assert(permission.grouping  equals("grouping") )
   }
 
+  "Profile   Table" should "Initialize well" in {
+    var profile =  Profile(1L,1L,"firstname","lastname",1L,DateTime.now(),null,Some(None))
+    assert(profile.id ==1L )
+  }
 
 
 
