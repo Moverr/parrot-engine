@@ -9,7 +9,8 @@ import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
-import tables.Main
+import slick.lifted.TableQuery
+import tables.Main.UserTable
 import utils.{HelperUtilities, PasswordHashing}
 
 
@@ -22,7 +23,7 @@ import play.api.db._
 
 class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
-
+implicit   lazy  val users = TableQuery[UserTable]
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
 
@@ -62,8 +63,9 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
 
-    val users = Main.users.filter(_.username == email)
-      .filter(_.password  == password).take(1)
+     
+
+
 
 
    // val users = Main.UserTable.filter(_.username == email && _.password === password)

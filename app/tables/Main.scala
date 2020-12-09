@@ -26,7 +26,7 @@ object Main {
   lazy  val role_permissions = TableQuery[RolePermissionTable]
   lazy  val stations = TableQuery[StationTable]
   lazy  val user_roles = TableQuery[UserRoleTable]
-  lazy  val users = TableQuery[UserTable]
+
 
 
   // Create an in-memory H2 database; 
