@@ -19,6 +19,11 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest-flatspec" % "3.2.0" % "test",
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % "test",
   "com.typesafe.slick" %% "slick" % "3.3.2",
+
+  "org.slf4j" % "slf4j-nop" % "1.6.4",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.0",
+  "org.postgresql" % "postgresql" % "9.4-1206-jdbc42", //org.postgresql.ds.PGSimpleDataSource dependency
+
   javaJpa,
   ws
 )
