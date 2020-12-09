@@ -63,7 +63,10 @@ implicit   lazy  val users = TableQuery[UserTable]
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
 
-     
+    val user = users.filter(_.username == email )
+      .filter(_.password == password)
+      .take(1)
+
 
 
 
