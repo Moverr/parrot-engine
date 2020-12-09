@@ -34,7 +34,7 @@ object Main {
 
   val connections:Option[Int] =  Some(10)
 //todo: COnfiguring a database
-  val db:Database = Database.forName("DefaultDS",connections,null)
+  val db:Database = Database.forConfig("enginedb")
 
   //todo: Define Scehma
   //todo: Accounts Table
