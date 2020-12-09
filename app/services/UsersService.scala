@@ -8,10 +8,17 @@ import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
+import play.api
+import play.api.db
 import play.api.libs.json.Json
+import slick.dbio
 import slick.lifted.TableQuery
+import tables.Main
 import tables.Main.UserTable
 import utils.{HelperUtilities, PasswordHashing}
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 
 //////
@@ -63,12 +70,22 @@ implicit   lazy  val users = TableQuery[UserTable]
   def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
 
 
-    val user = users.filter(_.username == email )
-      .filter(_.password == password)
-      .take(1)
+    val user = users;
+
+
+    try {
+      Await.result(Main.db.run(dbio.DBIO.seq(
+
+        // print the users (select * from USERS)
+       user =  users.filter(_.username == email )
+          .filter(_.password == password)
+          .take(1)
 
 
 
+      )), Duration.Inf)
+    } finally Main.db.close
+  }
 
 
    // val users = Main.UserTable.filter(_.username == email && _.password === password)
@@ -78,13 +95,14 @@ implicit   lazy  val users = TableQuery[UserTable]
       coffee <- Main.UserTable if coffee.username like "%expresso%"
     } yield (coffee.username, coffee.password)
     */
-
+/*
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
     print("STR: " + query)
     conn = DB getConnection()
     val stmt = conn createStatement
     var resultSet = stmt executeQuery (query)
-    resultSet
+    resultSet*/
+  Nil
   }
 
 
