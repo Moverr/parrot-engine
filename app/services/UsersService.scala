@@ -67,7 +67,7 @@ implicit   lazy  val users = TableQuery[UserTable]
     new AuthResponse(id, username, token, createdOn)
   }
 
-  def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
+  def fetchUserByEmailAndPassword(email: String, password: String): Any = {
 
 
     val user = users;
@@ -85,8 +85,8 @@ implicit   lazy  val users = TableQuery[UserTable]
 
       )), Duration.Inf)
     } finally Main.db.close
-  }
 
+    user
 
    // val users = Main.UserTable.filter(_.username == email && _.password === password)
 
@@ -102,7 +102,7 @@ implicit   lazy  val users = TableQuery[UserTable]
     val stmt = conn createStatement
     var resultSet = stmt executeQuery (query)
     resultSet*/
-  Nil
+
   }
 
 
@@ -142,7 +142,7 @@ implicit   lazy  val users = TableQuery[UserTable]
       val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
       //move cursor
-      resultSet.next()
+     // resultSet.next()
       val _response = populateResponse(resultSet)
       _response
 
