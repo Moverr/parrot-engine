@@ -14,7 +14,7 @@ import play.api.libs.json.Json
 import slick.dbio
 import slick.lifted.TableQuery
 import tables.Main
-import tables.Main.UserTable
+import tables.Main.{User, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Await
@@ -50,6 +50,7 @@ implicit   lazy  val users = TableQuery[UserTable]
 
 
     val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+
     // if resulset is not empty
     if (resultSet.next()) {
       populateResponse(resultSet)
@@ -63,6 +64,16 @@ implicit   lazy  val users = TableQuery[UserTable]
     val username = resultSet.getString("username")
     val password = resultSet.getString("password")
     val createdOn = resultSet.getDate("created_on")
+    val token = util.convertToBasicAuth(username, password)
+    new AuthResponse(id, username, token, createdOn)
+  }
+
+  private def populateResponse(resultSet:  User) = {
+    val id: Integer = resultSet.id.toInt
+    val username = resultSet.username
+    //todo: Password
+    val password = resultSet.password
+    val createdOn = resultSet.created_on
     val token = util.convertToBasicAuth(username, password)
     new AuthResponse(id, username, token, createdOn)
   }
