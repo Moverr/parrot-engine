@@ -67,7 +67,7 @@ implicit   lazy  val users = TableQuery[UserTable]
     new AuthResponse(id, username, token, createdOn)
   }
 
-  def fetchUserByEmailAndPassword(email: String, password: String): Any = {
+  def fetchUserByEmailAndPassword(email: String, password: String): TableQuery[UserTable] = {
 
 
     val user = users;
