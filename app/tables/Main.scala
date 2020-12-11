@@ -430,16 +430,7 @@ object Main {
 
 
   //todo:   user    table
-  case class User(
-                       id: Long = 0L,
-                       username: String,
-                       password: String,
-
-                       author_id:Long,
-                       created_on: DateTime,
-                       updated_by: Long,
-                       updated_on:Option[DateTime]
-                     )
+  case class User( id: Long = 0L,   username: String, password: String, author_id:Long, created_on: DateTime, updated_by: Long, updated_on:Option[DateTime] )
 
   class UserTable(tag:Tag) extends Table[User](tag,"user"){
     override def * = (id,username,password,author_id,created_on,updated_by,updated_on.?) <> (User.tupled,User.unapply)
