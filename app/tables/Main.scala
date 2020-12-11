@@ -449,7 +449,8 @@ object Main {
 
   lazy val users = TableQuery[UserTable]
 
-  val query = users
+  //todo: Query
+  val query = users.map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on))
   val action = databaseConnector.run(query.result)
 
 }
