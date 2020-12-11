@@ -5,6 +5,7 @@ import java.sql.Date
 
 import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
+import slick.lifted.TableQuery
 //import defaults ::
 import implicits.CustomColumnTypes._
 
@@ -459,7 +460,7 @@ object Main {
   }
 
 
-
+  lazy  val users = TableQuery[UserTable]
 
 
 }
