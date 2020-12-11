@@ -49,12 +49,10 @@ implicit   lazy  val users = TableQuery[UserTable]
 
 
 
-    val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+    val _record = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
 
-    // if resulset is not empty
-    if (resultSet.next()) {
-      populateResponse(resultSet)
-    } else null
+   val authResponse =  if(_record != Nil) populateResponse(_record) else null
+      authResponse
 
 
   }
@@ -78,41 +76,13 @@ implicit   lazy  val users = TableQuery[UserTable]
     new AuthResponse(id, username, token, createdOn)
   }
 
-  def fetchUserByEmailAndPassword(email: String, password: String): TableQuery[UserTable] = {
+  def fetchUserByEmailAndPassword(email: String, password: String): User = {
 
 
     val user = users;
 
-
-    try {
-      Await.result(Main.db.run(dbio.DBIO.seq(
-
-        // print the users (select * from USERS)
-       user =  users.filter(_.username == email )
-          .filter(_.password == password)
-          .take(1)
-
-
-
-      )), Duration.Inf)
-    } finally Main.db.close
-
-    user
-
-   // val users = Main.UserTable.filter(_.username == email && _.password === password)
-
-    /*
-    val users = for {
-      coffee <- Main.UserTable if coffee.username like "%expresso%"
-    } yield (coffee.username, coffee.password)
-    */
-/*
-    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
-    print("STR: " + query)
-    conn = DB getConnection()
-    val stmt = conn createStatement
-    var resultSet = stmt executeQuery (query)
-    resultSet*/
+    val query = users.map(u=>(u.id,u.username,u.password,u.author_id,u.created_on,u.updated_by,u.updated_on))
+  
 
   }
 
