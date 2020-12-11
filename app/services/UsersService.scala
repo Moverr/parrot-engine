@@ -31,7 +31,7 @@ import play.api.db._
 class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 implicit   lazy  val users = TableQuery[UserTable]
-  val database = Main.databaseConnector;
+
 
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
@@ -80,12 +80,9 @@ implicit   lazy  val users = TableQuery[UserTable]
 
   def fetchUserByEmailAndPassword(email: String, password: String): User = {
 
+    val query =users.map(u=>(u.id,u.username,u.password,u.author_id,u.created_on,u.updated_by,u.updated_on))
 
-    val user = users;
-
-    val query = users.map(u=>(u.id,u.username,u.password,u.author_id,u.created_on,u.updated_by,u.updated_on))
-    database.run(query.result)
-
+    Main.databaseConnector.run(action)
   }
 
 
