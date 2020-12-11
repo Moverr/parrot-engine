@@ -28,13 +28,12 @@ object Main {
   lazy  val user_roles = TableQuery[UserRoleTable]
 
 
-s
   // Create an in-memory H2 database; 
   //val db: Database = Database.forConfig("DefaultDS")
 
   val connections:Option[Int] =  Some(10)
 //todo: COnfiguring a database
-  val databaseConnector:Database = Database.forConfig("enginedb")
+
 
   //todo: Define Scehma
   //todo: Accounts Table
