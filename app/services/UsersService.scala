@@ -89,7 +89,15 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 
     val query = users.map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on))
+                 users.filter(p=>p.username === email && p.password === password)
+
+
     val action = databaseConnector.run(query.result)
+
+
+
+
+   // action.map(ad=>User(ad.id, user,user.password, author_id, created_on, updated_by, updated_on.?) )
 
 
     null
