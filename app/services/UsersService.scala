@@ -40,14 +40,8 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   }
 
   def login(authRequest: AuthenticationRequest): User = {
-    val _record: Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
+    <- fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
 
-    _record.onComplete{
-      case Success(user)=>println("Testing")
-      case Failure(exception)=>println("test")
-    }(null)
-
- null
   }
 
 
