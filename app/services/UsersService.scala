@@ -86,7 +86,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
     new AuthResponse(id, username, token, createdOn)
   }
 
-  //todo: Get User by Username and Email 
+  //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
     val query = users.filter(p=>p.username === email && p.password === password)
     databaseConnector.run(query.result.head)
