@@ -62,25 +62,6 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   }
 
 
-  private def populateResponse(resultSet: ResultSet) = {
-    val id: Integer = resultSet.getInt("id")
-    val username = resultSet.getString("username")
-    val password = resultSet.getString("password")
-    val createdOn = resultSet.getDate("created_on")
-    val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
-  }
-
-  private def populateResponse(resultSet: User) = {
-    val id: Integer = resultSet.id.toInt
-    val username = resultSet.username
-    //todo: Password
-    val password = resultSet.password
-    val createdOn = resultSet.created_on
-    val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
-  }
-
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
     var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
@@ -147,6 +128,20 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   override def populateEntity(): Unit = {
 
   }
+
+  private def populateResponse(_user: User) = {
+
+    val id: Long =_user.id
+    val username =_user.username
+    val password =_user.password
+    val createdOn = _user.created_on
+
+    val token = util.convertToBasicAuth(username, password)
+    new AuthResponse(id, username, token, createdOn)
+  }
+
+
+
 
 
 }
