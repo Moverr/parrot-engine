@@ -13,10 +13,10 @@ import slick.jdbc.PostgresProfile.api._
 import tables.Main.{User, databaseConnector, users}
 import utils.{HelperUtilities, PasswordHashing}
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 //import defaults ::
 
-
+import scala.util.{Success, Failure}
 //////
 import play.api.Play.current
 import play.api.db._
@@ -39,12 +39,9 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     false
   }
 
-  def login(authRequest: AuthenticationRequest): AuthResponse = {
-    val _record: Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+  def login(authRequest: AuthenticationRequest): User = {
+    val _record: Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
 
-    val authResponse = null
-    //_record.onSuccess(U=>populateResponse(u))
-    authResponse
 
 
   }
@@ -73,6 +70,7 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
     val query = users.filter(p => p.username === email && p.password === password)
     databaseConnector.run(query.result.head)
+
   }
 
 
