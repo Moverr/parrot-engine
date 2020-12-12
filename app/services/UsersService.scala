@@ -13,16 +13,16 @@ import slick.jdbc.PostgresProfile.api._
 import tables.Main.{User, databaseConnector, users}
 import utils.{HelperUtilities, PasswordHashing}
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 //import defaults ::
 
-import scala.util.{Success, Failure}
+import scala.util.Success
 //////
 import play.api.Play.current
 import play.api.db._
 ///////
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
-import ExecutionContext.Implicits.global
 
 class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
@@ -41,16 +41,20 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   }
 
 
+  //todo: Login User by Username and Password
   def login(authRequest: AuthenticationRequest): User = {
-  val x    =  fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
+    val x = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
+    var _user: User = null
 
-
-     x.onComplete{
-      case Success(s)=> s
-
+    x.onComplete {
+      case Success(s) => {
+        _user = s
+      }
     }
+    _user
 
   }
+
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
     val query = users.filter(p => p.username === email && p.password === password)
@@ -76,7 +80,6 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     val token = util.convertToBasicAuth(username, password)
     new AuthResponse(id, username, token, createdOn)
   }
-
 
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
