@@ -8,25 +8,13 @@ import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.{BadRequest, conn}
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
-import play.api
-import play.api.db
 import play.api.libs.json.Json
-import slick.dbio
-import slick.lifted.TableQuery
-import tables.Main
-import tables.Main.{User, UserTable, databaseConnector, users}
+import slick.jdbc.PostgresProfile.api._
+import tables.Main.{User, databaseConnector, users}
 import utils.{HelperUtilities, PasswordHashing}
 
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.Duration
-import java.sql.Date
-
-import org.joda.time
-import org.joda.time.DateTime
-import slick.jdbc.PostgresProfile.api._
-import slick.lifted.TableQuery
+import scala.concurrent.Future
 //import defaults ::
-import implicits.CustomColumnTypes._
 
 
 //////
@@ -35,11 +23,7 @@ import play.api.db._
 ///////
 
 
-
-class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
-
-
-
+class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
@@ -58,11 +42,11 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   def login(authRequest: AuthenticationRequest): AuthResponse = {
 
 
+    val _record:Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
 
-    val _record = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
 
-   val authResponse =  if(_record != Nil) populateResponse(_record) else null
-      authResponse
+    val authResponse = if (_record != Nil) populateResponse(_record) else null
+    authResponse
 
 
   }
@@ -76,7 +60,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
     new AuthResponse(id, username, token, createdOn)
   }
 
-  private def populateResponse(resultSet:  User) = {
+  private def populateResponse(resultSet: User) = {
     val id: Integer = resultSet.id.toInt
     val username = resultSet.username
     //todo: Password
@@ -88,7 +72,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-    val query = users.filter(p=>p.username === email && p.password === password)
+    val query = users.filter(p => p.username === email && p.password === password)
     databaseConnector.run(query.result.head)
   }
 
@@ -129,7 +113,7 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
       val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
       //move cursor
-     // resultSet.next()
+      // resultSet.next()
       val _response = populateResponse(resultSet)
       _response
 
