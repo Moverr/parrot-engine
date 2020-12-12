@@ -40,14 +40,15 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
   }
 
   def login(authRequest: AuthenticationRequest): AuthResponse = {
-    val _record:Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
+    val _record: Future[User] = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
 
-    val authResponse = _record.onSuccess(U=>populateResponse(u))
+    val authResponse = null
+    //_record.onSuccess(U=>populateResponse(u))
     authResponse
 
 
   }
-  
+
 
   private def populateResponse(resultSet: ResultSet) = {
     val id: Integer = resultSet.getInt("id")
