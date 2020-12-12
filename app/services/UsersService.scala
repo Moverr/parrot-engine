@@ -21,6 +21,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import java.sql.Date
 
+import org.joda.time
 import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
@@ -89,12 +90,20 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
 
     val query = users.filter(p=>p.username === email && p.password === password)
-                     .map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on)).result.head
+                  //   .map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on)).result.head
+
+    Await.result(
+      databaseConnector.run(query.result).map {
+        res =>
+          println(res)
+      },null
+    )
 
 
-    val action = databaseConnector.run(query);
-
-
+//    val action = databaseConnector.run(query)
+//      .map(results => (1L,"ewe","ewwe",DateTime,1L,DateTime))
+//
+//
 
    // action.map(ad=>User(ad.id, user,user.password, author_id, created_on, updated_by, updated_on.?) )
 
