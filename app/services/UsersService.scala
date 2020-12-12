@@ -21,7 +21,8 @@ import scala.util.{Success, Failure}
 import play.api.Play.current
 import play.api.db._
 ///////
-
+import scala.concurrent._
+import ExecutionContext.Implicits.global
 
 class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
@@ -39,9 +40,21 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     false
   }
 
-  def login(authRequest: AuthenticationRequest): User = {
-    <- fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
 
+  def login(authRequest: AuthenticationRequest): User = {
+  val x    =  fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
+
+
+     x.onComplete{
+      case Success(s)=> s
+
+    }
+
+  }
+  //todo: Get User by Username and Email
+  def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
+    val query = users.filter(p => p.username === email && p.password === password)
+    databaseConnector.run(query.result.head)
   }
 
 
@@ -64,12 +77,6 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     new AuthResponse(id, username, token, createdOn)
   }
 
-  //todo: Get User by Username and Email
-  def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-    val query = users.filter(p => p.username === email && p.password === password)
-    databaseConnector.run(query.result.head)
-
-  }
 
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
