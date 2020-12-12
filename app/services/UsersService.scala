@@ -88,8 +88,8 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
   def fetchUserByEmailAndPassword(email: String, password: String): User = {
 
 
-    val query = users.map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on))
-                 users.filter(p=>p.username === email && p.password === password)
+    val query = users.filter(p=>p.username === email && p.password === password)
+                     .map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on))
 
 
     val action = databaseConnector.run(query.result)
