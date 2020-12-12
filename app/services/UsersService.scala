@@ -14,11 +14,18 @@ import play.api.libs.json.Json
 import slick.dbio
 import slick.lifted.TableQuery
 import tables.Main
-import tables.Main.{User, UserTable}
+import tables.Main.{User, UserTable, databaseConnector, users}
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
+import java.sql.Date
+
+import org.joda.time.DateTime
+import slick.jdbc.PostgresProfile.api._
+import slick.lifted.TableQuery
+//import defaults ::
+import implicits.CustomColumnTypes._
 
 
 //////
@@ -80,9 +87,13 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   def fetchUserByEmailAndPassword(email: String, password: String): User = {
 
-    val query =users.map(u=>(u.id,u.username,u.password,u.author_id,u.created_on,u.updated_by,u.updated_on))
 
-    Main.databaseConnector.run(action)
+    val query = users.map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on))
+    val action = databaseConnector.run(query.result)
+
+
+    null
+
   }
 
 
