@@ -3,6 +3,7 @@ package app.services
 import java.sql.ResultSet
 import java.util.Date
 
+import akka.actor.FSM.Failure
 import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.{BadRequest, conn}
@@ -47,9 +48,8 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     var _user: User = null
 
     x.onComplete {
-      case Success(s) => {
-        _user = s
-      }
+      case Success(s) =>_user = s
+      case Failure(exception)=> _user = null
     }
     _user
 
