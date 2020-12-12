@@ -17,7 +17,7 @@ import tables.Main
 import tables.Main.{User, UserTable, databaseConnector, users}
 import utils.{HelperUtilities, PasswordHashing}
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration
 import java.sql.Date
 
@@ -86,30 +86,10 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
     new AuthResponse(id, username, token, createdOn)
   }
 
-  def fetchUserByEmailAndPassword(email: String, password: String): User = {
-
-
+  //todo: Get User by Username and Email 
+  def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
     val query = users.filter(p=>p.username === email && p.password === password)
-                  //   .map(p=>(p.id, p.username,p.password, p.author_id, p.created_on, p.updated_by, p.updated_on)).result.head
-
-    Await.result(
-      databaseConnector.run(query.result).map {
-        res =>
-          println(res)
-      },null
-    )
-
-
-//    val action = databaseConnector.run(query)
-//      .map(results => (1L,"ewe","ewwe",DateTime,1L,DateTime))
-//
-//
-
-   // action.map(ad=>User(ad.id, user,user.password, author_id, created_on, updated_by, updated_on.?) )
-
-
-    null
-
+    databaseConnector.run(query.result.head)
   }
 
 
