@@ -1,10 +1,8 @@
 package app.services
 
-import java.util.Date
-
 import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
-import controllers.v1.AuthController.{BadRequest, conn}
+import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
@@ -17,8 +15,6 @@ import scala.concurrent.Future
 
 import scala.util.Success
 //////
-import play.api.Play.current
-import play.api.db._
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -62,22 +58,25 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
 
   def ValidateIfUserExists(email: String, password: String): Boolean = {
-    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
+ /*   var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
     conn = DB getConnection()
     val stmt = conn.createStatement
     print("STR: " + query)
     var resultSet = stmt executeQuery (query)
     if (resultSet next()) true else false
+    */
+    false
   }
 
 
   override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
-    var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
+   /* var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
     conn = DB getConnection()
     val stmt = conn createStatement
     var result = stmt executeUpdate (query)
     val response = new RegistrationResponse(1, registrationRequest.email, new Date())
-    response
+    response */
+    null
   }
 
   //todo: validate token and return a User Object
