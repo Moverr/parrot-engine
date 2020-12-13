@@ -1,0 +1,5 @@
+package tables
+
+class Connection {
+
+}
