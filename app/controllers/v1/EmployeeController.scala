@@ -35,7 +35,7 @@ object EmployeeController   extends Controller {
 
                 try {
                     val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
-                    employeeService.create(authResponse.id, employeeRequest)
+                    employeeService.create(authResponse.id.toInt, employeeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -63,7 +63,7 @@ object EmployeeController   extends Controller {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[EmployeeResponse] = employeeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[EmployeeResponse] = employeeService.getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -83,7 +83,7 @@ object EmployeeController   extends Controller {
 
                 else {
                     try {
-                        val response: EmployeeResponse = employeeService.getById(authResponse.id, kioskId)
+                        val response: EmployeeResponse = employeeService.getById(authResponse.id.toInt, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {
