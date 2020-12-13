@@ -27,7 +27,7 @@ object AccountController extends Controller {
                val accountRequest: AccountRequest = AccountRequest.form.bindFromRequest.get
                 //val accountRequest: AccountRequest = AccountRequest.format[AccountRequest]
 
-                AccountService.create(authResponse.id, accountRequest)
+                AccountService.create(authResponse.id.toInt, accountRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
 
             }
@@ -51,7 +51,7 @@ object AccountController extends Controller {
                     )
                 }
 
-                val response: AccountResponse = AccountService.get(authResponse.id)
+                val response: AccountResponse = AccountService.get(authResponse.id.toInt)
 
                 // Ok(Json.obj("name" -> response.name))
                 Ok(Json.toJson(response))
