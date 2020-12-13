@@ -8,14 +8,12 @@ import play.api.mvc._
 import utils.HelperUtilities
 
 //////
-import play.api.Play.current
-import play.api.db._
 import play.api.libs.json._
 ///////
 
 
 object AuthController extends Controller {
-    var conn = DB.getConnection()
+
     implicit  def userService =  UsersService.apply( HelperUtilities)
 
     def login() = Action {
