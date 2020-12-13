@@ -7,8 +7,6 @@ import implicits.CustomColumnTypes._
 
 
 
-//todo: Define Scehma
-//todo: Accounts Table
 case class Account(
                     id: Long = 0L,
                     owner: Long,
@@ -23,7 +21,6 @@ case class Account(
 //todo: Define Table
 class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
 
-  def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id) <> (Account.tupled, Account.unapply)
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
 
@@ -40,6 +37,7 @@ class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
   def updated_by = column[Long]("updated_by")
 
   def external_id = column[String]("external_id")
+  def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id)  mapTo[Account]
 
   // def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id).mapTo[Account]
 
