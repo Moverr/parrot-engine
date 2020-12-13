@@ -77,7 +77,7 @@ object OfficesController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val response: Seq[OfficeResponse] = officeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[OfficeResponse] = officeService.getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
     }
@@ -95,7 +95,7 @@ object OfficesController extends Controller {
 
                 else {
                     try {
-                        val response: OfficeResponse = officeService.getById(authResponse.id, officeId)
+                        val response: OfficeResponse = officeService.getById(authResponse.id.toInt, officeId)
                         Ok(Json.toJson(response))
                     }
                     catch {
