@@ -37,7 +37,7 @@ object DepartmentsController extends Controller  {
 
                 try{
                     val departmentRequest: DepartmentRequest = DepartmentRequest.form.bindFromRequest.get
-                    departmentService create(authResponse.id, departmentRequest)
+                    departmentService create(authResponse.id.toInt, departmentRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -65,7 +65,7 @@ object DepartmentsController extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[DepartmentResponse] = departmentService getAll(authResponse.id, offset, limit)
+                val response: Seq[DepartmentResponse] = departmentService getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -85,7 +85,7 @@ object DepartmentsController extends Controller  {
 
                 else {
                     try {
-                        val response: DepartmentResponse = departmentService getById(authResponse.id, departmentId)
+                        val response: DepartmentResponse = departmentService getById(authResponse.id.toInt, departmentId)
                         Ok(Json.toJson(response))
                     }
                     catch {
