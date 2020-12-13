@@ -1,6 +1,5 @@
 package app.services
 
-import java.sql.ResultSet
 import java.util.Date
 
 import akka.actor.FSM.Failure
@@ -23,7 +22,6 @@ import play.api.Play.current
 import play.api.db._
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent._
 
 class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
@@ -96,11 +94,16 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
       val password = userNameAndPassword(1)
 
       val authRequest = new AuthenticationRequest(username, password)
-      val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+      val x = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
-      //move cursor
-      // resultSet.next()
-      val _response = populateResponse(resultSet)
+      var _user: User = null
+
+      x.onComplete {
+        case Success(s) =>_user = s
+        case Failure(exception)=> _user = null
+      }
+
+      val _response = populateResponse(_user)
       _response
 
     }
