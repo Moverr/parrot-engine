@@ -37,7 +37,7 @@ object KioskController extends Controller {
 
                 try{
                     val kioskRequest: KioskRequest = KioskRequest.form.bindFromRequest.get
-                    kioskService.create(authResponse.id, kioskRequest)
+                    kioskService.create(authResponse.id.toInt, kioskRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -66,10 +66,10 @@ object KioskController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
                 if(stationId > 0 ){
-                    val response: Seq[KioskResponse] = kioskService.getAllByStation(authResponse.id,stationId, offset, limit)
+                    val response: Seq[KioskResponse] = kioskService.getAllByStation(authResponse.id.toInt,stationId, offset, limit)
                     Ok(Json.toJson(response))
                 }else{
-                    val response: Seq[KioskResponse] = kioskService.getAll(authResponse.id, offset, limit)
+                    val response: Seq[KioskResponse] = kioskService.getAll(authResponse.id.toInt, offset, limit)
                     Ok(Json.toJson(response))
                 }
 
@@ -91,7 +91,7 @@ object KioskController extends Controller {
 
                 else {
                     try {
-                        val response: KioskResponse = kioskService.getById(authResponse.id, kioskId)
+                        val response: KioskResponse = kioskService.getById(authResponse.id.toInt, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {
