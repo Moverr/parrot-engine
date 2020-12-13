@@ -37,7 +37,7 @@ class AccountTable(tag: Tag) extends Table[Account](tag, "account") {
   def updated_by = column[Long]("updated_by")
 
   def external_id = column[String]("external_id")
-  def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id)  mapTo[Account]
+  def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id). mapTo[Account]
 
   // def * = (id, owner, name, created_on, updated_on.?, author_id, updated_by, external_id).mapTo[Account]
 
