@@ -36,7 +36,7 @@ object StationsController  extends Controller  {
 
                 try {
                     val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
-                    stationService create(authResponse.id, stationRequest)
+                    stationService create(authResponse.id.toInt, stationRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -59,7 +59,7 @@ object StationsController  extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[StationResponse] = stationService getAll(authResponse.id, offset, limit)
+                val response: Seq[StationResponse] = stationService getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -81,7 +81,7 @@ object StationsController  extends Controller  {
 
                 else {
                     try {
-                        val response: StationResponse = stationService getById(authResponse.id, stationId)
+                        val response: StationResponse = stationService getById(authResponse.id.toInt, stationId)
                         Ok(Json.toJson(response))
                     }
                     catch {
