@@ -111,6 +111,16 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
   }
 
+  private def populateResponse(_user: User) = {
+
+    val id: Long =_user.id
+    val username =_user.username
+    val password =_user.password
+    val createdOn = _user.created_on
+
+    val token = util.convertToBasicAuth(username, password)
+    new AuthResponse(id, username, token, createdOn)
+  }
 
   override def list(offset: Int, limit: Int): Unit = {
 
@@ -130,17 +140,6 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
   override def populateEntity(): Unit = {
 
-  }
-
-  private def populateResponse(_user: User) = {
-
-    val id: Long =_user.id
-    val username =_user.username
-    val password =_user.password
-    val createdOn = _user.created_on
-
-    val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
   }
 
 
