@@ -41,7 +41,7 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
 
   //todo: Login User by Username and Password
-  def login(authRequest: AuthenticationRequest): User = {
+  def login(authRequest: AuthenticationRequest): AuthResponse = {
     val x = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
     var _user: User = null
 
@@ -49,7 +49,7 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
       case Success(s) =>_user = s
       case Failure(exception)=> _user = null
     }
-    _user
+    populateResponse(_user)
 
   }
 
