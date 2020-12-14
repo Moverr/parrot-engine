@@ -1,10 +1,8 @@
 package tables
 
 
-import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 //import defaults ::
-import implicits.CustomColumnTypes._
 
 //todo: Permission Scope   table
 case class PermissionScope(
