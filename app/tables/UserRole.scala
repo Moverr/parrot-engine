@@ -1,8 +1,6 @@
 package tables
 
 import org.joda.time.DateTime
-
-import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 //import defaults ::
 import implicits.CustomColumnTypes._
