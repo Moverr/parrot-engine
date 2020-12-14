@@ -6,8 +6,6 @@ import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
-import slick.jdbc.PostgresProfile.api._
-import tables.Main.{databaseConnector, users}
 import tables.User
 import utils.{HelperUtilities, PasswordHashing}
 
@@ -52,8 +50,10 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-    val query = users.filter(p => p.username === email && p.password === password)
+   /* val query = users.filter(p => p.username === email && p.password === password)
     databaseConnector.run(query.result.head)
+    */
+    null
   }
 
 
