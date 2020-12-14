@@ -26,7 +26,7 @@ object Main {
 
 
   // Create an in-memory H2 database; 
-  val db: Database = Database.forConfig("DefaultDS")
+  val db: Database = Database.forConfig()
 
   val connections: Option[Int] = Some(10)
   //todo: COnfiguring a database
