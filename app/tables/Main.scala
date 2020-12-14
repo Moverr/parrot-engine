@@ -26,11 +26,11 @@ object Main {
 
 
   // Create an in-memory H2 database; 
-  val db: Database = Database.forConfig()
+  val db: Database = Database.forConfig("mydb")
 
   val connections: Option[Int] = Some(10)
   //todo: COnfiguring a database
- val databaseConnector: Database = Database.forConfig("enginedb")
+ val databaseConnector: Database = Database.forConfig("mydb")
 /*
   lazy val users = TableQuery[UserTable]
 
