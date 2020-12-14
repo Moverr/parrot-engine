@@ -7,7 +7,8 @@ import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.libs.json.Json
 import slick.jdbc.PostgresProfile.api._
-import tables.Main.{User, databaseConnector, users}
+import tables.Main.{databaseConnector, users}
+import tables.User
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Future

@@ -1,7 +1,6 @@
 package tables
 
 
-import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.TableQuery
 //import defaults ::
@@ -33,11 +32,6 @@ object Main {
   val connections: Option[Int] = Some(10)
   //todo: COnfiguring a database
   val databaseConnector: Database = Database.forConfig("enginedb")
-
-
-
-
-
 
   lazy val users = TableQuery[UserTable]
 
