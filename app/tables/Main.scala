@@ -30,7 +30,7 @@ object Main {
 
   val connections: Option[Int] = Some(10)
   //todo: COnfiguring a database
- val databaseConnector: Database = Database.forConfig("mydb")
+ val databaseConnector: Database =  Database.forConfig("h2mem1")
 /*
   lazy val users = TableQuery[UserTable]
 
