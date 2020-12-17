@@ -1,9 +1,13 @@
 package tables
 
 
-import slick.jdbc.PostgresProfile.api._
+import play.api.db.DB.getConnection
 import slick.lifted.TableQuery
 //import defaults ::
+
+//////
+import play.api.Play.current
+///////
 
 
 object Main {
@@ -29,8 +33,8 @@ object Main {
   //val db: Database = Database.forConfig("mydb")
 
   val connections: Option[Int] = Some(10)
-  //todo: COnfiguring a database
- val databaseConnector: Database =  Database.forConfig("db")
+  //todo: COnfigur/ing a database
+ val databaseConnector =    getConnection()
 /*
   lazy val users = TableQuery[UserTable]
 
