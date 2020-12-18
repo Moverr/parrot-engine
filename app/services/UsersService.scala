@@ -50,9 +50,11 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
 
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-   /* val query = users.filter(p => p.username === email && p.password === password)
+
+
+   val query = users.filter(p => p.username === email && p.password === password)
     databaseConnector.run(query.result.head)
-    */
+
     null
   }
 
