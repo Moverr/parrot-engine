@@ -20,11 +20,9 @@ libraryDependencies ++= Seq(
   "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0" % "test",
   "com.typesafe.slick" %% "slick" % "3.3.2",
 
-  "org.slf4j" % "slf4j-nop" % "1.6.4",
-  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.0",
+  "org.slf4j" % "slf4j-nop" % "1.6.4", 
   "com.typesafe.slick" %% "slick-codegen" % "3.3.2",
-  "com.typesafe.play" %% "play-slick" % "4.0.0",
-  "com.typesafe.play" %% "play-slick-evolutions" % "4.0.0",
+
   javaJpa,
   ws
 )
