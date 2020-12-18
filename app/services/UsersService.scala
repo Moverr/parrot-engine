@@ -5,8 +5,10 @@ import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
+import play.api.db.DB.getConnection
 import play.api.libs.json.Json
-import tables.User
+import slick.lifted.TableQuery
+import tables.{User, UserRoleTable, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Future
@@ -47,7 +49,8 @@ class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
     populateResponse(_user)
 
   }
-
+  lazy val users = TableQuery[UserTable]
+  val databaseConnector =    getConnection()
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
 
