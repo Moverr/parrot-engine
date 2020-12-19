@@ -6,10 +6,17 @@ import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
 import play.api.db.DB.getConnection
+import play.api.db.{Database, DatabaseConfig}
 import play.api.libs.json.Json
+import play.db.NamedDatabase
 import slick.lifted.TableQuery
 import tables.{User, UserRoleTable, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
+
+import javax.inject.Inject
+import play.api.db.Database
+import play.db.NamedDatabase
+
 
 import scala.concurrent.Future
 //import defaults ::
@@ -19,7 +26,11 @@ import scala.util.Success
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class UsersService @Inject()(util: HelperUtilities) extends UserServiceTrait {
+class UsersService @Inject()(
+
+                              @NamedDatabase("orders") ordersDatabase: Database,
+                              databaseExecutionContext: DatabaseExecutionContext,
+                              util: HelperUtilities,) extends UserServiceTrait {
 
 
   def register(registrationRequest: RegistrationRequest): Boolean = {

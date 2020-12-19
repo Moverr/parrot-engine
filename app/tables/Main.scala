@@ -1,12 +1,10 @@
 package tables
 
 
-import play.api.db.DB.getConnection
 import slick.lifted.TableQuery
 //import defaults ::
 
 //////
-import play.api.Play.current
 ///////
 
 
@@ -34,7 +32,7 @@ object Main {
 
   val connections: Option[Int] = Some(10)
   //todo: COnfigur/ing a database
- val databaseConnector =    getConnection()
+ //val databaseConnector =    getConnection()
 /*
   lazy val users = TableQuery[UserTable]
 
