@@ -5,6 +5,9 @@ import slick.lifted.TableQuery
 //import defaults ::
 
 //////
+import play.api.db.DB
+import play.api.libs.json.Json
+import utils.HelperUtilities
 ///////
 
 
@@ -31,6 +34,7 @@ object Main {
   //val db: Database = Database.forConfig("mydb")
 
   val connections: Option[Int] = Some(10)
+  val db = Database.forName("jndiName")
   //todo: COnfigur/ing a database
  //val databaseConnector =    getConnection()
 /*
