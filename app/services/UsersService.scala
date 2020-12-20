@@ -5,29 +5,18 @@ import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.Inject
-import play.api.db.DB.getConnection
-import play.api.db.{Database, DatabaseConfig}
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import play.db.NamedDatabase
-import slick.lifted.TableQuery
-import tables.{User, UserRoleTable, UserTable}
-import utils.{HelperUtilities, PasswordHashing}
-import javax.inject.Inject
-import play.api
-import play.api.db.slick.DatabaseConfigProvider
 import slick.jdbc.JdbcProfile
+import tables.{User, UserTable}
+import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Future
 //import defaults ::
-import play.api.Play
-import play.api.db.DatabaseConfig
-import slick.profile.RelationalProfile
-
 import scala.util.Success
 //////
-import play.api.Play
-
-import slick.profile.RelationalProfile
 
 
 ///////
@@ -77,7 +66,7 @@ class UsersService @Inject()(
   }
   lazy val users = TableQuery[UserTable]
 
-  private val table = TableQuery[UserTable]
+
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
 
@@ -150,7 +139,7 @@ class UsersService @Inject()(
     val createdOn = _user.created_on
 
     val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
+    new AuthResponse(id, username, token, null)
   }
 
   override def list(offset: Int, limit: Int): Unit = {
@@ -180,6 +169,6 @@ class UsersService @Inject()(
 }
 
 object UsersService {
-  def apply(util: HelperUtilities): UsersService = new UsersService(util)
-}
+  def apply(ordersDatabase: Database, dbConfigProvider: DatabaseConfigProvider, util: HelperUtilities): UsersService = new UsersService(ordersDatabase, dbConfigProvider, util)
+ }
 
