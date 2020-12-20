@@ -20,17 +20,26 @@ import play.db.NamedDatabase
 
 import scala.concurrent.Future
 //import defaults ::
+import play.api.Play
+import play.api.db.DatabaseConfig
+import slick.profile.RelationalProfile
 
 import scala.util.Success
 //////
+import play.api.Play
+
+import slick.profile.RelationalProfile
+
+
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class UsersService @Inject()(
 
                               @NamedDatabase("orders") ordersDatabase: Database,
-                              databaseExecutionContext: DatabaseExecutionContext,
-                              util: HelperUtilities,) extends UserServiceTrait {
+                              dbConfigProvider: DatabaseConfigProvider,
+                              util: HelperUtilities) extends UserServiceTrait {
+
 
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
