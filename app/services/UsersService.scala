@@ -13,9 +13,8 @@ import slick.lifted.TableQuery
 import tables.{User, UserRoleTable, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 import javax.inject.Inject
-import play.api.db.Database
+import play.api
 import play.api.db.slick.DatabaseConfigProvider
-import play.db.NamedDatabase
 import slick.jdbc.JdbcProfile
 
 import scala.concurrent.Future
@@ -41,7 +40,13 @@ class UsersService @Inject()(
                               util: HelperUtilities) extends UserServiceTrait {
 
 
+  import dbConfig._
+  import profile.api._
+
+
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
+  private val table = TableQuery[UserTable]
+
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
 
@@ -71,13 +76,13 @@ class UsersService @Inject()(
 
   }
   lazy val users = TableQuery[UserTable]
-  val databaseConnector =    getConnection()
+
+  private val table = TableQuery[UserTable]
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
 
-
    val query = users.filter(p => p.username === email && p.password === password)
-    databaseConnector.run(query.result.head)
+    db.run(query.result.head)
 
     null
   }
