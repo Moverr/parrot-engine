@@ -22,7 +22,7 @@ libraryDependencies ++= Seq(
 
   "org.slf4j" % "slf4j-nop" % "1.6.4",
   "com.typesafe.slick" %% "slick-codegen" % "3.3.2",
-
+  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
   javaJpa,
   ws
 )

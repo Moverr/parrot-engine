@@ -37,7 +37,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UsersService @Inject()(
 
                               @NamedDatabase("orders") ordersDatabase: Database,
-                              dbConfigProvider: DatabaseConfigProvider,
+                              dbConfigProvider: DatabaseConfigProvider ,
                               util: HelperUtilities) extends UserServiceTrait {
 
 
