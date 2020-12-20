@@ -12,11 +12,11 @@ import play.db.NamedDatabase
 import slick.lifted.TableQuery
 import tables.{User, UserRoleTable, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
-
 import javax.inject.Inject
 import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.db.NamedDatabase
-
+import slick.jdbc.JdbcProfile
 
 import scala.concurrent.Future
 //import defaults ::
@@ -41,6 +41,7 @@ class UsersService @Inject()(
                               util: HelperUtilities) extends UserServiceTrait {
 
 
+  private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
 
