@@ -4,14 +4,15 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.employee.EmployeeRequest
 import entities.responses.employee.EmployeeResponse
+import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.{EmployeeService, StationsService}
 import utils.HelperUtilities
 //todo: working on employee and moving on
-object EmployeeController   extends Controller {
+class EmployeeController    @Inject()(userService: UsersService)  extends Controller {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+
     implicit  def employeeService = EmployeeService(StationsService.apply(HelperUtilities))
 
     implicit val resposnse = new Writes[EmployeeResponse] {
