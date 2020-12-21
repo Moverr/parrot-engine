@@ -26,7 +26,7 @@ class UsersService @Inject()(
 
                               @NamedDatabase("orders") ordersDatabase: Database,
                               dbConfigProvider: DatabaseConfigProvider ,
-                              util: HelperUtilities) extends UserServiceTrait {
+                              util: HelperUtilities)  {
 
 
   import dbConfig._
@@ -90,7 +90,7 @@ class UsersService @Inject()(
   }
 
 
-  override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
+    def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
    /* var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
     conn = DB getConnection()
     val stmt = conn createStatement
@@ -141,25 +141,6 @@ class UsersService @Inject()(
     new AuthResponse(id, username, token, createdOn.toString("yyyy-mm-dd"))
   }
 
-  override def list(offset: Int, limit: Int): Unit = {
-
-  }
-
-  override def get(id: Int): Unit = {
-
-  }
-
-  override def search(query: String, offset: Int, limit: Int): Unit = {
-
-  }
-
-  override def populateResponse(): Unit = {
-
-  }
-
-  override def populateEntity(): Unit = {
-
-  }
 
 
 
