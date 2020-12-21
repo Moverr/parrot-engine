@@ -4,15 +4,16 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.departments.DepartmentRequest
 import entities.responses.departments.DepartmentResponse
+import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.{DepartmentService, OfficeService, StationsService}
 import utils.HelperUtilities
 
 
-object DepartmentsController extends Controller  {
+class DepartmentsController  @Inject()( userService: UsersService) extends Controller  {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+   // implicit  def userService =  UsersService.apply( HelperUtilities)
     implicit  def departmentService = DepartmentService.apply(StationsService.apply(HelperUtilities),OfficeService.apply(StationsService.apply(HelperUtilities)))
 
 
