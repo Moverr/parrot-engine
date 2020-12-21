@@ -57,7 +57,6 @@ object AccountController   extends Controller   {
                         "name" -> _account.name
                     )
                 }
-
                 val response: AccountResponse = AccountService.get(authResponse.id.toInt)
 
                 // Ok(Json.obj("name" -> response.name))
