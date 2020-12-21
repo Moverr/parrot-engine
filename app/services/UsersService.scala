@@ -10,6 +10,7 @@ import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import play.db.NamedDatabase
+import services.traits.TUserService
 import slick.jdbc.JdbcProfile
 import tables.{User, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
@@ -27,7 +28,7 @@ class UsersService @Inject()(
 
                               @NamedDatabase("orders") ordersDatabase: Database,
                               dbConfigProvider: DatabaseConfigProvider ,
-                              util: HelperUtilities)  {
+                              util: HelperUtilities)  extends TUserService {
 
 
   import dbConfig._
@@ -38,7 +39,7 @@ class UsersService @Inject()(
   private val table = TableQuery[UserTable]
 
 
-  def register(registrationRequest: RegistrationRequest): Boolean = {
+  override def register(registrationRequest: RegistrationRequest): Boolean = {
 
 
     if (registrationRequest.email.isEmpty()) {
@@ -53,7 +54,7 @@ class UsersService @Inject()(
 
 
   //todo: Login User by Username and Password
-  def login(authRequest: AuthenticationRequest): AuthResponse = {
+  override def login(authRequest: AuthenticationRequest): AuthResponse = {
     val x = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
     var _user: User = null
 
@@ -65,11 +66,11 @@ class UsersService @Inject()(
     populateResponse(_user)
 
   }
-  lazy val users = TableQuery[UserTable]
+  override lazy val users = TableQuery[UserTable]
 
 
   //todo: Get User by Username and Email
-  def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
+  override def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
 
     val query = users.filter(p => p.username === email && p.password === password)
     db.run(query.result.head)
@@ -79,7 +80,7 @@ class UsersService @Inject()(
 
 
 
-  def ValidateIfUserExists(email: String, password: String): Boolean = {
+  override def ValidateIfUserExists(email: String, password: String): Boolean = {
     /*   var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
        conn = DB getConnection()
        val stmt = conn.createStatement
@@ -91,7 +92,7 @@ class UsersService @Inject()(
   }
 
 
-  def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
+  override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
     /* var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
      conn = DB getConnection()
      val stmt = conn createStatement
@@ -102,7 +103,7 @@ class UsersService @Inject()(
   }
 
   //todo: validate token and return a User Object
-  def validateAuthorization(authentication: String): AuthResponse = {
+  override def validateAuthorization(authentication: String): AuthResponse = {
 
     val auth = authentication.replace("bearer", "").trim()
     val userNameAndPassword = HelperUtilities.decodeAuth(auth)
@@ -131,7 +132,7 @@ class UsersService @Inject()(
 
   }
 
-  def populateResponse(_user: User) = {
+  override def populateResponse(_user: User) = {
 
     val id: Long =_user.id
     val username =_user.username
