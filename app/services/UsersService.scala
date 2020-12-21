@@ -131,7 +131,7 @@ class UsersService @Inject()(
 
   }
 
-  private def populateResponse(_user: User) = {
+    def populateResponse(_user: User) = {
 
     val id: Long =_user.id
     val username =_user.username
