@@ -4,13 +4,20 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
-import javax.inject.Inject
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-class AccountController @Inject()(userService: UsersService) extends Controller   {
+object AccountController   extends Controller   {
+
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+
+    implicit  def userService =  UsersService.apply( ordersDatabase, dbConfigProvider,  HelperUtilities)
 
 
 
@@ -70,7 +77,3 @@ class AccountController @Inject()(userService: UsersService) extends Controller 
 
 }
 
-//try to make it a an object
-object AccountController extends Controller{
-    def apply(userService: UsersService): AccountController = new AccountController(userService)
-}
