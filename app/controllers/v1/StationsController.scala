@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.stations.StationRequest
 import entities.responses.stations.StationResponse
+import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.StationsService
@@ -11,9 +12,9 @@ import utils.HelperUtilities
 
 //todo: deploy to the server and move
 //todo: create stations and move on
-object StationsController  extends Controller  {
+class  StationsController  @Inject()(userService: UsersService)    extends Controller  {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+
     implicit  def stationService =  StationsService.apply( HelperUtilities)
 
     implicit val resposnse = new Writes[StationResponse] {

@@ -4,13 +4,14 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.offices.OfficeResponse
+import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.{OfficeService, StationsService}
 import utils.HelperUtilities
 
-object OfficesController extends Controller {
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+class OfficesController  @Inject()(userService: UsersService)    extends Controller {
+
 
     implicit  def officeService = OfficeService.apply(StationsService.apply(HelperUtilities))
 
