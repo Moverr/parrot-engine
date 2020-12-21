@@ -64,6 +64,7 @@ class UsersService @Inject()(
 
     }
     populateResponse(_user)
+    null
 
   }
   override lazy val users = TableQuery[UserTable]
@@ -125,7 +126,7 @@ class UsersService @Inject()(
         //case Failure(_)=> _user = null
       }
       val _response = populateResponse(_user)
-      _response
+      null
 
     }
 

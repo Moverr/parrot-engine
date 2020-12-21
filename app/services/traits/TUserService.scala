@@ -14,8 +14,6 @@ trait TUserService {
   //todo: Login User by Username and Password
   def login(authRequest: AuthenticationRequest): AuthResponse
 
-  val users
-
   //todo: Get User by Username and Email
   def fetchUserByEmailAndPassword(email: String, password: String): Future[User]
 
