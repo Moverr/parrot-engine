@@ -10,12 +10,7 @@ import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-class AccountControlle @Inject()
-( userService: UsersService
-) extends Controller  {
-
-
-
+class AccountController @Inject()(userService: UsersService) extends Controller   {
 
 
 
@@ -76,6 +71,6 @@ class AccountControlle @Inject()
 }
 
 //try to make it a an object
-object AccountControlle extends Controller{
-    def apply(userService: UsersService): AccountControlle = new AccountControlle(userService)
+object AccountController extends Controller{
+    def apply(userService: UsersService): AccountController = new AccountController(userService)
 }
