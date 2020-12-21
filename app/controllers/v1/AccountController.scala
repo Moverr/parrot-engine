@@ -11,7 +11,7 @@ import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-object AccountController   extends Controller   {
+object AccountController   extends Controller    {
 
     private implicit val ordersDatabase: Database = null
     private implicit val  dbConfigProvider: DatabaseConfigProvider = null
