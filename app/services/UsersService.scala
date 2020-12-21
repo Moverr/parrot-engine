@@ -122,7 +122,6 @@ class UsersService @Inject()(
         case Success(s) =>_user = s
         //case Failure(_)=> _user = null
       }
-
       val _response = populateResponse(_user)
       _response
 

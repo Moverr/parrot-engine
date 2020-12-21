@@ -5,34 +5,18 @@ import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
 import javax.inject.Inject
-import play.api.db.Database
-import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
-import play.api.db.Database
-import play.api.db.slick.DatabaseConfigProvider
 import services.AccountService
 import utils.HelperUtilities
 
-import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
-import app.entities.responses.AuthResponse
-import controllers.v1.AuthController.BadRequest
-import entities.responses.RegistrationResponse
-import javax.inject.Inject
-import play.api.db.Database
-import play.api.db.slick.DatabaseConfigProvider
-import play.api.libs.json.Json
-import play.db.NamedDatabase
-import slick.jdbc.JdbcProfile
-import tables.{User, UserTable}
-import utils.{HelperUtilities, PasswordHashing}
-
-object AccountController extends Controller  {
+class AccountControlle @Inject()
+( userService: UsersService
+) extends Controller  {
 
 
 
-    @Inject
-    val userService:UsersService
+
 
 
 
@@ -89,4 +73,9 @@ object AccountController extends Controller  {
      */
 
 
+}
+
+//try to make it a an object
+object AccountControlle extends Controller{
+    def apply(userService: UsersService): AccountControlle = new AccountControlle(userService)
 }
