@@ -163,11 +163,5 @@ class UsersService @Inject()(
 
 
 
-
-
 }
-
-object UsersService {
-  def apply(ordersDatabase: Database, dbConfigProvider: DatabaseConfigProvider, util: HelperUtilities): UsersService = new UsersService(ordersDatabase, dbConfigProvider, util)
- }
 
