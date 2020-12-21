@@ -3,18 +3,18 @@ package controllers.v1
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import app.services.UsersService
+import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc._
-import utils.HelperUtilities
 
 //////
 import play.api.libs.json._
 ///////
 
 
-object AuthController extends Controller {
+class  AuthController @Inject()(userService: UsersService) extends Controller {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+   
 
     def login() = Action {
         implicit request =>
