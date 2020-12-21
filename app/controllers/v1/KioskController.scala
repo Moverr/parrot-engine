@@ -4,14 +4,15 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.kiosks.KioskRequest
 import entities.responses.kiosks.KioskResponse
+import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.{KioskService, StationsService}
 import utils.HelperUtilities
 
-object KioskController extends Controller {
+class  KioskController   @Inject()(userService: UsersService)  extends Controller {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+
     implicit  def kioskService = KioskService.apply(StationsService.apply(HelperUtilities))
 
 
