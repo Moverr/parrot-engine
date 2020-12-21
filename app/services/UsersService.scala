@@ -139,7 +139,7 @@ class UsersService @Inject()(
     val createdOn = _user.created_on
 
     val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, null)
+    new AuthResponse(id, username, token, createdOn.toString("yyyy-mm-dd"))
   }
 
   override def list(offset: Int, limit: Int): Unit = {
