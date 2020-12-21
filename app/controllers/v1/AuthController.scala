@@ -71,3 +71,7 @@ class  AuthController @Inject()(userService: UsersService) extends Controller {
 
 
 }
+
+object AuthController extends Controller{
+    def apply(userService: UsersService): AuthController = new AuthController(userService)
+}
