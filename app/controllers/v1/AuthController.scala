@@ -3,18 +3,20 @@ package controllers.v1
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import app.services.UsersService
+import controllers.v1.StationsController.dbConfigProvider
 import javax.inject.Inject
 import play.api.libs.json.Json
 import play.api.mvc._
+import utils.HelperUtilities
 
 //////
 import play.api.libs.json._
 ///////
 
 
-class  AuthController @Inject()(userService: UsersService) extends Controller {
+object  AuthController   extends Controller {
 
-   
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
     def login() = Action {
         implicit request =>
@@ -72,6 +74,4 @@ class  AuthController @Inject()(userService: UsersService) extends Controller {
 
 }
 
-object AuthController extends Controller{
-    def apply(userService: UsersService): AuthController = new AuthController(userService)
-}
+ 
