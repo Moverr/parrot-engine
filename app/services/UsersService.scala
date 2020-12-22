@@ -25,10 +25,8 @@ import scala.util.Success
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class UsersService @Inject()(
-
-                              @NamedDatabase("orders") ordersDatabase: Database,
                               dbConfigProvider: DatabaseConfigProvider ,
-                              util: HelperUtilities)  extends TUserService {
+                              util: HelperUtilities)   {
 
 
   import dbConfig._
@@ -67,7 +65,7 @@ class UsersService @Inject()(
     null
 
   }
-  override lazy val users = TableQuery[UserTable]
+    lazy val users = TableQuery[UserTable]
 
 
   //todo: Get User by Username and Email
