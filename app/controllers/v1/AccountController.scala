@@ -71,3 +71,6 @@ class AccountController  @Inject()(val userService: UsersService)   extends Cont
 
 }
 
+object AccountController{
+    def apply(userService: UsersService): AccountController = new AccountController(userService)
+}
