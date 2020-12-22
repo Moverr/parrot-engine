@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.stations.StationRequest
 import entities.responses.stations.StationResponse
+import javax.inject.Inject
 import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
@@ -17,7 +18,7 @@ import utils.HelperUtilities
 //todo: create stations and move on
 
 
-object  StationsController      extends Controller     {
+class  StationsController  @Inject()(userService: UsersService)     extends Controller     {
 
     private implicit val ordersDatabase: Database = null
     private implicit val  dbConfigProvider: DatabaseConfigProvider = null
@@ -25,8 +26,6 @@ object  StationsController      extends Controller     {
 
 
     implicit  def stationService =  StationsService.apply( HelperUtilities)
-
-    implicit  def userService =  UsersService.apply( ordersDatabase, dbConfigProvider,  HelperUtilities)
 
 
 
@@ -135,3 +134,6 @@ object  StationsController      extends Controller     {
 
 }
 
+object StationsController extends Controller{
+    def apply(userService: UsersService): StationsController = new StationsController(userService)
+}
