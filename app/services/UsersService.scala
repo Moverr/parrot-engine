@@ -27,10 +27,10 @@ class UsersService @Inject()(
                               dbConfigProvider: DatabaseConfigProvider ,
                               util: HelperUtilities)  extends TUserService {
 
-
+  private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   import dbConfig._
-  private val dbConfig = dbConfigProvider.get[JdbcProfile]
+
   val users = lifted.TableQuery[UserTable]
 
 
