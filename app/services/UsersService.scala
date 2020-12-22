@@ -68,11 +68,10 @@ class UsersService @Inject()(
 
   //todo: Get User by Username and Email
     def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-
     val query = users.filter(p => p.username === email && p.password === password)
+      //todo: Return only the first element of the query
     db.run(query.result.head)
 
-    null
   }
 
 
