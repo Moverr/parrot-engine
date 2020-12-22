@@ -5,11 +5,13 @@ import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
-import javax.inject.{Inject, Singleton}
+import javax.inject.Inject
+import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
+import play.db.NamedDatabase
+import services.traits.TUserService
 import slick.jdbc.JdbcProfile
-import slick.lifted
 import tables.{User, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 
@@ -22,10 +24,11 @@ import scala.util.Success
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
 
-@Singleton
 class UsersService @Inject()(
-                              dbConfigProvider: DatabaseConfigProvider,
-                              util: HelperUtilities) {
+
+                              @NamedDatabase("orders") ordersDatabase: Database,
+                              dbConfigProvider: DatabaseConfigProvider ,
+                              util: HelperUtilities)  extends TUserService {
 
 
   import dbConfig._
@@ -35,9 +38,8 @@ class UsersService @Inject()(
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
 
-  lazy val users = lifted.TableQuery[UserTable]
-
-  def register(registrationRequest: RegistrationRequest): Boolean = {
+  val users = TableQuery[UserTable]
+  override def register(registrationRequest: RegistrationRequest): Boolean = {
 
 
     if (registrationRequest.email.isEmpty()) {
@@ -52,12 +54,12 @@ class UsersService @Inject()(
 
 
   //todo: Login User by Username and Password
-  def login(authRequest: AuthenticationRequest): AuthResponse = {
+  override def login(authRequest: AuthenticationRequest): AuthResponse = {
     val x = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
     var _user: User = null
 
     x.onComplete {
-      case Success(s) => _user = s
+      case Success(s) =>_user = s
       //case Failure(_) => _user = null
 
     }
@@ -66,16 +68,19 @@ class UsersService @Inject()(
   }
 
 
+
   //todo: Get User by Username and Email
-  def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
-    val query = users
-    //filter(p => p.username == email && p.password == password)
-    //todo: Return only the first element of the query
+  override def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
+
+    val query = users.filter(p => p.username === email && p.password === password)
     db.run(query.result.head)
+
+    null
   }
 
 
-  def ValidateIfUserExists(email: String, password: String): Boolean = {
+
+  override def ValidateIfUserExists(email: String, password: String): Boolean = {
     /*   var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
        conn = DB getConnection()
        val stmt = conn.createStatement
@@ -87,7 +92,7 @@ class UsersService @Inject()(
   }
 
 
-  def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
+  override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
     /* var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
      conn = DB getConnection()
      val stmt = conn createStatement
@@ -98,7 +103,7 @@ class UsersService @Inject()(
   }
 
   //todo: validate token and return a User Object
-  def validateAuthorization(authentication: String): AuthResponse = {
+  override def validateAuthorization(authentication: String): AuthResponse = {
 
     val auth = authentication.replace("bearer", "").trim()
     val userNameAndPassword = HelperUtilities.decodeAuth(auth)
@@ -116,22 +121,22 @@ class UsersService @Inject()(
       var _user: User = null
 
       x.onComplete {
-        case Success(s) => _user = s
+        case Success(s) =>_user = s
         //case Failure(_)=> _user = null
       }
       val _response = populateResponse(_user)
-      null
+      _response
 
     }
 
 
   }
 
-  def populateResponse(_user: User) = {
+    def populateResponse(_user: User):AuthResponse = {
 
-    val id: Long = _user.id
-    val username = _user.username
-    val password = _user.password
+    val id: Long =_user.id
+    val username =_user.username
+    val password =_user.password
     val createdOn = _user.created_on
 
     val token = util.convertToBasicAuth(username, password)
@@ -140,5 +145,12 @@ class UsersService @Inject()(
   }
 
 
+
 }
+
+object UsersService {
+  def apply(ordersDatabase: Database, dbConfigProvider: DatabaseConfigProvider, util: HelperUtilities): UsersService = new UsersService(ordersDatabase, dbConfigProvider, util)
+}
+
+
 
