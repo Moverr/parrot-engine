@@ -11,30 +11,30 @@ import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import services.traits.TUserService
 import slick.jdbc.JdbcProfile
-import tables.{User}
+import slick.lifted
+import tables.User
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Future
 //import defaults ::
 import scala.util.Success
 //////
+//import defaults ::
+import implicits.CustomColumnTypes._
 
-
+import slick.jdbc.PostgresProfile.api._
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
-
 @Singleton
 class UsersService @Inject()(
                               dbConfigProvider: DatabaseConfigProvider ,
                               util: HelperUtilities)  extends TUserService {
 
 
+
   import dbConfig._
-  import profile.api._
-
-
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
-  val users = TableQuery[UserTable]
+  val users = lifted.TableQuery[UserTable]
 
 
 
@@ -144,10 +144,7 @@ class UsersService @Inject()(
   }
 
 
-  import slick.jdbc.PostgresProfile.api._
-  //import defaults ::
-  import implicits.CustomColumnTypes._
-  
+
   private class UserTable(tag: Tag) extends Table[User](tag, "user") {
     override def * = (id, username, password, author_id, created_on, updated_by, updated_on.?) <> (User.tupled, User.unapply)
 
