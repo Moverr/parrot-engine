@@ -22,17 +22,17 @@ import scala.util.Success
 import slick.jdbc.PostgresProfile.api._
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
+
 @Singleton
 class UsersService @Inject()(
-                              dbConfigProvider: DatabaseConfigProvider ,
-                              util: HelperUtilities)  extends TUserService {
+                              dbConfigProvider: DatabaseConfigProvider,
+                              util: HelperUtilities) extends TUserService {
 
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   import dbConfig._
 
   val users = lifted.TableQuery[UserTable]
-
 
 
   override def register(registrationRequest: RegistrationRequest): Boolean = {
@@ -55,7 +55,7 @@ class UsersService @Inject()(
     var _user: User = null
 
     x.onComplete {
-      case Success(s) =>_user = s
+      case Success(s) => _user = s
       //case Failure(_) => _user = null
 
     }
@@ -64,16 +64,13 @@ class UsersService @Inject()(
   }
 
 
-
   //todo: Get User by Username and Email
   override def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
 
     val query = users.filter(p => p.username === email && p.password === password)
     db.run(query.result.head)
 
-    null
   }
-
 
 
   override def ValidateIfUserExists(email: String, password: String): Boolean = {
@@ -117,7 +114,7 @@ class UsersService @Inject()(
       var _user: User = null
 
       x.onComplete {
-        case Success(s) =>_user = s
+        case Success(s) => _user = s
         //case Failure(_)=> _user = null
       }
       val _response = populateResponse(_user)
@@ -128,18 +125,17 @@ class UsersService @Inject()(
 
   }
 
-    def populateResponse(_user: User):AuthResponse = {
+  def populateResponse(_user: User): AuthResponse = {
 
-    val id: Long =_user.id
-    val username =_user.username
-    val password =_user.password
+    val id: Long = _user.id
+    val username = _user.username
+    val password = _user.password
     val createdOn = _user.created_on
 
     val token = util.convertToBasicAuth(username, password)
     val response = new AuthResponse(id, username, token, createdOn.toString("yyyy-mm-dd"))
     response
   }
-
 
 
 }
