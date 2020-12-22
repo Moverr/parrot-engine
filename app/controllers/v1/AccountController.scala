@@ -12,13 +12,10 @@ import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-class AccountController  @Inject()(userService: UsersService)   extends Controller    {
+class AccountController  @Inject()(val userService: UsersService)   extends Controller    {
 
     private implicit val ordersDatabase: Database = null
     private implicit val  dbConfigProvider: DatabaseConfigProvider = null
-
-
-
 
 
     def create = Action {
@@ -75,6 +72,3 @@ class AccountController  @Inject()(userService: UsersService)   extends Controll
 
 }
 
-object AccountController {
-    def apply(userService: UsersService): AccountController = new AccountController(userService)
-}
