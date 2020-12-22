@@ -32,7 +32,7 @@ class UsersService @Inject()(
 
 
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
-  private val table = TableQuery[UserTable]
+
 
   lazy val users = TableQuery[UserTable]
 
