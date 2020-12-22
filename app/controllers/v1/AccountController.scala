@@ -58,7 +58,6 @@ class AccountController  @Inject()(val userService: UsersService)   extends Cont
                 // Ok(Json.obj("name" -> response.name))
                 Ok(Json.toJson(response))
 
-
             }
     }
 
