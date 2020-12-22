@@ -5,11 +5,9 @@ import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
-import javax.inject.Inject
-import play.api.db.Database
+import javax.inject.{Inject, Singleton}
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
-import play.db.NamedDatabase
 import services.traits.TUserService
 import slick.jdbc.JdbcProfile
 import tables.{User, UserTable}
@@ -24,9 +22,8 @@ import scala.util.Success
 ///////
 import scala.concurrent.ExecutionContext.Implicits.global
 
+@Singleton
 class UsersService @Inject()(
-
-                              @NamedDatabase("orders") ordersDatabase: Database,
                               dbConfigProvider: DatabaseConfigProvider ,
                               util: HelperUtilities)  extends TUserService {
 
@@ -36,9 +33,10 @@ class UsersService @Inject()(
 
 
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
-
-
   val users = TableQuery[UserTable]
+
+
+
   override def register(registrationRequest: RegistrationRequest): Boolean = {
 
 
@@ -147,10 +145,4 @@ class UsersService @Inject()(
 
 
 }
-
-object UsersService {
-  def apply(ordersDatabase: Database, dbConfigProvider: DatabaseConfigProvider, util: HelperUtilities): UsersService = new UsersService(ordersDatabase, dbConfigProvider, util)
-}
-
-
 
