@@ -4,6 +4,7 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
+import javax.inject.Inject
 import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
@@ -11,13 +12,11 @@ import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-object AccountController   extends Controller    {
+class AccountController  @Inject()(userService: UsersService)   extends Controller    {
 
     private implicit val ordersDatabase: Database = null
     private implicit val  dbConfigProvider: DatabaseConfigProvider = null
 
-
-    implicit  def userService =  UsersService.apply( ordersDatabase, dbConfigProvider,  HelperUtilities)
 
 
 
@@ -76,3 +75,6 @@ object AccountController   extends Controller    {
 
 }
 
+object AccountController {
+    def apply(userService: UsersService): AccountController = new AccountController(userService)
+}
