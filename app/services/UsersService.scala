@@ -9,7 +9,7 @@ import javax.inject.{Inject, Singleton}
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import slick.jdbc.JdbcProfile
-import slick.lifted.TableQuery
+import slick.lifted
 import tables.{User, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 
@@ -29,13 +29,13 @@ class UsersService @Inject()(
 
 
   import dbConfig._
-
+  import profile.api._
 
 
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
 
-  lazy val users = TableQuery[UserTable]
+  lazy val users = lifted.TableQuery[UserTable]
 
   def register(registrationRequest: RegistrationRequest): Boolean = {
 
