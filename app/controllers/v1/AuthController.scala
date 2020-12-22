@@ -3,8 +3,6 @@ package controllers.v1
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import app.services.UsersService
-import controllers.v1.StationsController.dbConfigProvider
-import javax.inject.Inject
 import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
