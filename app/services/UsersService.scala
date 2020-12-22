@@ -6,11 +6,12 @@ import app.entities.responses.AuthResponse
 import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
 import javax.inject.{Inject, Singleton}
+import org.joda.time.DateTime
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import services.traits.TUserService
 import slick.jdbc.JdbcProfile
-import tables.{User, UserTable}
+import tables.{User}
 import utils.{HelperUtilities, PasswordHashing}
 
 import scala.concurrent.Future
@@ -143,6 +144,27 @@ class UsersService @Inject()(
   }
 
 
+  import slick.jdbc.PostgresProfile.api._
+  //import defaults ::
+  import implicits.CustomColumnTypes._
+  
+  private class UserTable(tag: Tag) extends Table[User](tag, "user") {
+    override def * = (id, username, password, author_id, created_on, updated_by, updated_on.?) <> (User.tupled, User.unapply)
+
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+
+    def username = column[String]("username")
+
+    def password = column[String]("password")
+
+    def created_on = column[DateTime]("created_on")
+
+    def updated_on = column[DateTime]("dateupdated")
+
+    def author_id = column[Long]("author_id")
+
+    def updated_by = column[Long]("updated_by")
+  }
 
 }
 
