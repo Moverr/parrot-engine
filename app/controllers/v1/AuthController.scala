@@ -5,6 +5,8 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import controllers.v1.StationsController.dbConfigProvider
 import javax.inject.Inject
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import play.api.mvc._
 import utils.HelperUtilities
@@ -15,6 +17,9 @@ import play.api.libs.json._
 
 
 object  AuthController   extends Controller {
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
 
     implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
@@ -74,4 +79,3 @@ object  AuthController   extends Controller {
 
 }
 
- 
