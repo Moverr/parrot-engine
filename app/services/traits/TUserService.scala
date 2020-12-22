@@ -24,5 +24,5 @@ trait TUserService {
   //todo: validate token and return a User Object
   def validateAuthorization(authentication: String): AuthResponse
 
-  def populateResponse(_user: User)
+  def populateResponse(_user: User):AuthResponse
 }
