@@ -4,14 +4,20 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.kiosks.KioskRequest
 import entities.responses.kiosks.KioskResponse
-import javax.inject.Inject
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.{KioskService, StationsService}
 import utils.HelperUtilities
 
-class  KioskController   @Inject()(userService: UsersService)  extends Controller {
+class  KioskController    extends Controller {
 
+
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
     implicit  def kioskService = KioskService.apply(StationsService.apply(HelperUtilities))
 
