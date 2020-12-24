@@ -11,7 +11,7 @@ import play.api.mvc.{Action, Controller}
 import services.{KioskService, StationsService}
 import utils.HelperUtilities
 
-class  KioskController    extends Controller {
+object  KioskController    extends Controller {
 
 
     private implicit val ordersDatabase: Database = null

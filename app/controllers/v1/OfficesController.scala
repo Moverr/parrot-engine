@@ -4,14 +4,19 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.offices.OfficeResponse
-import javax.inject.Inject
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.{OfficeService, StationsService}
 import utils.HelperUtilities
 
-class OfficesController  @Inject()(userService: UsersService)    extends Controller {
+object  OfficesController     extends Controller {
 
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
     implicit  def officeService = OfficeService.apply(StationsService.apply(HelperUtilities))
 
