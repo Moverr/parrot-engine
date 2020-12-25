@@ -3,14 +3,16 @@ package controllers
 import play.api.mvc._
 
 
- object Application  extends Controller {
+ object Application  extends BaseController {
   def index = Action {
    val message:String = "PARROT VERSION 1.0.0"
 
 
     Ok(views.html.index(message))
   }
-}
+
+  override protected def controllerComponents: ControllerComponents = ???
+ }
 
 
 /*
