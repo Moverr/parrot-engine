@@ -8,7 +8,7 @@ import play.api.Logger
 import play.api.libs.Crypto
 
 
-class   PasswordHashing {
+object   PasswordHashing {
 
 
   /**
@@ -54,5 +54,5 @@ class   PasswordHashing {
 
 
 }
-object PasswordHashing extends PasswordHashing
+
 
