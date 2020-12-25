@@ -12,7 +12,9 @@ import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
-class AccountController @Inject()(component: ControllerComponents)   extends AbstractController(component)    {
+
+ class AccountController @Inject()(val controllerComponents: ControllerComponents)   extends BaseController{
+        //AbstractController(component)    {
 
 
     private implicit val ordersDatabase: Database = null
@@ -20,6 +22,9 @@ class AccountController @Inject()(component: ControllerComponents)   extends Abs
 
     val userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
+    def index = Action{
+        Ok("Passs")
+    }
     def create = Action {
         implicit request =>
             //todo: Authenticate
@@ -69,7 +74,6 @@ class AccountController @Inject()(component: ControllerComponents)   extends Abs
         You should only be able to create only on  Account on a User.
         so. create and update.  the account name should be unique accross. Naa. not important.
      */
-
 
 }
 
