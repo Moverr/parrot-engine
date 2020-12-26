@@ -4,7 +4,6 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
-import javax.inject.Inject
 import play.api.db.Database
 import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
@@ -13,7 +12,7 @@ import services.AccountService
 import utils.HelperUtilities
 
 
- class AccountController @Inject()(val controllerComponents: ControllerComponents)   extends BaseController{
+ object AccountController  extends  Controller{
         //AbstractController(component)    {
 
 
