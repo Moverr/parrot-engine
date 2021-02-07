@@ -64,4 +64,6 @@ class AccountService {
 
 }
 
-object AccountService extends AccountService
+object AccountService extends AccountService{
+  def apply(): AccountService = new AccountService()
+}

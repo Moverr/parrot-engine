@@ -4,17 +4,27 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.accounts.AccountRequest
 import entities.responses.accounts.AccountResponse
+import javax.inject.Inject
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.AccountService
 import utils.HelperUtilities
 
 
-object AccountController extends Controller {
+ class AccountController @Inject()(controllerComponents: ControllerComponents)  extends  AbstractController(controllerComponents) {
+        //AbstractController(component)    {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
 
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
 
+    val userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
+
+    def index = Action{
+        Ok("Passs")
+    }
     def create = Action {
         implicit request =>
             //todo: Authenticate
@@ -24,8 +34,10 @@ object AccountController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val accountRequest: AccountRequest = AccountRequest.form.bindFromRequest.get
-                AccountService.create(authResponse.id, accountRequest)
+               val accountRequest: AccountRequest = AccountRequest.form.bindFromRequest.get
+                //val accountRequest: AccountRequest = AccountRequest.format[AccountRequest]
+
+                AccountService.create(authResponse.id.toInt, accountRequest)
                 Ok(HelperUtilities successResponse ("Record saved succesfully"))
 
             }
@@ -48,12 +60,10 @@ object AccountController extends Controller {
                         "name" -> _account.name
                     )
                 }
-
-                val response: AccountResponse = AccountService.get(authResponse.id)
+                val response: AccountResponse = AccountService.get(authResponse.id.toInt)
 
                 // Ok(Json.obj("name" -> response.name))
                 Ok(Json.toJson(response))
-
 
             }
     }
@@ -65,5 +75,5 @@ object AccountController extends Controller {
         so. create and update.  the account name should be unique accross. Naa. not important.
      */
 
-
 }
+

@@ -1,28 +1,43 @@
-package app.services
 
-import java.sql.ResultSet
-import java.util.Date
+package app.services
 
 import app.entities.requests.{AuthenticationRequest, RegistrationRequest}
 import app.entities.responses.AuthResponse
-import controllers.v1.AuthController.{BadRequest, conn}
+import controllers.v1.AuthController.BadRequest
 import entities.responses.RegistrationResponse
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
+import services.traits.TUserService
+import slick.jdbc.JdbcProfile
+import slick.lifted
+import tables.{User, UserTable}
 import utils.{HelperUtilities, PasswordHashing}
 
-
+import scala.concurrent.Future
+//import defaults ::
+import scala.util.Success
 //////
-import play.api.Play.current
-import play.api.db._
+//import defaults ::
+import slick.jdbc.PostgresProfile.api._
 ///////
+import scala.concurrent.ExecutionContext.Implicits.global
+
+@Singleton
+class UsersService @Inject()(
+                              dbConfigProvider: DatabaseConfigProvider,
+                              util: HelperUtilities) extends TUserService {
+
+  private val dbConfig = dbConfigProvider.get[JdbcProfile]
+
+  import dbConfig._
+
+  val users = lifted.TableQuery[UserTable]
 
 
+  override def register(registrationRequest: RegistrationRequest): Boolean = {
 
-class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
-
-  def register(registrationRequest: RegistrationRequest): Boolean = {
     if (registrationRequest.email.isEmpty()) {
       BadRequest(Json.obj("status" -> "Error", "message" -> "Email is Mandatory"))
     }
@@ -33,57 +48,55 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
     false
   }
 
-  def login(authRequest: AuthenticationRequest): AuthResponse = {
 
-    val resultSet = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password));
-    // if resulset is not empty
-    if (resultSet.next()) {
-      populateResponse(resultSet)
-    } else null
+  //todo: Login User by Username and Password
+  override def login(authRequest: AuthenticationRequest): AuthResponse = {
+    val x = fetchUserByEmailAndPassword(authRequest.username, PasswordHashing.encryptPassword(authRequest.password))
+    var _user: User = null
 
+    x.onComplete {
+      case Success(s) => _user = s
+      //case Failure(_) => _user = null
+
+    }
+    populateResponse(_user)
 
   }
 
-  private def populateResponse(resultSet: ResultSet) = {
-    val id: Integer = resultSet.getInt("id")
-    val username = resultSet.getString("username")
-    val password = resultSet.getString("password")
-    val createdOn = resultSet.getDate("created_on")
-    val token = util.convertToBasicAuth(username, password)
-    new AuthResponse(id, username, token, createdOn)
-  }
 
-  def fetchUserByEmailAndPassword(email: String, password: String): ResultSet = {
-    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' " + "AND" + " A.password LIKE \'" + password + "\' ";
-    print("STR: " + query)
-    conn = DB getConnection()
-    val stmt = conn createStatement
-    var resultSet = stmt executeQuery (query)
-    resultSet
+  //todo: Get User by Username and Email
+  override def fetchUserByEmailAndPassword(email: String, password: String): Future[User] = {
+
+    val query = users.filter(p => p.username === email && p.password === password)
+    db.run(query.result.head)
+
   }
 
 
-  def ValidateIfUserExists(email: String, password: String): Boolean = {
-    var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
-    conn = DB getConnection()
-    val stmt = conn.createStatement
-    print("STR: " + query)
-    var resultSet = stmt executeQuery (query)
-    if (resultSet next()) true else false
+  override def ValidateIfUserExists(email: String, password: String): Boolean = {
+    /*   var query = "SELECT * FROM  \"default\".users as A " + "WHERE " + " A.username LIKE \'" + email + "\' ";
+       conn = DB getConnection()
+       val stmt = conn.createStatement
+       print("STR: " + query)
+       var resultSet = stmt executeQuery (query)
+       if (resultSet next()) true else false
+       */
+    false
   }
 
 
   override def createUser(registrationRequest: RegistrationRequest): RegistrationResponse = {
-    var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
-    conn = DB getConnection()
-    val stmt = conn createStatement
-    var result = stmt executeUpdate (query)
-    val response = new RegistrationResponse(1, registrationRequest.email, new Date())
-    response
+    /* var query = "INSERT INTO  \"default\".users (username,password)  values ('" + registrationRequest.email + "','" + PasswordHashing.encryptPassword(registrationRequest.password) + "') ";
+     conn = DB getConnection()
+     val stmt = conn createStatement
+     var result = stmt executeUpdate (query)
+     val response = new RegistrationResponse(1, registrationRequest.email, new Date())
+     response */
+    null
   }
 
   //todo: validate token and return a User Object
-  def validateAuthorization(authentication: String): AuthResponse = {
+  override def validateAuthorization(authentication: String): AuthResponse = {
 
     val auth = authentication.replace("bearer", "").trim()
     val userNameAndPassword = HelperUtilities.decodeAuth(auth)
@@ -96,11 +109,15 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
       val password = userNameAndPassword(1)
 
       val authRequest = new AuthenticationRequest(username, password)
-      val resultSet = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
+      val x = fetchUserByEmailAndPassword(authRequest.username, authRequest.password);
 
-      //move cursor
-      resultSet.next()
-      val _response = populateResponse(resultSet)
+      var _user: User = null
+
+      x.onComplete {
+        case Success(s) => _user = s
+        //case Failure(_)=> _user = null
+      }
+      val _response = populateResponse(_user)
       _response
 
     }
@@ -108,31 +125,18 @@ class UsersService @Inject()(util:HelperUtilities) extends UserServiceTrait {
 
   }
 
+  def populateResponse(_user: User): AuthResponse = {
 
-  override def list(offset: Int, limit: Int): Unit = {
+    val id: Long = _user.id
+    val username = _user.username
+    val password = _user.password
+    val createdOn = _user.created_on
 
-  }
-
-  override def get(id: Int): Unit = {
-
-  }
-
-  override def search(query: String, offset: Int, limit: Int): Unit = {
-
-  }
-
-  override def populateResponse(): Unit = {
-
-  }
-
-  override def populateEntity(): Unit = {
-
+    val token = util.convertToBasicAuth(username, password)
+    val response = new AuthResponse(id, username, token, createdOn.toString("yyyy-mm-dd"))
+    response
   }
 
 
-}
-
-object UsersService {
-  def apply(util: HelperUtilities): UsersService = new UsersService(util)
 }
 

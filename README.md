@@ -71,3 +71,6 @@ $ heroku open
 <br/>
  
  Login... Register Gadget..
+ 
+ <br/>
+ sbt -Dhttps.port=7850 run

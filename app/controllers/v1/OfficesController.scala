@@ -4,13 +4,19 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.offices.{OfficeAssignRequest, OfficeRequest}
 import entities.responses.offices.OfficeResponse
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.{OfficeService, StationsService}
 import utils.HelperUtilities
 
-object OfficesController extends Controller {
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+object  OfficesController     extends Controller {
+
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
     implicit  def officeService = OfficeService.apply(StationsService.apply(HelperUtilities))
 
@@ -34,7 +40,7 @@ object OfficesController extends Controller {
             else {
                 try {
                     val officeRequest: OfficeRequest = OfficeRequest.form.bindFromRequest.get
-                    officeService.create(authResponse.id, officeRequest)
+                    officeService.create(authResponse.id.toInt, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -54,7 +60,7 @@ object OfficesController extends Controller {
             else {
                 try {
                     val officeRequest: OfficeAssignRequest = OfficeAssignRequest.form.bindFromRequest.get
-                    officeService.assign(authResponse.id, officeRequest)
+                    officeService.assign(authResponse.id.toInt, officeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -77,7 +83,7 @@ object OfficesController extends Controller {
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
 
-                val response: Seq[OfficeResponse] = officeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[OfficeResponse] = officeService.getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
     }
@@ -95,7 +101,7 @@ object OfficesController extends Controller {
 
                 else {
                     try {
-                        val response: OfficeResponse = officeService.getById(authResponse.id, officeId)
+                        val response: OfficeResponse = officeService.getById(authResponse.id.toInt, officeId)
                         Ok(Json.toJson(response))
                     }
                     catch {

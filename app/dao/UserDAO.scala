@@ -1,7 +1,6 @@
 package app.dao
 
 import app.dto.User
-import play.db.jpa.JPA
 
 
 object UserDAO {
@@ -9,6 +8,7 @@ object UserDAO {
   //todo: Get Usesr by username and email
   def getUser(username: String, password: String): List[User] = {
 
+    /*
     return JPA.withTransaction(new play.libs.F.Function0[List[User]]() {
       @Override
       def apply():List[User] = {
@@ -17,7 +17,8 @@ object UserDAO {
           getResultList().asInstanceOf[List[User]]
 
       }
-    })
+    })*/
+    null
   }
 }
 

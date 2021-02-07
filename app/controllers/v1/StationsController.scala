@@ -4,17 +4,29 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.stations.StationRequest
 import entities.responses.stations.StationResponse
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc.{Action, Controller}
 import services.StationsService
 import utils.HelperUtilities
+//import defaults ::
+//////
 
 //todo: deploy to the server and move
 //todo: create stations and move on
-object StationsController  extends Controller  {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+
+object  StationsController     extends Controller     {
+
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
     implicit  def stationService =  StationsService.apply( HelperUtilities)
+
+
 
     implicit val resposnse = new Writes[StationResponse] {
         def writes(_account: StationResponse) = Json.obj(
@@ -36,7 +48,7 @@ object StationsController  extends Controller  {
 
                 try {
                     val stationRequest: StationRequest = StationRequest.form.bindFromRequest.get
-                    stationService create(authResponse.id, stationRequest)
+                    stationService create(authResponse.id.toInt, stationRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -59,6 +71,7 @@ object StationsController  extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
+
                 val response: Seq[StationResponse] = stationService getAll(authResponse id, offset, limit)
                 Ok(Json.toJson(response))
             }
@@ -81,7 +94,7 @@ object StationsController  extends Controller  {
 
                 else {
                     try {
-                        val response: StationResponse = stationService getById(authResponse.id, stationId)
+                        val response: StationResponse = stationService getById(authResponse.id.toInt, stationId)
                         Ok(Json.toJson(response))
                     }
                     catch {
@@ -120,3 +133,4 @@ object StationsController  extends Controller  {
     }
 
 }
+

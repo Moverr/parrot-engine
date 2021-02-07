@@ -5,10 +5,9 @@ import java.security.MessageDigest
 
 import org.apache.commons.lang3.RandomStringUtils
 import play.api.Logger
-import play.api.libs.Crypto
 
 
-class   PasswordHashing {
+object   PasswordHashing {
 
 
   /**
@@ -44,15 +43,8 @@ class   PasswordHashing {
     hexString.toString
   }
 
-  def encryptUserId(userId: String): String = {
-    Crypto.encryptAES(userId)
-  }
-
-  def decryptUserId(userId: String): String = {
-    Crypto.decryptAES(userId)
-  }
 
 
 }
-object PasswordHashing extends PasswordHashing
+
 

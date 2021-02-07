@@ -1,15 +1,14 @@
 package controllers
 
-import javax.inject.Inject
-import play.api.Logger
-import play.api.data.Form
-import play.api.libs.json.Json
+import javax.inject.{Inject, Singleton}
 import play.api.mvc._
 
 
- object Application  extends Controller {
-  def index = Action {     
-    Ok(views.html.index(null))
+@Singleton
+ class Application @Inject()(cc: ControllerComponents)  extends AbstractController(cc) {
+  def index = Action {
+   val message:String = "PARROT VERSION 1.0.0"
+    Ok(views.html.index(message))
   }
 }
 

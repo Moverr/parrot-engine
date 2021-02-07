@@ -4,14 +4,28 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.employee.EmployeeRequest
 import entities.responses.employee.EmployeeResponse
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.{EmployeeService, StationsService}
 import utils.HelperUtilities
-//todo: working on employee and moving on
-object EmployeeController   extends Controller {
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+//////
+///////
+
+
+
+
+//todo: working on employee and moving on
+object EmployeeController     extends Controller {
+
+
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
+
     implicit  def employeeService = EmployeeService(StationsService.apply(HelperUtilities))
 
     implicit val resposnse = new Writes[EmployeeResponse] {
@@ -35,7 +49,7 @@ object EmployeeController   extends Controller {
 
                 try {
                     val employeeRequest: EmployeeRequest = EmployeeRequest.form.bindFromRequest.get
-                    employeeService.create(authResponse.id, employeeRequest)
+                    employeeService.create(authResponse.id.toInt, employeeRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -63,7 +77,7 @@ object EmployeeController   extends Controller {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[EmployeeResponse] = employeeService.getAll(authResponse.id, offset, limit)
+                val response: Seq[EmployeeResponse] = employeeService.getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -83,7 +97,7 @@ object EmployeeController   extends Controller {
 
                 else {
                     try {
-                        val response: EmployeeResponse = employeeService.getById(authResponse.id, kioskId)
+                        val response: EmployeeResponse = employeeService.getById(authResponse.id.toInt, kioskId)
                         Ok(Json.toJson(response))
                     }
                     catch {

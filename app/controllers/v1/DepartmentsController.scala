@@ -4,15 +4,20 @@ import app.entities.responses.AuthResponse
 import app.services.UsersService
 import entities.requests.departments.DepartmentRequest
 import entities.responses.departments.DepartmentResponse
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.{Json, Writes}
 import play.api.mvc._
 import services.{DepartmentService, OfficeService, StationsService}
 import utils.HelperUtilities
 
 
-object DepartmentsController extends Controller  {
+object DepartmentsController   extends Controller  {
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
 
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
+
     implicit  def departmentService = DepartmentService.apply(StationsService.apply(HelperUtilities),OfficeService.apply(StationsService.apply(HelperUtilities)))
 
 
@@ -37,7 +42,7 @@ object DepartmentsController extends Controller  {
 
                 try{
                     val departmentRequest: DepartmentRequest = DepartmentRequest.form.bindFromRequest.get
-                    departmentService create(authResponse.id, departmentRequest)
+                    departmentService create(authResponse.id.toInt, departmentRequest)
                     Ok(HelperUtilities successResponse ("Record saved succesfully"))
                 }
                 catch {
@@ -65,7 +70,7 @@ object DepartmentsController extends Controller  {
             val authResponse: AuthResponse = userService validateAuthorization(authorization)
             if (authResponse == null) BadRequest(Json.obj("status" -> "Un Authorized", "message" -> "Invalid Header String "))
             else {
-                val response: Seq[DepartmentResponse] = departmentService getAll(authResponse.id, offset, limit)
+                val response: Seq[DepartmentResponse] = departmentService getAll(authResponse.id.toInt, offset, limit)
                 Ok(Json.toJson(response))
             }
 
@@ -85,7 +90,7 @@ object DepartmentsController extends Controller  {
 
                 else {
                     try {
-                        val response: DepartmentResponse = departmentService getById(authResponse.id, departmentId)
+                        val response: DepartmentResponse = departmentService getById(authResponse.id.toInt, departmentId)
                         Ok(Json.toJson(response))
                     }
                     catch {

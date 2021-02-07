@@ -3,20 +3,23 @@ package controllers.v1
 import app.entities.requests.{AuthForm, AuthenticationRequest, RegistrationForm, RegistrationRequest}
 import app.entities.responses.AuthResponse
 import app.services.UsersService
+import play.api.db.Database
+import play.api.db.slick.DatabaseConfigProvider
 import play.api.libs.json.Json
 import play.api.mvc._
 import utils.HelperUtilities
 
 //////
-import play.api.Play.current
-import play.api.db._
 import play.api.libs.json._
 ///////
 
 
-object AuthController extends Controller {
-    var conn = DB.getConnection()
-    implicit  def userService =  UsersService.apply( HelperUtilities)
+object  AuthController   extends Controller {
+    private implicit val ordersDatabase: Database = null
+    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+
+
+    implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
 
     def login() = Action {
         implicit request =>
@@ -73,3 +76,4 @@ object AuthController extends Controller {
 
 
 }
+
