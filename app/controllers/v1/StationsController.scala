@@ -19,8 +19,8 @@ import utils.HelperUtilities
 
 object  StationsController     extends Controller     {
 
-    private implicit val ordersDatabase: Database = null
-    private implicit val  dbConfigProvider: DatabaseConfigProvider = null
+        private implicit val ordersDatabase: Database = null
+        private implicit val  dbConfigProvider: DatabaseConfigProvider = null
 
 
     implicit  def userService: UsersService = new UsersService(dbConfigProvider,HelperUtilities)
